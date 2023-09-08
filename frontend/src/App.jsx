@@ -1,6 +1,11 @@
 import { useEffect, useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
+import ellipse1 from './assets/login/ellipse-1.png'
+import frame from './assets/login/frame.svg'
+import polygon1 from './assets/login/polygon-1.svg'
+import polygon2 from './assets/login/polygon-2.svg'
+import polygon3 from './assets/login/polygon-3.svg'
+import vector3 from './assets/login/vector3.png'
+import background from './assets/login/background.png'
 import './App.css'
 import axios from 'axios'
 
@@ -22,26 +27,26 @@ return (
     <div className="overlap-wrapper">
       <div className="overlap">
         <div className="overlap-group">
-          <img className="rectangle" alt="Rectangle" src="rectangle-140.png" />
+          <img className="rectangle" alt="Rectangle" src={background} />
           <div className="div" />
-          <img className="polygon" alt="Polygon" src="polygon-1.svg" />
-          <img className="img" alt="Polygon" src="image.svg" />
-          <img className="polygon-2" alt="Polygon" src="polygon-6.svg" />
-          <img className="polygon-3" alt="Polygon" src="polygon-9.svg" />
-          <img className="polygon-4" alt="Polygon" src="polygon-4.svg" />
-          <img className="polygon-5" alt="Polygon" src="polygon-8.svg" />
-          <img className="polygon-6" alt="Polygon" src="polygon-3.svg" />
-          <img className="polygon-7" alt="Polygon" src="polygon-2.svg" />
-          <img className="polygon-8" alt="Polygon" src="polygon-7.svg" />
-          <img className="polygon-9" alt="Polygon" src="polygon-5.svg" />
+          <img className="polygon" alt="Polygon" src={polygon1} />
+          <img className="img" alt="Polygon" src={polygon2} />
+          <img className="polygon-2" alt="Polygon" src={polygon2} />
+          <img className="polygon-3" alt="Polygon" src={polygon2} />
+          <img className="polygon-4" alt="Polygon" src={polygon1} />
+          <img className="polygon-5" alt="Polygon" src={polygon1} />
+          <img className="polygon-6" alt="Polygon" src={polygon1} />
+          <img className="polygon-7" alt="Polygon" src={polygon3} />
+          <img className="polygon-8" alt="Polygon" src={polygon3} />
+          <img className="polygon-9" alt="Polygon" src={polygon3} />
           <div className="rectangle-2" />
           <div className="rectangle-3" />
           <div className="rectangle-4" />
-          <div className="rectangle-5" />
+          <div className="login-button" />
+          <img className="register-button" />
           <div className="text-wrapper">username</div>
           <div className="text-wrapper-2">password</div>
           <div className="text-wrapper-3">log in</div>
-          <img className="rectangle-6" alt="Rectangle" src="rectangle-5.png" />
           <div className="text-wrapper-4">register</div>
           <div className="rectangle-7" />
           <div className="frame">
@@ -64,20 +69,20 @@ return (
                       </div>
                     </div>
                   </div>
-                  <img className="ellipse" alt="Ellipse" src="ellipse-1.png" />
+                  <img className="ellipse" alt="Ellipse" src={ellipse1} />
                 </div>
               </div>
             </div>
           </div>
           <div className="frame-5">
-            <img className="frame-6" alt="Frame" src="frame.svg" />
+            <img className="frame-6" alt="Frame" src={frame} />
             <div className="frame-7">
               <div className="text-wrapper-7">JONK FOOD IT</div>
             </div>
           </div>
           <div className="text-wrapper-8">Log in</div>
         </div>
-        <img className="vector" alt="Vector" src="vector-3.svg" />
+        <img className="vector" alt="Vector" src={vector3} />
       </div>
     </div>
   </div>

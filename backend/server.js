@@ -8,12 +8,13 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// const connection = mysql.createConnection({
-//     host: 'localhost',
-//     user: 'root',
-//     password: '',
-//     database: 'mysql_node'
-// });
+const connection = mysql.createConnection({
+    host: '127.0.0.1',
+    port: '3307', 
+    user: 'biw',
+    password: '',
+    database: 'jonk food'
+});
 
 // CHECK connection
 // connection.connect((err) => {
