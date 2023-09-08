@@ -12,7 +12,7 @@ import reg5 from './assets/Rectangle 5.png'
 import logo from './assets/Ellipse 1.png'
 import bg from './assets/bg.png'
 import vec from './assets/Vector 3.png'
-import './page/login-user/Login.css'
+import './Login.css'
 
 function App() {
   const [count, setCount] = useState(0)
