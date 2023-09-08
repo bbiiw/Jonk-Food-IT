@@ -1,92 +1,85 @@
-import { useEffect, useState } from 'react'
-import ellipse1 from './assets/login/ellipse-1.png'
-import frame from './assets/login/frame.svg'
-import polygon1 from './assets/login/polygon-1.svg'
-import polygon2 from './assets/login/polygon-2.svg'
-import polygon3 from './assets/login/polygon-3.svg'
-import vector3 from './assets/login/vector3.png'
-import background from './assets/login/background.png'
+import { useState } from 'react'
+import poly1 from './assets/poly1.png'
+import poly2 from './assets/Polygon 4.png'
+import poly3 from './assets/Polygon 5.png'
+import poly4 from './assets/Polygon 6.png'
+import poly5 from './assets/Polygon 7.png'
+import poly6 from './assets/Polygon 9.png'
+import poly7 from './assets/Polygon 10.png'
+import poly8 from './assets/Polygon 12.png'
+import reg4 from './assets/Rectangle 4.png'
+import reg5 from './assets/Rectangle 5.png'
+import logo from './assets/Ellipse 1.png'
+import bg from './assets/bg.png'
+import vec from './assets/Vector 3.png'
 import './App.css'
-import axios from 'axios'
 
 function App() {
-  const [data, setData] = useState({});
+  const [count, setCount] = useState(0)
 
-  useEffect( () => {
-    axios.get('http://localhost:5000/home')
-    .then((response) => {
-      setData(response.data);
-    })
-    .catch((error) => {
-      console.error(error);
-    })
-}, []);
-
-return (
-  <div className="log-in-user">
+  return (
+    <div className="log-in-user">
     <div className="overlap-wrapper">
       <div className="overlap">
-        <div className="overlap-group">
-          <img className="rectangle" alt="Rectangle" src={background} />
-          <div className="div" />
-          <img className="polygon" alt="Polygon" src={polygon1} />
-          <img className="img" alt="Polygon" src={polygon2} />
-          <img className="polygon-2" alt="Polygon" src={polygon2} />
-          <img className="polygon-3" alt="Polygon" src={polygon2} />
-          <img className="polygon-4" alt="Polygon" src={polygon1} />
-          <img className="polygon-5" alt="Polygon" src={polygon1} />
-          <img className="polygon-6" alt="Polygon" src={polygon1} />
-          <img className="polygon-7" alt="Polygon" src={polygon3} />
-          <img className="polygon-8" alt="Polygon" src={polygon3} />
-          <img className="polygon-9" alt="Polygon" src={polygon3} />
-          <div className="rectangle-2" />
-          <div className="rectangle-3" />
-          <div className="rectangle-4" />
-          <div className="login-button" />
-          <img className="register-button" />
-          <div className="text-wrapper">username</div>
-          <div className="text-wrapper-2">password</div>
-          <div className="text-wrapper-3">log in</div>
-          <div className="text-wrapper-4">register</div>
-          <div className="rectangle-7" />
-          <div className="frame">
-            <div className="overlap-group-2">
-              <div className="div-wrapper">
-                <div className="text-wrapper-5">Skip to content</div>
-              </div>
-              <div className="frame-wrapper">
-                <div className="frame-2">
+        <img className="rectangle" alt="Rectangle" src={bg} />
+        <div className="div" />
+        <img className="polygon" alt="Polygon" src={poly3} />
+        <img className="img" alt="Polygon" src={poly1} />
+        <img className="polygon-2" alt="Polygon" src={poly4} />
+        <img className="polygon-3" alt="Polygon" src={poly6} />
+        <img className="polygon-4" alt="Polygon" src={poly2} />
+        <img className="polygon-5" alt="Polygon" src={poly3} />
+        <img className="polygon-6" alt="Polygon" src={poly1} />
+        <img className="polygon-7" alt="Polygon" src={poly5} />
+        <img className="polygon-8" alt="Polygon" src={poly3} />
+        <img className="polygon-9" alt="Polygon" src={poly7} />
+        <img className="polygon-10" alt="Polygon" src={poly8} />
+        <div className="rectangle-2" />
+        <div className="rectangle-3" />
+        <div className="rectangle-4" />
+        <img className="rectangle-5" alt="Rectangle" src={reg4} />
+        <img className="rectangle-6" alt="Rectangle" src={reg5} />
+        <div className="text-wrapper">Username</div>
+        <div className="password">Password</div>
+        <div className="text-wrapper-2">Log in</div>
+        <div className="text-wrapper-3">Register</div>
+        <img className="vector" alt="Vector" src={vec} />
+        <div className="rectangle-7" />
+        <div className="frame">
+          <div className="overlap-group">
+            <div className="div-wrapper">
+              <div className="text-wrapper-4">Skip to content</div>
+            </div>
+            <div className="frame-2">
+              <div className="overlap-group-2">
+                <div className="auto-layout-wrapper">
                   <div className="auto-layout">
                     <div className="frame-3" />
-                    <div className="frame-4">
-                      <div className="auto-layout-2">
-                        <div className="text-wrapper-6">Log in</div>
-                      </div>
-                      <div className="auto-layout-wrapper">
-                        <div className="auto-layout-3">
-                          <div className="text-wrapper-6">Main Menu</div>
-                        </div>
-                      </div>
+                  </div>
+                </div>
+                <div className="frame-4">
+                  <div className="auto-layout-2">
+                    <div className="text-wrapper-5">Log in</div>
+                  </div>
+                  <div className="frame-5">
+                    <div className="auto-layout-3">
+                      <div className="text-wrapper-5">Main Menu</div>
                     </div>
                   </div>
-                  <img className="ellipse" alt="Ellipse" src={ellipse1} />
                 </div>
               </div>
+              <img className="ellipse" alt="Ellipse" src={logo} />
             </div>
           </div>
-          <div className="frame-5">
-            <img className="frame-6" alt="Frame" src={frame} />
-            <div className="frame-7">
-              <div className="text-wrapper-7">JONK FOOD IT</div>
-            </div>
-          </div>
-          <div className="text-wrapper-8">Log in</div>
         </div>
-        <img className="vector" alt="Vector" src={vector3} />
+        <div className="frame-7">      
+          <div className="text-wrapper-6">JONK FOOD IT</div>
+        </div>
+        <div className="text-wrapper-7">Log in</div>
       </div>
     </div>
-  </div>
-);
-};
+   </div>
+  )
+}
 
 export default App
