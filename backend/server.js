@@ -1,58 +1,54 @@
 const express = require('express');
 const cors = require('cors');
-const mysql = require('mysql');
+const bodyParser = require('body-parser');
+const mysql = require('mysql2');
 
 const app = express();
 
 //JSON -> OBJECT
 app.use(cors());
-app.use(express.json());
+app.use(bodyParser.json());
 
 const connection = mysql.createConnection({
-    host: '127.0.0.1',
-    port: '3307', 
-    user: 'biw',
+    host: '192.168.1.37', 
+    user: 'biwkung',
     password: '',
-    database: 'jonk food'
+    database: 'jonk_food'
 });
 
 // CHECK connection
-// connection.connect((err) => {
-//     if (err) {
-//         console.log(err);
-//     }
-//     console.log('Connected to MySQL');
-// });
-
-// CREATE ROUTES
-app.post('/create', async (req, res) => {
-
-    const { email, name, password } = req.body;
-
-    try {
-        connection.query(
-            "INSERT INTO users(email, fullname, password) VALUES(?, ?, ?)",
-            [email, name, password], //insert into sql
-            (err, results, fields) => { //parameter function
-                if (err) {
-                    console.log("Error inserting into database", err);
-                    return res.status(400).send(); //Bad request
-                }
-                return res.status(201).json({ msg: "New User Successfully Added"});
-            }
-        )
-    } catch (err) {
-        console.log(err);
-        return res.status(500).send();   
+connection.connect((error) => {
+    if (error) {
+        console.log(error);
+    } else {
+        console.log('Connected to MySQL');
     }
 });
 
-// // READ
-app.get('/home', (req, res) => {
+// CREATE ROUTES
+app.post('/create', async (req, res) => {
+    try {
+        const { username, password, email } = req.body;
+        connection.query(
+            "INSERT INTO users(username, password, email) VALUES(?, ?, ?)",
+            [username, password, email], //insert into sql
+            res.json({
+                message: 'insert successfully'
+            })
+        );
+    } catch (error) {
+        res.status(500).json({
+            message: 'error',
+            error: error.message
+        })
+    };
+});
+
+// READ
+app.get('/', (req, res) => {
     const data = {msg: 'Hello'};
     res.json(data);
 });
-
 
 //LISTEN
 app.listen(5000, () => {
