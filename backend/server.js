@@ -10,10 +10,11 @@ app.use(cors());
 app.use(bodyParser.json());
 
 const connection = mysql.createConnection({
-    host: '192.168.1.37', 
-    user: 'biwkung',
-    password: '',
-    database: 'jonk_food'
+    host: '161.246.127.24',
+    port: '9056', 
+    user: 'admin',
+    password: 'admin',
+    database: 'jonkfood'
 });
 
 // CHECK connection
@@ -25,13 +26,13 @@ connection.connect((error) => {
     }
 });
 
-// CREATE ROUTES
-app.post('/create', async (req, res) => {
+// REGISTER ROUTES
+app.post('/register', async (req, res) => {
     try {
-        const { username, password, email } = req.body;
+        const { username, password, email, tel, type } = req.body;
         connection.query(
-            "INSERT INTO users(username, password, email) VALUES(?, ?, ?)",
-            [username, password, email], //insert into sql
+            "INSERT INTO users(username, password, email, tel, type) VALUES(?, ?, ?, ?, ?)",
+            [username, password, email, tel, type], //insert into sql
             res.json({
                 message: 'insert successfully'
             })
@@ -44,11 +45,10 @@ app.post('/create', async (req, res) => {
     };
 });
 
-// READ
-app.get('/', (req, res) => {
-    const data = {msg: 'Hello'};
-    res.json(data);
-});
+// READ Login
+// app.get('/login', (req, res) => {
+
+// });
 
 //LISTEN
 app.listen(5000, () => {
