@@ -30,25 +30,28 @@ connection.connect((error) => {
 app.post('/register', async (req, res) => {
     try {
         const { username, password, email, tel, type } = req.body;
-        connection.query(
-            "INSERT INTO users(username, password, email, tel, type) VALUES(?, ?, ?, ?, ?)",
-            [username, password, email, tel, type], //insert into sql
+        connection.query("INSERT INTO users(username, password, email, tel, type) VALUES(?, ?, ?, ?, ?)",
+            [username, password, email, tel, type]) //insert into sql
             res.json({
                 message: 'insert successfully'
             })
-        );
     } catch (error) {
         res.status(500).json({
             message: 'error',
-            error: error.message
-        })
-    };
-});
+            error: error.message})
+    }
+})
 
 // READ Login
-// app.get('/login', (req, res) => {
-
-// });
+app.get('/login', async (req, res) => {
+    try {
+        const result = connection.query("SELECT * FROM users")
+        res.json(result[0])
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({error: 'error'})
+    }
+});
 
 //LISTEN
 app.listen(5000, () => {
