@@ -5,10 +5,11 @@ const bodyParser = require('body-parser');
 const mysql = require('mysql2');
 const app = express();
 
-//JSON -> OBJECT
-app.use(cors())
 app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: true}))
+app.use(cors())
 
+// New connection
 const connection = mysql.createConnection({
     host: '161.246.127.24',
     port: '9056',
@@ -33,56 +34,53 @@ app.use(session({
     saveUninitialized: true,
   }))
 
+// ------------ REGISTER SECTION ------------
 // REGISTER ROUTE
 app.post('/register', async (req, res) => {
     try {
         const { username, password, confirm_password, email, tel, type } = req.body
-
+        
         if (password != confirm_password) {
             return res.status(400).send('รหัสผ่านไม่ตรงกัน')
         }
-
+        
         connection.query("INSERT INTO users(username, password, email, tel, type) VALUES(?, ?, ?, ?, ?)",
-            [username, password, email, tel, type]) // เพิ่มลงใน Database
-            console.log('สร้างบัญชีสำเร็จและทำการบันทึกลง MySQL')
-            res.send('สมัครสมาชิกสำเร็จ')
+        [username, password, email, tel, type]) // เพิ่มลงใน Database
+        console.log('สร้างบัญชีสำเร็จและทำการบันทึกลง MySQL')
+        res.send('สมัครสมาชิกสำเร็จ')
     } catch (error) {
         console.error('เกิดข้อผิดพลาดในการเพิ่มข้อมูลผู้ใช้:', error.message) // แสดง error ให้ dev ทราบ
         res.status(500).send('เกิดข้อผิดพลาดในการสมัครสมาชิก') // แสดง error ให้ client ทราบ
     }
 })
 
+
+
+// ------------ LOGIN SECTION ------------
 // LOGIN ROUTE
-app.post('/login', (req, res) => {
+app.post('/login', async (req, res) => {
     try {
         const { username, password } = req.body
-    
+        
         connection.query("SELECT * FROM users WHERE username = ? AND password = ?", // ค้นหาผู้ใช้
-            [username, password], (error, result) => {
-                if (result.length > 0) {
-                    console.log(result, 'ได้ทำการเข้าสู่ระบบ')
-                    res.send('เข้าสู่ระบบสำเร็จ')
-                } else {
+        [username, password], (error, result) => {
+            if (result.length > 0) {
+                console.log(result, 'ได้ทำการเข้าสู่ระบบ')
+                res.send('เข้าสู่ระบบสำเร็จ')
+            } else {
                     console.error('เข้าสู่ระบบไม่ได้:', error.message)
                     res.send('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง')
                 }
             })
-    } catch (error) {
-        console.error('เกิดข้อผิดพลาดในการเข้าสู่ระบบ:', err.message)
+        } catch (error) {
+            console.error('เกิดข้อผิดพลาดในการเข้าสู่ระบบ:', err.message)
         res.status(500).send('เกิดข้อผิดพลาดในการเข้าสู่ระบบ')
     }
 })
 
-// MENU PAGE แสดงหน้าเมนู
-app.get('/menu', async (req, res) => {
-    res.sendFile(__dirname + '/menu.html')
-})
 
-// MENU LIST PAGE แสดงหน้ารวมรายการที่ส่ง
-app.get('/menulist', async (req, res) => {
-    res.sendFile(__dirname + '/menulist.html')
-})
 
+// ------------ MENU SECTION ------------
 // Session for request Order
 app.use((req, res, next) => {
     if (!req.session.order) {
@@ -125,17 +123,6 @@ function clearOrder() {
 app.get('/store', async (req, res) => {
     clearOrder();
 })
-
-// READ Login
-// app.get('/login', async (req, res) => {
-//     try {
-//         const result = connection.query("SELECT * FROM users")
-//         res.json(result[0])
-//     } catch (error) {
-//         console.log(error.message);
-//         res.status(500).json({error: 'error'})
-//     }
-// })
 
 //LISTEN
 app.listen(5000, () => {
