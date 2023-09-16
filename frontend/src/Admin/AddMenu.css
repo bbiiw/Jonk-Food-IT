@@ -1,0 +1,372 @@
+.add-menu {
+  background-color: #fffbfb;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.add-menu .div {
+  background-color: #fffbfb;
+  overflow: hidden;
+  width: 1920px;
+  height: 1080px;
+  position: relative;
+}
+
+.add-menu .overlap {
+  position: absolute;
+  width: 548px;
+  height: 450px;
+  top: 293px;
+  left: 52px;
+  background-color: #6b6b6b80;
+  border-radius: 20px;
+}
+
+.add-menu .text-wrapper {
+  width: 157px;
+  top: 29px;
+  left: 44px;
+  font-weight: 400;
+  font-size: 30px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+  position: absolute;
+  font-family: "Inter", Helvetica;
+  color: #000000;
+}
+
+.add-menu .rectangle {
+  position: absolute;
+  width: 437px;
+  height: 39px;
+  top: 208px;
+  left: 46px;
+  background-color: #ffffff;
+  border-radius: 10px;
+}
+
+.add-menu .overlap-group {
+  position: absolute;
+  width: 437px;
+  height: 43px;
+  top: 333px;
+  left: 46px;
+}
+
+.add-menu .rectangle-2 {
+  position: absolute;
+  width: 437px;
+  height: 39px;
+  top: 0;
+  left: 0;
+  background-color: #ffffff;
+  border-radius: 10px;
+}
+
+.add-menu .rectangle-3 {
+  position: absolute;
+  width: 109px;
+  height: 33px;
+  top: 3px;
+  left: 8px;
+  background-color: #dcbd85;
+  border-radius: 10px;
+}
+
+.add-menu .password {
+  position: absolute;
+  width: 314px;
+  top: 9px;
+  left: 20px;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 16px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.add-menu .rectangle-4 {
+  position: absolute;
+  width: 437px;
+  height: 39px;
+  top: 82px;
+  left: 46px;
+  background-color: #ffffff;
+  border-radius: 10px;
+}
+
+.add-menu .text-wrapper-2 {
+  width: 474px;
+  top: 154px;
+  left: 46px;
+  font-weight: 400;
+  font-size: 30px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+  position: absolute;
+  font-family: "Inter", Helvetica;
+  color: #000000;
+}
+
+.add-menu .password-2 {
+  position: absolute;
+  width: 314px;
+  top: 279px;
+  left: 46px;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 30px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.add-menu .text-wrapper-3 {
+  width: 157px;
+  top: 241px;
+  left: 677px;
+  font-weight: 400;
+  font-size: 30px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+  position: absolute;
+  font-family: "Inter", Helvetica;
+  color: #000000;
+}
+
+.add-menu .vector {
+  top: -5194px;
+  left: -3494px;
+  position: absolute;
+  width: 12px;
+  height: 5px;
+}
+
+.add-menu .img {
+  top: -5288px;
+  left: -3480px;
+  position: absolute;
+  width: 12px;
+  height: 5px;
+}
+
+.add-menu .text-wrapper-4 {
+  width: 514px;
+  top: 121px;
+  left: 64px;
+  font-weight: var(--h1-font-weight);
+  font-size: var(--h1-font-size);
+  letter-spacing: var(--h1-letter-spacing);
+  line-height: var(--h1-line-height);
+  position: absolute;
+  font-family: var(--h1-font-family);
+  color: #000000;
+  font-style: var(--h1-font-style);
+}
+
+.add-menu .overlap-2 {
+  position: absolute;
+  width: 1923px;
+  height: 112px;
+  top: 981px;
+  left: -3px;
+}
+
+.add-menu .rectangle-5 {
+  position: absolute;
+  width: 1923px;
+  height: 105px;
+  top: 0;
+  left: 0;
+  background-color: #046683;
+}
+
+.add-menu .frame {
+  position: absolute;
+  width: 1280px;
+  height: 68px;
+  top: 44px;
+  left: 55px;
+}
+
+.add-menu .div-wrapper {
+  position: relative;
+  width: 454px;
+  height: 18px;
+  top: 7px;
+  left: 28px;
+}
+
+.add-menu .text-wrapper-5 {
+  position: absolute;
+  height: 18px;
+  top: -1px;
+  left: 0;
+  font-family: "Noto Sans", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 12px;
+  letter-spacing: 0;
+  line-height: 18px;
+  white-space: nowrap;
+}
+
+.add-menu .overlap-group-wrapper {
+  position: absolute;
+  width: 1920px;
+  height: 72px;
+  top: -1px;
+  left: 0;
+}
+
+.add-menu .overlap-group-2 {
+  position: relative;
+  height: 72px;
+}
+
+.add-menu .frame-2 {
+  position: absolute;
+  width: 16px;
+  height: 48px;
+  top: 0;
+  left: 480px;
+  background-color: #5b89bf;
+  overflow: hidden;
+}
+
+.add-menu .text-wrapper-6 {
+  position: absolute;
+  width: 10px;
+  height: 268px;
+  top: 25px;
+  left: 8px;
+  font-family: "Noto Sans", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: 21px;
+}
+
+.add-menu .frame-3 {
+  position: absolute;
+  width: 1920px;
+  height: 72px;
+  top: 0;
+  left: 0;
+  background-color: #046683;
+}
+
+.add-menu .auto-layout-wrapper {
+  position: absolute;
+  width: 1280px;
+  height: 40px;
+  top: 16px;
+  left: 320px;
+}
+
+.add-menu .auto-layout {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 418.66px;
+  position: relative;
+  left: 64px;
+}
+
+.add-menu .frame-4 {
+  position: relative;
+  width: 388.16px;
+  height: 40px;
+}
+
+.add-menu .frame-5 {
+  position: relative;
+  width: 393.19px;
+  height: 40px;
+}
+
+.add-menu .ellipse {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  top: 12px;
+  left: 76px;
+  object-fit: cover;
+}
+
+.add-menu .overlap-3 {
+  position: absolute;
+  width: 234px;
+  height: 58px;
+  top: 777px;
+  left: 416px;
+}
+
+.add-menu .rectangle-6 {
+  position: absolute;
+  width: 183px;
+  height: 58px;
+  top: 0;
+  left: 0;
+}
+
+.add-menu .text-wrapper-7 {
+  position: absolute;
+  width: 175px;
+  top: 2px;
+  left: 59px;
+  transform: rotate(-0.23deg);
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 32px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.add-menu .overlap-4 {
+  position: absolute;
+  width: 210px;
+  height: 58px;
+  top: 906px;
+  left: 1681px;
+}
+
+.add-menu .text-wrapper-8 {
+  position: absolute;
+  width: 175px;
+  top: 5px;
+  left: 35px;
+  transform: rotate(-0.23deg);
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 32px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.add-menu .rectangle-wrapper {
+  position: absolute;
+  width: 1200px;
+  height: 588px;
+  top: 293px;
+  left: 661px;
+  background-color: #6f696991;
+}
+
+.add-menu .rectangle-7 {
+  height: 200px;
+  background-color: #d9d9d9b2;
+  border: 1px solid;
+  border-color: #000000;
+}

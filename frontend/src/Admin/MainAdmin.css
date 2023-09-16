@@ -1,0 +1,923 @@
+.main-admin {
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.main-admin .div {
+  background-color: #ffffff;
+  overflow: hidden;
+  width: 1920px;
+  height: 2100px;
+  position: relative;
+}
+
+.main-admin .overlap {
+  position: absolute;
+  width: 2059px;
+  height: 379px;
+  top: 81px;
+  left: -22px;
+}
+
+.main-admin .overlap-group {
+  position: absolute;
+  width: 1942px;
+  height: 379px;
+  top: 0;
+  left: 0;
+}
+
+.main-admin .rectangle {
+  position: absolute;
+  width: 1920px;
+  height: 200px;
+  top: 179px;
+  left: 22px;
+  background-color: #d9d9d9b2;
+  border: 1px solid;
+  border-color: #000000;
+}
+
+.main-admin .rectangle-2 {
+  position: absolute;
+  width: 794px;
+  height: 131px;
+  top: 12px;
+  left: 0;
+  background-color: #efd7adad;
+}
+
+.main-admin .rectangle-3 {
+  position: absolute;
+  width: 847px;
+  height: 100px;
+  top: 12px;
+  left: 12px;
+  background-color: #48a0b6cc;
+}
+
+.main-admin .text-wrapper {
+  position: absolute;
+  top: 46px;
+  left: 247px;
+  font-family: var(--h2-font-family);
+  font-weight: var(--h2-font-weight);
+  color: #000000;
+  font-size: var(--h2-font-size);
+  letter-spacing: var(--h2-letter-spacing);
+  line-height: var(--h2-line-height);
+  white-space: nowrap;
+  font-style: var(--h2-font-style);
+}
+
+.main-admin .img {
+  position: absolute;
+  width: 166px;
+  height: 185px;
+  top: 0;
+  left: 751px;
+}
+
+.main-admin .ellipse {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  top: 226px;
+  left: 166px;
+}
+
+.main-admin .rectangle-4 {
+  position: absolute;
+  width: 142px;
+  height: 60px;
+  top: 250px;
+  left: 1402px;
+}
+
+.main-admin .rectangle-5 {
+  position: absolute;
+  width: 142px;
+  height: 60px;
+  top: 249px;
+  left: 1637px;
+}
+
+.main-admin .text-wrapper-2 {
+  top: 266px;
+  left: 1683px;
+  position: absolute;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 24px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.main-admin .text-wrapper-3 {
+  top: 265px;
+  left: 1453px;
+  position: absolute;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 24px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.main-admin .ellipse-2 {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  top: 226px;
+  left: 166px;
+  object-fit: cover;
+}
+
+.main-admin .password {
+  top: 263px;
+  left: 342px;
+  position: absolute;
+  width: 371px;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 36px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.main-admin .password-2 {
+  top: 263px;
+  left: 843px;
+  position: absolute;
+  width: 371px;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 36px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.main-admin .content-wrapper {
+  position: absolute;
+  width: 545px;
+  height: 87px;
+  top: 40px;
+  left: 933px;
+  background-image: url(https://c.animaapp.com/rzLgIgLK/img/rectangle-208.svg);
+  background-size: 100% 100%;
+} /*Change Top 72 --> 40*/
+
+.main-admin .content {
+  display: flex;
+  width: 517px;
+  height: 61px;
+  align-items: center;
+  padding: 8px;
+  position: relative;
+  top: 12px;
+  left: 13px;
+  background-color: var(--system-materialssm-l-thick);
+  border-radius: 10px;
+}
+
+.main-admin .magnifyingglass {
+  position: relative;
+  width: 28px;
+  height: 28px;
+}
+
+.main-admin .magnifyingglass-2 {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  top: -1px;
+  left: 0;
+  font-family: "SF Pro Display-Medium", Helvetica;
+  font-weight: 500;
+  color: var(--label-colorslc-l-secondary);
+  font-size: 11.5px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 32.1px;
+  white-space: nowrap;
+}
+
+.main-admin .placeholder-label {
+  position: relative;
+  flex: 1;
+  font-family: var(--default-size-body-font-family);
+  font-weight: var(--default-size-body-font-weight);
+  color: var(--label-colorslc-l-secondary);
+  font-size: var(--default-size-body-font-size);
+  letter-spacing: var(--default-size-body-letter-spacing);
+  line-height: var(--default-size-body-line-height);
+  font-style: var(--default-size-body-font-style);
+}
+
+.main-admin .overlap-2 {
+  position: absolute;
+  width: 403px;
+  height: 77px;
+  top: 77px;
+  left: 1656px;
+}
+
+.main-admin .rectangle-6 {
+  position: absolute;
+  width: 184px;
+  height: 77px;
+  top: 0;
+  left: 0;
+  background-color: #dcbd85;
+  border-radius: 20px;
+  border: 1px solid;
+  border-color: #000000;
+}
+
+.main-admin .password-3 {
+  top: 19px;
+  left: 32px;
+  position: absolute;
+  width: 371px;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 36px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.main-admin .frame {
+  position: absolute;
+  width: 1920px;
+  height: 72px;
+  top: 0;
+  left: 0;
+}
+
+.main-admin .overlap-group-2 {
+  position: relative;
+  height: 72px;
+}
+
+.main-admin .div-wrapper {
+  position: absolute;
+  width: 16px;
+  height: 48px;
+  top: 0;
+  left: 480px;
+  background-color: #5b89bf;
+  overflow: hidden;
+}
+
+.main-admin .text-wrapper-4 {
+  position: absolute;
+  width: 10px;
+  height: 268px;
+  top: 25px;
+  left: 8px;
+  font-family: "Noto Sans", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: 21px;
+}
+
+.main-admin .frame-2 {
+  position: absolute;
+  width: 1920px;
+  height: 72px;
+  top: 0;
+  left: 0;
+  background-color: #046683;
+}
+
+.main-admin .auto-layout-wrapper {
+  position: absolute;
+  width: 1280px;
+  height: 40px;
+  top: 16px;
+  left: 320px;
+}
+
+.main-admin .auto-layout {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 418.66px;
+  position: relative;
+  left: 64px;
+}
+
+.main-admin .frame-3 {
+  position: relative;
+  width: 388.16px;
+  height: 40px;
+}
+
+.main-admin .frame-4 {
+  position: relative;
+  width: 393.19px;
+  height: 40px;
+}
+
+.main-admin .log-out-wrapper {
+  display: inline-flex;
+  align-items: flex-start;
+  padding: 5px 9.27px 5px 9px;
+  position: absolute;
+  top: 22px;
+  left: 1748px;
+  border-radius: 6px;
+  border: 1px solid;
+  border-color: #d0d7de;
+}
+
+.main-admin .log-out {
+  position: relative;
+  width: fit-content;
+  margin-top: -1px;
+  font-family: "Noto Sans", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 16px;
+  letter-spacing: 0;
+  line-height: 24px;
+  white-space: nowrap;
+}
+
+.main-admin .ellipse-3 {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  top: 4px;
+  left: 84px;
+  object-fit: cover;
+}
+
+.main-admin .user {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  top: 19px;
+  left: 1842px;
+  object-fit: cover;
+}
+
+.main-admin .overlap-3 {
+  position: absolute;
+  width: 1920px;
+  height: 112px;
+  top: 1994px;
+  left: 0;
+}
+
+.main-admin .rectangle-7 {
+  position: absolute;
+  width: 1920px;
+  height: 105px;
+  top: 7px;
+  left: 0;
+  background-color: #046683;
+}
+
+.main-admin .frame-wrapper {
+  position: absolute;
+  width: 1280px;
+  height: 68px;
+  top: 0;
+  left: 100px;
+  opacity: 0.42;
+}
+
+.main-admin .frame-5 {
+  position: relative;
+  width: 454px;
+  height: 18px;
+  top: 25px;
+  left: 16px;
+}
+
+.main-admin .text-wrapper-5 {
+  position: absolute;
+  height: 18px;
+  top: 25px;
+  left: -10px;
+  font-family: "Noto Sans", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 12px;
+  letter-spacing: 0;
+  line-height: 18px;
+  white-space: nowrap;
+}
+
+.main-admin .overlap-4 {
+  position: absolute;
+  width: 1920px;
+  height: 200px;
+  top: 1060px;
+  left: 0;
+  background-color: #d9d9d9b2;
+  border: 1px solid;
+  border-color: #000000;
+}
+
+.main-admin .overlap-5 {
+  position: absolute;
+  width: 142px;
+  height: 60px;
+  top: 61px;
+  left: 1615px;
+  background-image: url(https://c.animaapp.com/rzLgIgLK/img/rectangle-213.svg);
+  background-size: 100% 100%;
+}
+
+.main-admin .text-wrapper-6 {
+  position: absolute;
+  top: 17px;
+  left: 46px;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 24px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.main-admin .ellipse-wrapper {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  top: 49px;
+  left: 130px;
+  background-image: url(https://c.animaapp.com/rzLgIgLK/img/ellipse-12-1.svg);
+  background-size: 100% 100%;
+}
+
+.main-admin .ellipse-4 {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  top: 0;
+  left: 0;
+  object-fit: cover;
+}
+
+.main-admin .overlap-6 {
+  position: absolute;
+  width: 142px;
+  height: 60px;
+  top: 61px;
+  left: 1380px;
+  background-image: url(https://c.animaapp.com/rzLgIgLK/img/rectangle-174-1.svg);
+  background-size: 100% 100%;
+}
+
+.main-admin .text-wrapper-7 {
+  top: 15px;
+  left: 51px;
+  position: absolute;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 24px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.main-admin .password-4 {
+  top: 70px;
+  left: 312px;
+  position: absolute;
+  width: 371px;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 36px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.main-admin .password-5 {
+  position: absolute;
+  width: 371px;
+  top: 70px;
+  left: 820px;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 36px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.main-admin .overlap-7 {
+  position: absolute;
+  width: 1920px;
+  height: 200px;
+  top: 1260px;
+  left: 0;
+  background-color: #d9d9d9b2;
+  border: 1px solid;
+  border-color: #000000;
+}
+
+.main-admin .overlap-8 {
+  position: absolute;
+  width: 142px;
+  height: 60px;
+  top: 73px;
+  left: 1615px;
+  background-image: url(https://c.animaapp.com/rzLgIgLK/img/rectangle-213.svg);
+  background-size: 100% 100%;
+}
+
+.main-admin .img-wrapper {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  top: 47px;
+  left: 123px;
+  background-image: url(https://c.animaapp.com/rzLgIgLK/img/ellipse-12-1.svg);
+  background-size: 100% 100%;
+}
+
+.main-admin .overlap-9 {
+  position: absolute;
+  width: 142px;
+  height: 60px;
+  top: 72px;
+  left: 1380px;
+  background-image: url(https://c.animaapp.com/rzLgIgLK/img/rectangle-174-1.svg);
+  background-size: 100% 100%;
+}
+
+.main-admin .password-6 {
+  top: 70px;
+  left: 305px;
+  position: absolute;
+  width: 371px;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 36px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.main-admin .password-7 {
+  top: 71px;
+  left: 820px;
+  position: absolute;
+  width: 371px;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 36px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.main-admin .overlap-10 {
+  position: absolute;
+  width: 1920px;
+  height: 200px;
+  top: 1460px;
+  left: 0;
+  background-color: #d9d9d9b2;
+  border: 1px solid;
+  border-color: #000000;
+}
+
+.main-admin .overlap-11 {
+  position: absolute;
+  width: 142px;
+  height: 60px;
+  top: 60px;
+  left: 1615px;
+  background-image: url(https://c.animaapp.com/rzLgIgLK/img/rectangle-213.svg);
+  background-size: 100% 100%;
+}
+
+.main-admin .overlap-12 {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  top: 40px;
+  left: 123px;
+  background-image: url(https://c.animaapp.com/rzLgIgLK/img/ellipse-12-1.svg);
+  background-size: 100% 100%;
+}
+
+.main-admin .password-8 {
+  top: 57px;
+  left: 303px;
+  position: absolute;
+  width: 371px;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 36px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.main-admin .password-9 {
+  top: 61px;
+  left: 820px;
+  position: absolute;
+  width: 371px;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 36px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.main-admin .overlap-13 {
+  position: absolute;
+  width: 142px;
+  height: 60px;
+  top: 60px;
+  left: 1380px;
+  background-image: url(https://c.animaapp.com/rzLgIgLK/img/rectangle-174-1.svg);
+  background-size: 100% 100%;
+}
+
+.main-admin .overlap-14 {
+  position: absolute;
+  width: 1920px;
+  height: 200px;
+  top: 1660px;
+  left: 0;
+  background-color: #d9d9d9b2;
+  border: 1px solid;
+  border-color: #000000;
+}
+
+.main-admin .overlap-15 {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  top: 40px;
+  left: 137px;
+  background-image: url(https://c.animaapp.com/rzLgIgLK/img/ellipse-12-1.svg);
+  background-size: 100% 100%;
+}
+
+.main-admin .password-10 {
+  top: 70px;
+  left: 319px;
+  position: absolute;
+  width: 371px;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 36px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.main-admin .overlap-16 {
+  position: absolute;
+  width: 142px;
+  height: 60px;
+  top: 72px;
+  left: 1376px;
+  background-image: url(https://c.animaapp.com/rzLgIgLK/img/rectangle-174-1.svg);
+  background-size: 100% 100%;
+}
+
+.main-admin .text-wrapper-8 {
+  top: 15px;
+  left: 45px;
+  position: absolute;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 24px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.main-admin .overlap-17 {
+  position: absolute;
+  width: 142px;
+  height: 60px;
+  top: 72px;
+  left: 1615px;
+  background-image: url(https://c.animaapp.com/rzLgIgLK/img/rectangle-213.svg);
+  background-size: 100% 100%;
+}
+
+.main-admin .overlap-18 {
+  position: absolute;
+  width: 1920px;
+  height: 200px;
+  top: 860px;
+  left: 0;
+  background-color: #d9d9d9b2;
+  border: 1px solid;
+  border-color: #000000;
+}
+
+.main-admin .overlap-19 {
+  position: absolute;
+  width: 142px;
+  height: 60px;
+  top: 48px;
+  left: 1615px;
+  background-image: url(https://c.animaapp.com/rzLgIgLK/img/rectangle-213.svg);
+  background-size: 100% 100%;
+}
+
+.main-admin .overlap-20 {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  top: 33px;
+  left: 130px;
+  background-image: url(https://c.animaapp.com/rzLgIgLK/img/ellipse-12-1.svg);
+  background-size: 100% 100%;
+}
+
+.main-admin .password-11 {
+  top: 46px;
+  left: 312px;
+  position: absolute;
+  width: 371px;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 36px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.main-admin .overlap-21 {
+  position: absolute;
+  width: 142px;
+  height: 60px;
+  top: 49px;
+  left: 1380px;
+  background-image: url(https://c.animaapp.com/rzLgIgLK/img/rectangle-174-1.svg);
+  background-size: 100% 100%;
+}
+
+.main-admin .password-12 {
+  top: 46px;
+  left: 820px;
+  position: absolute;
+  width: 371px;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 36px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.main-admin .overlap-22 {
+  position: absolute;
+  width: 1920px;
+  height: 200px;
+  top: 660px;
+  left: 0;
+  background-color: #d9d9d9b2;
+  border: 1px solid;
+  border-color: #000000;
+}
+
+.main-admin .overlap-23 {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  top: 41px;
+  left: 137px;
+  background-image: url(https://c.animaapp.com/rzLgIgLK/img/ellipse-12-1.svg);
+  background-size: 100% 100%;
+}
+
+.main-admin .password-13 {
+  top: 58px;
+  left: 312px;
+  position: absolute;
+  width: 371px;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 36px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.main-admin .overlap-24 {
+  position: absolute;
+  width: 142px;
+  height: 60px;
+  top: 57px;
+  left: 1380px;
+  background-image: url(https://c.animaapp.com/rzLgIgLK/img/rectangle-174-1.svg);
+  background-size: 100% 100%;
+}
+
+.main-admin .overlap-25 {
+  position: absolute;
+  width: 142px;
+  height: 60px;
+  top: 57px;
+  left: 1615px;
+  background-image: url(https://c.animaapp.com/rzLgIgLK/img/rectangle-213.svg);
+  background-size: 100% 100%;
+}
+
+.main-admin .password-14 {
+  top: 58px;
+  left: 820px;
+  position: absolute;
+  width: 371px;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 36px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.main-admin .overlap-26 {
+  position: absolute;
+  width: 1920px;
+  height: 200px;
+  top: 460px;
+  left: 0;
+  background-color: #d9d9d9b2;
+  border: 1px solid;
+  border-color: #000000;
+}
+
+.main-admin .overlap-27 {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  top: 32px;
+  left: 144px;
+  background-image: url(https://c.animaapp.com/rzLgIgLK/img/ellipse-12-1.svg);
+  background-size: 100% 100%;
+}
+
+.main-admin .overlap-28 {
+  position: absolute;
+  width: 142px;
+  height: 60px;
+  top: 43px;
+  left: 1615px;
+  background-image: url(https://c.animaapp.com/rzLgIgLK/img/rectangle-213.svg);
+  background-size: 100% 100%;
+}
+
+.main-admin .overlap-29 {
+  position: absolute;
+  width: 142px;
+  height: 60px;
+  top: 43px;
+  left: 1380px;
+  background-image: url(https://c.animaapp.com/rzLgIgLK/img/rectangle-174-1.svg);
+  background-size: 100% 100%;
+}
+
+.main-admin .password-15 {
+  top: 59px;
+  left: 318px;
+  position: absolute;
+  width: 371px;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 36px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
