@@ -1,0 +1,16 @@
+:root {
+  --label-colorslc-l-secondary: rgba(60, 60, 67, 0.6);
+  --system-materialssm-l-thick: rgba(250, 250, 250, 0.93);
+  --h2-font-family: "Inter-Bold", Helvetica;
+  --h2-font-weight: 700;
+  --h2-font-size: 32px;
+  --h2-letter-spacing: -0.64px;
+  --h2-line-height: 36px;
+  --h2-font-style: normal;
+  --default-size-body-font-family: "SFPro Text-Regular", Helvetica;
+  --default-size-body-font-weight: 400;
+  --default-size-body-font-size: 17px;
+  --default-size-body-letter-spacing: -0.40799999237060547px;
+  --default-size-body-line-height: 22px;
+  --default-size-body-font-style: normal;
+}

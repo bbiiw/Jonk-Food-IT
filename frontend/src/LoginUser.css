@@ -1,0 +1,405 @@
+.log-in-user {
+  background-color: #cccccc;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.log-in-user .overlap-wrapper {
+  background-color: #cccccc;
+  overflow: hidden;
+  width: 1920px;
+  height: 1080px;
+}
+
+.log-in-user .overlap {
+  position: relative;
+  width: 2218px;
+  height: 1891px;
+  top: -637px;
+  left: -122px;
+}
+
+.log-in-user .rectangle {
+  position: absolute;
+  width: 1146px;
+  height: 727px;
+  top: 894px;
+  left: 122px;
+  object-fit: cover;
+}
+
+.log-in-user .div {
+  position: absolute;
+  width: 1949px;
+  height: 1015px;
+  top: 438px;
+  left: 121px;
+  background-color: #cecece;
+  transform: rotate(31.89deg);
+}
+
+.log-in-user .polygon {
+  position: absolute;
+  width: 166px;
+  height: 200px;
+  top: 1028px;
+  left: 1876px;
+}
+
+.log-in-user .img {
+  position: absolute;
+  width: 173px;
+  height: 200px;
+  top: 1199px;
+  left: 1782px;
+}
+
+.log-in-user .polygon-2 {
+  position: absolute;
+  width: 173px;
+  height: 200px;
+  top: 1208px;
+  left: 1396px;
+}
+
+.log-in-user .polygon-3 {
+  position: absolute;
+  width: 173px;
+  height: 156px;
+  top: 637px;
+  left: 314px;
+}
+
+.log-in-user .polygon-4 {
+  position: absolute;
+  width: 169px;
+  height: 200px;
+  top: 1372px;
+  left: 1873px;
+}
+
+.log-in-user .polygon-5 {
+  position: absolute;
+  width: 173px;
+  height: 200px;
+  top: 760px;
+  left: 211px;
+}
+
+.log-in-user .polygon-6 {
+  position: absolute;
+  width: 173px;
+  height: 200px;
+  top: 1373px;
+  left: 1493px;
+}
+
+.log-in-user .polygon-7 {
+  position: absolute;
+  width: 166px;
+  height: 160px;
+  top: 637px;
+  left: 122px;
+}
+
+.log-in-user .polygon-8 {
+  position: absolute;
+  width: 173px;
+  height: 200px;
+  top: 1372px;
+  left: 1682px;
+}
+
+.log-in-user .polygon-9 {
+  position: absolute;
+  width: 173px;
+  height: 200px;
+  top: 1038px;
+  left: 1689px;
+}
+
+.log-in-user .polygon-10 {
+  position: absolute;
+  width: 66px;
+  height: 200px;
+  top: 862px;
+  left: 1976px;
+}
+
+.log-in-user .rectangle-2 {
+  position: absolute;
+  width: 450px;
+  height: 450px;
+  top: 900px;
+  left: 855px;
+  background-color: #6b6b6b80;
+  border-radius: 20px;
+}
+
+.log-in-user .rectangle-3 {
+  position: absolute;
+  width: 400px;
+  height: 50px;
+  top: 981px;
+  left: 880px;
+  background-color: #ffffff;
+  border-radius: 10px;
+}
+
+.log-in-user .rectangle-4 {
+  position: absolute;
+  width: 400px;
+  height: 50px;
+  top: 1119px;
+  left: 880px;
+  background-color: #ffffff;
+  border-radius: 10px;
+}
+
+.log-in-user .rectangle-5 {
+  position: absolute;
+  width: 183px;
+  height: 58px;
+  top: 1269px;
+  left: 876px;
+}
+
+.log-in-user .text-wrapper {
+  position: absolute;
+  width: 260px;
+  top: 929px;
+  left: 885px;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 30px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.log-in-user .password {
+  position: absolute;
+  width: 281px;
+  top: 1062px;
+  left: 885px;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 30px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.log-in-user .text-wrapper-2 {
+  position: absolute;
+  width: 121px;
+  top: 1276px;
+  left: 919px;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 32px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.log-in-user .rectangle-6 {
+  position: absolute;
+  width: 183px;
+  height: 58px;
+  top: 1269px;
+  left: 1106px;
+}
+
+.log-in-user .text-wrapper-3 {
+  position: absolute;
+  width: 175px;
+  top: 1274px;
+  left: 1138px;
+  transform: rotate(-0.23deg);
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 32px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.log-in-user .vector {
+  position: absolute;
+  width: 12px;
+  height: 5px;
+  top: 1230px;
+  left: 1938px;
+}
+
+.log-in-user .rectangle-7 {
+  position: absolute;
+  width: 1930px;
+  height: 105px;
+  top: 1614px;
+  left: 112px;
+  background-color: #046683;
+}
+
+.log-in-user .frame {
+  position: absolute;
+  width: 1920px;
+  height: 72px;
+  top: 645px;
+  left: 298px;
+}
+
+.log-in-user .overlap-group {
+  position: relative;
+  width: 1924px;
+  height: 72px;
+  top: -12px;
+  left: -174px;
+}
+
+.log-in-user .div-wrapper {
+  position: absolute;
+  width: 16px;
+  height: 48px;
+  top: 12px;
+  left: 654px;
+  background-color: #5b89bf;
+  overflow: hidden;
+}
+
+.log-in-user .text-wrapper-4 {
+  position: absolute;
+  width: 10px;
+  height: 268px;
+  top: 25px;
+  left: 8px;
+  font-family: "Noto Sans", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: 21px;
+}
+
+.log-in-user .frame-2 {
+  position: absolute;
+  width: 1924px;
+  height: 72px;
+  top: 0;
+  left: 0;
+  background-color: #046683;
+}
+
+.log-in-user .overlap-group-2 {
+  position: absolute;
+  width: 1557px;
+  height: 40px;
+  top: 16px;
+  left: 322px;
+}
+
+.log-in-user .frame-3 {
+  position: absolute;
+  width: 1280px;
+  height: 40px;
+  top: 0;
+  left: 0;
+}
+
+.log-in-user .frame-4 {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  top: 2px;
+  left: 16px;
+}
+
+.log-in-user .auto-layout {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 418.66px;
+  position: absolute;
+  top: 0;
+  left: 470px;
+}
+
+.log-in-user .auto-layout-wrapper {
+  position: relative;
+  width: 388.16px;
+  height: 40px;
+}
+
+.log-in-user .auto-layout-2 {
+  position: relative;
+  width: 16px;
+  height: 40px;
+  left: 91px;
+}
+
+.log-in-user .frame-5 {
+  position: absolute;
+  width: 393px;
+  height: 40px;
+  top: 0;
+  left: 1164px;
+}
+
+.log-in-user .ellipse {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  top: 6px;
+  left: 46px;
+  object-fit: cover;
+}
+
+.log-in-user .frame-6 {
+  position: absolute;
+  width: 1582px;
+  height: 68px;
+  top: 1628px;
+  left: 435px;
+}
+
+.log-in-user .frame-7 {
+  position: absolute;
+  width: 454px;
+  height: 18px;
+  top: 1662px;
+  left: 174px;
+}
+
+.log-in-user .text-wrapper-5 {
+  position: absolute;
+  height: 18px;
+  top: -1px;
+  left: 0;
+  font-family: "Noto Sans", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 12px;
+  letter-spacing: 0;
+  line-height: 18px;
+  white-space: nowrap;
+}
+
+.log-in-user .text-wrapper-6 {
+  position: absolute;
+  width: 514px;
+  top: 823px;
+  left: 871px;
+  font-family: var(--h1-font-family);
+  font-weight: var(--h1-font-weight);
+  color: #000000;
+  font-size: var(--h1-font-size);
+  letter-spacing: var(--h1-letter-spacing);
+  line-height: var(--h1-line-height);
+  font-style: var(--h1-font-style);
+}
