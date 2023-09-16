@@ -3,11 +3,14 @@ const session = require('express-session');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const mysql = require('mysql2');
+const path = require('path');
+const { error } = require('console');
 const app = express();
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(cors())
+app.use(express.static(path.join(__dirname, '../frontend')))
 
 // New connection
 const connection = mysql.createConnection({
@@ -32,39 +35,66 @@ app.use(session({
     secret: 'your-secret-key',
     resave: false,
     saveUninitialized: true,
-  }))
+}))
+
+
+// HOMEPAGE
+app.get('/', async (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/login.html'))
+})
 
 // ------------ REGISTER SECTION ------------
 // REGISTER ROUTE
-app.post('/register', async (req, res) => {
+app.post('/user/register', async (req, res) => {
     try {
-        const { username, password, confirm_password, email, tel, type } = req.body
-        
+        const { first_name, last_name, username, password, confirm_password, email, tel } = req.body
+        const type = "customer"
         if (password != confirm_password) {
-            return res.status(400).send('รหัสผ่านไม่ตรงกัน')
+            return res.send('รหัสผ่านไม่ตรงกัน')
         }
+        
+        // เพิ่มผู้ใช้ใหม่ลงในตาราง USERS
+        const userResult = await connection.promise().query("INSERT INTO users(username, password, email, tel, type) VALUES(?, ?, ?, ?, ?)",
+        [username, password, email, tel, type])
+            console.log('สร้างบัญชีสำเร็จและทำการบันทึกลง Users')
+            
+        // ดึง user_id จากตาราง users
+        const user_id = userResult[0].insertId
 
-        // ตรวจสอบว่าชื่อผู้ใช้มีอยู่ในฐานข้อมูลหรือไม่
-        connection.query("SELECT * FROM users WHERE username = ?",
-        [username], (error, result) => {
-            if (error) {
-                console.error('เกิดข้อผิดพลาดในการตรวจสอบชื่อผู้ใช้:', error.message)
-                return res.status(500).send(เกิดข้อผิดพลาดในการลงทะเบียน)
-            }
-            if (result.length > 0) {
-                return res.status(400).send('ชื่อผู้ใช้นี้มีอยู่แล้ว')
-            }
-
-            // เพิ่มผู้ใช้ใหม่ลงในฐานข้อมูล
-            connection.query("INSERT INTO users(username, password, email, tel, type) VALUES(?, ?, ?, ?, ?)",
-            [username, password, email, tel, type], (error, result) =>{
-                console.log('สร้างบัญชีสำเร็จและทำการบันทึกลง MySQL')
-                res.status(200).send('สมัครสมาชิกสำเร็จ')
-            })
-        })
+        // เพิ่มผู้ใช้ใหม่ลงในตาราง CUSTOMER
+        const customerResult = await connection.promise().query("INSERT INTO customer(user_id, first_name, last_name, stu_id) VALUES(?, ?, ?, ?)",
+        [user_id, first_name, last_name, username])
+            console.log('สร้างบัญชีสำเร็จและทำการบันทึกลง Customer')
+            return res.send('ลงทะเบียนสำเร็จ')
     } catch (error) {
-        console.error('เกิดข้อผิดพลาดในการเพิ่มข้อมูลผู้ใช้:', error.message) // แสดง error ให้ dev ทราบ
-        return res.status(500).send('เกิดข้อผิดพลาดในการสมัครสมาชิก') // แสดง error ให้ client ทราบ
+        console.error('เกิดข้อผิดพลาดในการเพิ่มข้อมูลผู้ใช้:', error.message)
+        return res.status(500).send('เกิดข้อผิดพลาดในการสมัครสมาชิก')
+    }
+})
+
+app.post('/shop/register', async (req, res) => {
+    try {
+        const { shop_name, username,  password, confirm_password, email, tel } = req.body
+        const type = "shop"
+        if (password != confirm_password) {
+            return res.send('รหัสผ่านไม่ตรงกัน')
+        }
+        
+        // เพิ่มผู้ใช้ใหม่ลงในตาราง USERS
+        const userResult = await connection.promise().query("INSERT INTO users(username, password, email, tel, type) VALUES(?, ?, ?, ?, ?)",
+        [username, password, email, tel, type])
+            console.log('สร้างบัญชีสำเร็จและทำการบันทึกลง Users')
+        
+        // ดึง user_id จากตาราง users
+        const user_id = userResult[0].insertId
+
+        // เพิ่มผู้ใช้ใหม่ลงในตาราง SHOP
+        const shopResult = await connection.query("INSERT INTO shop(user_id, shop_name) VALUES(?, ?)", [user_id, shop_name])
+            console.log('สร้างบัญชีสำเร็จและทำการบันทึกลง Customer')
+            return res.send('ลงทะเบียนสำเร็จ')
+    } catch (error) {
+        console.error('เกิดข้อผิดพลาดในการเพิ่มข้อมูลผู้ใช้:', error.message)
+        return res.status(500).send('เกิดข้อผิดพลาดในการสมัครสมาชิก')
     }
 })
 

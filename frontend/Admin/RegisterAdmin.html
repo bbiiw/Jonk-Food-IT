@@ -23,22 +23,14 @@
           <div class="text-wrapper">ชื่อร้านค้า</div>
           
           <!--Make Form-->
-          <form action="">
-            <input type="text" class="rectangle-3" placeholder="ชื่อ" name="first_name"/>
-            </form>
-            <form action="">
+          <form action="/shop/register" method="POST">
+            <input type="text" class="rectangle-3" placeholder="ชื่อ" name="shop_name"/>
             <input type="text" class="rectangle-4" placeholder="Username" name="username"/>
-            </form>
-            <form action="">
             <input type="password" class="rectangle-5" placeholder="Password" name="password"/>
-            </form>
-            <form action="">
-            <input type="password" class="rectangle-6" placeholder="Confirm-password" name="password-2"/>
-            </form>
-            <form action="">
-            <input type="text" class="rectangle-7" placeholder="Telephone" name="Telephone"/>
-            </form>
+            <input type="password" class="rectangle-6" placeholder="Confirm-password" name="confirm_password"/>
+            <input type="text" class="rectangle-7" placeholder="Telephone" name="tel"/>
             <input type="email" class="rectangle-8" placeholder="E-mail" name="email"/>
+          </form>
 
           <div class="text-wrapper-2">Username</div>
           <div class="text-wrapper-3">Password</div>
