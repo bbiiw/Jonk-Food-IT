@@ -106,17 +106,15 @@ app.post('/user/login', async (req, res) => {
     try {
         const { username, password } = req.body
         
-        connection.query("SELECT * FROM users WHERE username = ? AND password = ?", // ค้นหาผู้ใช้
-        [username, password], (error, result) => {
-            if (result.length > 0) {
-                    req.session.username = username // ล็อกอินสำเร็จ บันทึกใน session
-                    console.log(result, 'ได้ทำการเข้าสู่ระบบ')
-                    return res.send('เข้าสู่ระบบสำเร็จ')
+        const [rows] = await connection.promise().query("SELECT * FROM users WHERE username = ? AND password = ?", // ค้นหาผู้ใช้ customer
+        [username, password])
+            if (rows.length === 1) {
+                req.session.user = rows[0]
+                console.log('Customer ได้ทำการเข้าสู่ระบบ')
+                res.send('เข้าสู่ระบบสำเร็จ')
             } else {
-                    console.error('เข้าสู่ระบบไม่สำเร็จ:', error.message)
-                    return res.status(500).send('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง')
-                }
-            })
+                res.send('เข้าสู่ระบบไม่สำเร็จ')
+            }
         } catch (error) {
             console.error('เกิดข้อผิดพลาดในการเข้าสู่ระบบ:', error.message)
             return res.status(500).send('เกิดข้อผิดพลาดในการเข้าสู่ระบบ')
@@ -127,40 +125,64 @@ app.post('/shop/login', async (req, res) => {
     try {
         const { username, password } = req.body
         
-        connection.query("SELECT * FROM users WHERE username = ? AND password = ?", // ค้นหาผู้ใช้
-        [username, password], (error, result) => {
-            if (result.length > 0) {
-                if (username === 'shop1') { // username ADMIN
-                    req.session.isAdmin = true
-                    res.send('ยินดีต้อนรับ ADMIN')
-                } else {
-                    req.session.username = username // ล็อกอินสำเร็จ บันทึกใน session
-                    req.session.isAdmin = false
-                    res.send('ยินดีต้อนรับคุณ:', username)
-                }
-                res.redirect('/dashboard') // หน้าแรก
-                console.log(result, 'ได้ทำการเข้าสู่ระบบ')
-                return res.status(200).send('เข้าสู่ระบบสำเร็จ')
+        const [rows] = await connection.promise().query("SELECT * FROM users WHERE username = ? AND password = ?", // ค้นหาผู้ใช้ shop
+        [username, password])
+            if (rows.length === 1) {
+                req.session.user = rows[0]
+                res.send('เข้าสู่ระบบสำเร็จ')
+                console.log('Shop ได้ทำการเข้าสู่ระบบ')
             } else {
-                    console.error('เข้าสู่ระบบไม่ได้')
-                    return res.status(500).send('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง')
-                }
-            })
+                res.send('เข้าสู่ระบบไม่สำเร็จ')
+            }
         } catch (error) {
             console.error('เกิดข้อผิดพลาดในการเข้าสู่ระบบ:', error.message)
             return res.status(500).send('เกิดข้อผิดพลาดในการเข้าสู่ระบบ')
     }
 })
 
-// Dashboard ADMIN | USER
-app.get('/dashboard', async (req, res) => {
-    if (req.session.isAdmin) {
-        res.redirect('/dashboard/admin')
+
+// ------------ PROFILE SECTION ------------
+app.get('/user/profile', async (req, res) => {
+    if (req.session.user) {
+        res.sendFile(path.join(__dirname, '../frontend/User/UserProfile.html'))
     } else {
-        res.send('/dashboard/user')
+        res.sendFile(path.join(__dirname, '../frontend/User/LoginUser.html'))
     }
 })
 
+app.get('/user/edit-profile', async (req, res) => {
+    if (req.session.user) {
+        res.sendFile(path.join(__dirname, '../frontend/User/UserProfileEdit.html'))
+        try {
+            const user_id = req.session.user.id;
+
+            const [userData] = await connection.promise().query("SELECT email, tel FROM users WHERE user_id = ?", [user_id])
+            const [customerData] = await connection.promise().query("SELECT first_name, last_name FROM customer WHERE user_id = ?", [user_id])
+
+            res.render('/user/edit-profile', { userData, customerData }); // ส่งข้อมูลไปยังหน้าแก้ไขโปรไฟล์
+        } catch (error) {
+            console.error('เกิดข้อผิดพลาดในการดึงข้อมูลโปรไฟล์: ' + error.message);
+            res.status(500).send('เกิดข้อผิดพลาดในการดึงข้อมูลโปรไฟล์');
+        }
+    } else {
+        res.sendFile(path.join(__dirname, '../frontend/User/LoginUser.html'))
+    }
+})
+
+app.post('/user/edit-profile', async (req, res) => {
+    try {
+        const { first_name, last_name, tel, email } = req.body
+        const user_id = req.session.user.id // รับข้อมูลผู่ใช้จาก session
+
+        await connection.promise().query("UPDATE users SET email = ?, tel ? WHERE user_id = ?", [email, tel, user_id])
+        await connection.promise().query("UPDATE customer SET first_name = ?, last_name ? WHERE user_id = ?", [first_name, last_name, user_id])
+        console.log('บันทึกการแก้ไขโปรไฟล์สำเร็จ')
+        res.send('บันทึกการแก้ไขโปรไฟล์สำเร็จ')
+    } catch (error) {
+        console.error('เกิดข้อผิดพลาดในการบันทึกการแก้ไขโปรไฟล์: ' + error.message)
+        res.status(500).send('เกิดข้อผิดพลาดในการบันทึกการแก้ไขโปรไฟล์')
+    }
+})
 
 
 // ------------ MENU SECTION ------------
