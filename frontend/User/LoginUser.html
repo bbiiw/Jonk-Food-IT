@@ -24,17 +24,15 @@
           <img class="polygon-10" src="https://c.animaapp.com/8PZsp4gv/img/polygon-12.png" />
           <div class="rectangle-2"></div>
           <!-- Make From-->
-          <form action="">
-          <input type="text" class="rectangle-3" placeholder="Username"  name="username"/>
-          </form>
-          <form action="">
-          <input type="password" class="rectangle-4" placeholder="Password" name="password"/>
+          <form id="login-user-form" action="/user/login" method="POST">
+            <input type="text" class="rectangle-3" placeholder="Username"  name="username"/>
+            <input type="password" class="rectangle-4" placeholder="Password" name="password"/>
           </form> 
 
           <div class="text-wrapper">Username</div>
           <div class="password">Password</div>
           <!--Make Link-->
-          <a href="Main.html">
+          <a href="Main.html" id="submit-login-user">
             <img class="rectangle-5" src="https://c.animaapp.com/8PZsp4gv/img/rectangle-4.png" />
             <div class="text-wrapper-2">Log in</div>
           </a>
@@ -68,5 +66,11 @@
         </div>
       </div>
     </div>
+
+            <!-- Script -->
+            <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <script src="LoginUser.js"></script>
+
   </body>
 </html>

@@ -23,7 +23,7 @@
           <div class="text-wrapper">ชื่อร้านค้า</div>
           
           <!--Make Form-->
-          <form action="/shop/register" method="POST">
+          <form id="shop-register" action="/shop/register" method="POST">
             <input type="text" class="rectangle-3" placeholder="ชื่อ" name="shop_name"/>
             <input type="text" class="rectangle-4" placeholder="Username" name="username"/>
             <input type="password" class="rectangle-5" placeholder="Password" name="password"/>
@@ -57,7 +57,7 @@
             <div class="frame-5"><div class="text-wrapper-7">JONK FOOD IT</div></div>
           </div>
           <!--Add Link-->
-          <a href="LoginAdmin.html">
+          <a href="LoginAdmin.html" id="submit-shop-form">
           <img class="rectangle-10" src="https://c.animaapp.com/PbgTlwHY/img/rectangle-142.png" />
           <div class="text-wrapper-8">confirm</div>
         </a>
@@ -67,5 +67,11 @@
         <img class="vector-2" src="https://c.animaapp.com/PbgTlwHY/img/vector-4@2x.png" />
       </div>
     </div>
+
+    <!-- Script -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="RegisterAdmin.js"></script>
+
   </body>
 </html>

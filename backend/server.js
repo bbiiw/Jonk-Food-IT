@@ -89,8 +89,8 @@ app.post('/shop/register', async (req, res) => {
         const user_id = userResult[0].insertId
 
         // เพิ่มผู้ใช้ใหม่ลงในตาราง SHOP
-        const shopResult = await connection.query("INSERT INTO shop(user_id, shop_name) VALUES(?, ?)", [user_id, shop_name])
-            console.log('สร้างบัญชีสำเร็จและทำการบันทึกลง Customer')
+        const shopResult = await connection.promise().query("INSERT INTO shop(user_id, shop_name) VALUES(?, ?)", [user_id, shop_name])
+            console.log('สร้างบัญชีสำเร็จและทำการบันทึกลง Shop')
             return res.send('ลงทะเบียนสำเร็จ')
     } catch (error) {
         console.error('เกิดข้อผิดพลาดในการเพิ่มข้อมูลผู้ใช้:', error.message)
@@ -102,7 +102,28 @@ app.post('/shop/register', async (req, res) => {
 
 // ------------ LOGIN SECTION ------------
 // LOGIN ROUTE
-app.post('/login', async (req, res) => {
+app.post('/user/login', async (req, res) => {
+    try {
+        const { username, password } = req.body
+        
+        connection.query("SELECT * FROM users WHERE username = ? AND password = ?", // ค้นหาผู้ใช้
+        [username, password], (error, result) => {
+            if (result.length > 0) {
+                    req.session.username = username // ล็อกอินสำเร็จ บันทึกใน session
+                    console.log(result, 'ได้ทำการเข้าสู่ระบบ')
+                    return res.send('เข้าสู่ระบบสำเร็จ')
+            } else {
+                    console.error('เข้าสู่ระบบไม่สำเร็จ:', error.message)
+                    return res.status(500).send('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง')
+                }
+            })
+        } catch (error) {
+            console.error('เกิดข้อผิดพลาดในการเข้าสู่ระบบ:', error.message)
+            return res.status(500).send('เกิดข้อผิดพลาดในการเข้าสู่ระบบ')
+    }
+})
+
+app.post('/shop/login', async (req, res) => {
     try {
         const { username, password } = req.body
         
