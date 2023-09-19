@@ -28,6 +28,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 title: 'รหัสผ่านไม่ตรงกัน',
                 text: 'กรุณาลองใหม่อีกครั้ง',
             });
+        } else if (response.data === 'มีชื่อผู้ใช้(Username)นี้แล้ว') {
+            Swal.fire({
+                icon: 'error',
+                title: 'มีชื่อผู้ใช้ Username นี้แล้ว',
+                text: 'กรุณาลองใหม่อีกครั้ง',
+            });
         } else {
           Swal.fire({
             icon: 'error',

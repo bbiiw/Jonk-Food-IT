@@ -25,8 +25,8 @@
           <div class="rectangle-2"></div>
           <!-- Make From-->
           <form id="login-user-form" action="/user/login" method="POST">
-            <input type="text" class="rectangle-3" placeholder="Username"  name="username"/>
-            <input type="password" class="rectangle-4" placeholder="Password" name="password"/>
+            <input type="text" class="rectangle-3" placeholder="Username" name="username" style="font-size:28px;" id="username" />
+            <input type="password" class="rectangle-4" placeholder="Password" name="password" style="font-size:28px;" id="password" />
           </form> 
 
           <div class="text-wrapper">Username</div>
@@ -54,7 +54,9 @@
                       <div class="auto-layout-wrapper"><div class="auto-layout-2"></div></div>
                     </div>
                   </div>
-                  <div class="frame-5"></div>
+                  <div class="frame-5">
+                    <a href="../Login.html">
+                    <div class="log-out-wrapper"><div class="log-out">Log Out</div></div></div></a>
                 </div>
                 <img class="ellipse" src="https://c.animaapp.com/8PZsp4gv/img/ellipse-1.png" />
               </div>
@@ -66,11 +68,9 @@
         </div>
       </div>
     </div>
-
-            <!-- Script -->
-            <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-            <script src="LoginUser.js"></script>
-
+      <!-- Script -->
+      <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+      <script src="LoginUser.js"></script>
   </body>
 </html>

@@ -52,6 +52,12 @@ app.post('/user/register', async (req, res) => {
         if (password != confirm_password) {
             return res.send('รหัสผ่านไม่ตรงกัน')
         }
+
+        const checkUsername = await connection.promise().query("SELECT * FROM users where username = ?", [username])
+        if (checkUsername[0].length != 0) {
+            // username ซ้ำ
+            return res.send('มีชื่อผู้ใช้(Username)นี้แล้ว')
+        }
         
         // เพิ่มผู้ใช้ใหม่ลงในตาราง USERS
         const userResult = await connection.promise().query("INSERT INTO users(username, password, email, tel, type) VALUES(?, ?, ?, ?, ?)",
@@ -72,34 +78,6 @@ app.post('/user/register', async (req, res) => {
     }
 })
 
-app.post('/shop/register', async (req, res) => {
-    try {
-        const { shop_name, username,  password, confirm_password, email, tel } = req.body
-        const type = "shop"
-        if (password != confirm_password) {
-            return res.send('รหัสผ่านไม่ตรงกัน')
-        }
-        
-        // เพิ่มผู้ใช้ใหม่ลงในตาราง USERS
-        const userResult = await connection.promise().query("INSERT INTO users(username, password, email, tel, type) VALUES(?, ?, ?, ?, ?)",
-        [username, password, email, tel, type])
-            console.log('สร้างบัญชีสำเร็จและทำการบันทึกลง Users')
-        
-        // ดึง user_id จากตาราง users
-        const user_id = userResult[0].insertId
-
-        // เพิ่มผู้ใช้ใหม่ลงในตาราง SHOP
-        const shopResult = await connection.promise().query("INSERT INTO shop(user_id, shop_name) VALUES(?, ?)", [user_id, shop_name])
-            console.log('สร้างบัญชีสำเร็จและทำการบันทึกลง Shop')
-            return res.send('ลงทะเบียนสำเร็จ')
-    } catch (error) {
-        console.error('เกิดข้อผิดพลาดในการเพิ่มข้อมูลผู้ใช้:', error.message)
-        return res.status(500).send('เกิดข้อผิดพลาดในการสมัครสมาชิก')
-    }
-})
-
-
-
 // ------------ LOGIN SECTION ------------
 // LOGIN ROUTE
 app.post('/user/login', async (req, res) => {
@@ -108,8 +86,9 @@ app.post('/user/login', async (req, res) => {
         
         const [rows] = await connection.promise().query("SELECT * FROM users WHERE username = ? AND password = ?", // ค้นหาผู้ใช้ customer
         [username, password])
-            if (rows.length === 1) {
-                req.session.user = rows[0]
+        if (rows.length === 1) {
+                req.session.loggedin = true
+                req.session.username = rows[0]
                 console.log('Customer ได้ทำการเข้าสู่ระบบ')
                 res.send('เข้าสู่ระบบสำเร็จ')
             } else {
@@ -128,7 +107,8 @@ app.post('/shop/login', async (req, res) => {
         const [rows] = await connection.promise().query("SELECT * FROM users WHERE username = ? AND password = ?", // ค้นหาผู้ใช้ shop
         [username, password])
             if (rows.length === 1) {
-                req.session.user = rows[0]
+                req.session.loggedin = true
+                req.session.username = rows[0]
                 res.send('เข้าสู่ระบบสำเร็จ')
                 console.log('Shop ได้ทำการเข้าสู่ระบบ')
             } else {
@@ -142,45 +122,48 @@ app.post('/shop/login', async (req, res) => {
 
 
 // ------------ PROFILE SECTION ------------
+// PROFILE PAGE
 app.get('/user/profile', async (req, res) => {
-    if (req.session.user) {
-        res.sendFile(path.join(__dirname, '../frontend/User/UserProfile.html'))
+    if (req.session.loggedin) {
+        const username = req.session.username
+        connection.promise().query(`SELECT c.first_name, c.last_name u.username u.tel u.email
+                                    FROM customer c
+                                    JOIN users u
+                                    ON (c.user_id = u.user_id)
+                                    WHERE u.username = ?`, [username], (error, result) => {
+                                        if (result.length > 0) {
+                                            const UserProfile = result[0]
+                                            res.sendFile(path.join(__dirname, '../frontend/User/UserProfile.html'))
+                                        }
+                                    })
     } else {
         res.sendFile(path.join(__dirname, '../frontend/User/LoginUser.html'))
+        return res.send('กรุณาล็อกอิน')
     }
 })
 
-app.get('/user/edit-profile', async (req, res) => {
-    if (req.session.user) {
-        res.sendFile(path.join(__dirname, '../frontend/User/UserProfileEdit.html'))
-        try {
-            const user_id = req.session.user.id;
-
-            const [userData] = await connection.promise().query("SELECT email, tel FROM users WHERE user_id = ?", [user_id])
-            const [customerData] = await connection.promise().query("SELECT first_name, last_name FROM customer WHERE user_id = ?", [user_id])
-
-            res.render('/user/edit-profile', { userData, customerData }); // ส่งข้อมูลไปยังหน้าแก้ไขโปรไฟล์
-        } catch (error) {
-            console.error('เกิดข้อผิดพลาดในการดึงข้อมูลโปรไฟล์: ' + error.message);
-            res.status(500).send('เกิดข้อผิดพลาดในการดึงข้อมูลโปรไฟล์');
-        }
-    } else {
-        res.sendFile(path.join(__dirname, '../frontend/User/LoginUser.html'))
-    }
-})
-
+// EDIT PROFILE
 app.post('/user/edit-profile', async (req, res) => {
-    try {
+    if (req.session.loggedin) {
+        const username = req.session.username
         const { first_name, last_name, tel, email } = req.body
-        const user_id = req.session.user.id // รับข้อมูลผู่ใช้จาก session
-
-        await connection.promise().query("UPDATE users SET email = ?, tel ? WHERE user_id = ?", [email, tel, user_id])
-        await connection.promise().query("UPDATE customer SET first_name = ?, last_name ? WHERE user_id = ?", [first_name, last_name, user_id])
-        console.log('บันทึกการแก้ไขโปรไฟล์สำเร็จ')
-        res.send('บันทึกการแก้ไขโปรไฟล์สำเร็จ')
-    } catch (error) {
-        console.error('เกิดข้อผิดพลาดในการบันทึกการแก้ไขโปรไฟล์: ' + error.message)
-        res.status(500).send('เกิดข้อผิดพลาดในการบันทึกการแก้ไขโปรไฟล์')
+        connection.promise().query(`UPDATE customer c
+                                    JOIN users u
+                                    ON c.user_id = u.user_id
+                                    SET c.first_name = ?, c.last_name, u.tel = ?, u.email = ?
+                                    WHERE u.username = ?`, [first_name, last_name, tel, email, username], (error, result) => {
+                                        if (result.affectedRows > 0) {
+                                            Swal.fire({
+                                                icon: 'success',
+                                                title: 'อัปเดตโปรไฟล์สำเร็จ',
+                                                text: 'โปรไฟล์ของคุณได้รับการอัปเดตแล้ว',
+                                              }).then(() => {
+                                                res.sendFile(path.join(__dirname, '../frontend/User/UserProfile.html'))
+                                              })
+                                        }
+                                    })
+    } else {
+        res.sendFile(path.join(__dirname, '../frontend/User/LoginUser.html'))
     }
 })
 

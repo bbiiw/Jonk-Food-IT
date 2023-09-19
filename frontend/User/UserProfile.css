@@ -1,3 +1,4 @@
+/**/
 .user-profile {
   background-color: #ffffff;
   display: flex;
@@ -140,7 +141,7 @@
   height: 104px;
   top: 1896px;
   left: 0;
-  background-image: url(https://c.animaapp.com/1d6ifOXS/img/rectangle-136.svg);
+  background-image: url(https://c.animaapp.com/uIdWEvuc/img/rectangle-136.svg);
   background-size: 100% 100%;
 }
 
@@ -194,10 +195,18 @@
   object-fit: cover;
 }
 
+.user-profile .overlap-3 {
+  position: absolute;
+  width: 604px;
+  height: 128px;
+  top: 68px;
+  left: 468px;
+}
+
 .user-profile .text-wrapper-3 {
   width: 562px;
-  top: 82px;
-  left: 467px;
+  top: 15px;
+  left: 0;
   font-size: var(--h1-font-size);
   letter-spacing: var(--h1-letter-spacing);
   position: absolute;
@@ -208,24 +217,58 @@
   font-style: var(--h1-font-style);
 }
 
-.user-profile .text-wrapper-4 {
-  width: 568px;
-  top: 212px;
-  left: 473px;
-  font-size: var(--h1-font-size);
-  letter-spacing: var(--h1-letter-spacing);
+.user-profile .rectangle {
   position: absolute;
+  width: 500px;
+  height: 75px;
+  top: 0;
+  left: 104px;
+  background-color: #ffffff;
+}
+
+.user-profile .overlap-4 {
+  position: absolute;
+  width: 1302px;
+  height: 169px;
+  top: 202px;
+  left: 474px;
+}
+
+.user-profile .text-wrapper-4 {
+  position: absolute;
+  width: 568px;
+  top: 11px;
+  left: 0;
   font-family: var(--h1-font-family);
   font-weight: var(--h1-font-weight);
   color: #000000;
+  font-size: var(--h1-font-size);
+  letter-spacing: var(--h1-letter-spacing);
   line-height: var(--h1-line-height);
   font-style: var(--h1-font-style);
+}
+
+.user-profile .rectangle-2 {
+  position: absolute;
+  width: 1000px;
+  height: 75px;
+  top: 0;
+  left: 302px;
+  background-color: #ffffff;
+}
+
+.user-profile .overlap-5 {
+  position: absolute;
+  width: 1231px;
+  height: 174px;
+  top: 381px;
+  left: 472px;
 }
 
 .user-profile .text-wrapper-5 {
   width: 600px;
-  top: 392px;
-  left: 471px;
+  top: 12px;
+  left: 0;
   font-size: var(--h1-font-size);
   letter-spacing: var(--h1-letter-spacing);
   position: absolute;
@@ -234,13 +277,30 @@
   color: #000000;
   line-height: var(--h1-line-height);
   font-style: var(--h1-font-style);
+}
+
+.user-profile .rectangle-3 {
+  position: absolute;
+  width: 1000px;
+  height: 75px;
+  top: 0;
+  left: 231px;
+  background-color: #ffffff;
+}
+
+.user-profile .overlap-6 {
+  position: absolute;
+  width: 1202px;
+  height: 107px;
+  top: 556px;
+  left: 480px;
 }
 
 .user-profile .text-wrapper-6 {
   position: absolute;
   width: 528px;
-  top: 570px;
-  left: 479px;
+  top: 15px;
+  left: 0;
   font-family: var(--h1-font-family);
   font-weight: var(--h1-font-weight);
   color: #000000;
@@ -250,7 +310,16 @@
   font-style: var(--h1-font-style);
 }
 
-.user-profile .overlap-3 {
+.user-profile .rectangle-4 {
+  position: absolute;
+  width: 1000px;
+  height: 75px;
+  top: 0;
+  left: 202px;
+  background-color: #ffffff;
+}
+
+.user-profile .overlap-7 {
   position: absolute;
   width: 286px;
   height: 62px;
@@ -258,7 +327,7 @@
   left: 84px;
 }
 
-.user-profile .rectangle {
+.user-profile .rectangle-5 {
   position: absolute;
   width: 253px;
   height: 62px;
@@ -284,7 +353,38 @@
   white-space: nowrap;
 }
 
-.user-profile .overlap-4 {
+.user-profile .overlap-8 {
+  position: absolute;
+  width: 709px;
+  height: 130px;
+  top: 66px;
+  left: 1141px;
+}
+
+.user-profile .text-wrapper-8 {
+  width: 562px;
+  top: 17px;
+  left: 0;
+  font-size: var(--h1-font-size);
+  letter-spacing: var(--h1-letter-spacing);
+  position: absolute;
+  font-family: var(--h1-font-family);
+  font-weight: var(--h1-font-weight);
+  color: #000000;
+  line-height: var(--h1-line-height);
+  font-style: var(--h1-font-style);
+}
+
+.user-profile .rectangle-6 {
+  position: absolute;
+  width: 500px;
+  height: 75px;
+  top: 0;
+  left: 209px;
+  background-color: #ffffff;
+}
+
+.user-profile .overlap-9 {
   position: absolute;
   width: 1920px;
   height: 276px;
@@ -292,7 +392,7 @@
   left: 0;
 }
 
-.user-profile .text-wrapper-8 {
+.user-profile .text-wrapper-9 {
   width: 520px;
   top: 0;
   left: 79px;
@@ -305,11 +405,11 @@
   line-height: 48px;
 }
 
-.user-profile .rectangle-2 {
-  top: 76px;
+.user-profile .rectangle-7 {
   position: absolute;
   width: 1920px;
   height: 200px;
+  top: 76px;
   left: 0;
   background-color: #d9d9d9b2;
   border: 1px solid;
@@ -372,7 +472,7 @@
   white-space: nowrap;
 }
 
-.user-profile .overlap-5 {
+.user-profile .overlap-10 {
   position: absolute;
   width: 1920px;
   height: 200px;
@@ -380,11 +480,11 @@
   left: 0;
 }
 
-.user-profile .rectangle-3 {
-  top: 0;
+.user-profile .rectangle-8 {
   position: absolute;
   width: 1920px;
   height: 200px;
+  top: 0;
   left: 0;
   background-color: #d9d9d9b2;
   border: 1px solid;
@@ -447,7 +547,7 @@
   white-space: nowrap;
 }
 
-.user-profile .overlap-6 {
+.user-profile .overlap-11 {
   position: absolute;
   width: 1920px;
   height: 200px;

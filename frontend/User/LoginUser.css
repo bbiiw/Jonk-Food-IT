@@ -350,6 +350,30 @@
   top: 0;
   left: 1164px;
 }
+.log-in-user .log-out-wrapper {
+  display: inline-flex;
+  align-items: flex-start;
+  padding: 5px 9.27px 5px 9px;
+  position: relative;
+  top: 3px;
+  left: 314px;
+  border-radius: 6px;
+  border: 1px solid;
+  border-color: #d0d7de;
+}
+
+.log-in-user .log-out {
+  position: relative;
+  width: fit-content;
+  margin-top: -1px;
+  font-family: "Noto Sans", Helvetica;
+  color: #ffffff;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
 
 .log-in-user .ellipse {
   position: absolute;

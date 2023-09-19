@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!---->
 <html>
   <head>
     <link rel="stylesheet" href="globals.css" />
@@ -13,17 +14,15 @@
           <div class="overlap-group-wrapper">
             <div class="overlap-group">
               <div class="ellipse-wrapper">
-                <!--Add Link-->
-                <a href="Main.html">
-                <img class="ellipse" src="https://c.animaapp.com/1d6ifOXS/img/ellipse-1@2x.png" /></a>
+                <img class="ellipse" src="https://c.animaapp.com/uIdWEvuc/img/ellipse-1@2x.png" />
               </div>
               <div class="auto-layout">
                 <div class="frame-2"></div>
                 <div class="frame-3">
-                  <!--Add Link-->
+                  <!--Add link-->
                   <a href="../Login.html">
                   <div class="log-out-wrapper"><div class="log-out">Log Out</div></div></a>
-                  <img class="user" src="https://c.animaapp.com/1d6ifOXS/img/user-1@2x.png" />
+                  <img class="user" src="https://c.animaapp.com/uIdWEvuc/img/user-1@2x.png" />
                 </div>
               </div>
             </div>
@@ -35,51 +34,70 @@
           </div>
         </div>
         <div class="overlap-2">
-          <img class="img" src="https://c.animaapp.com/1d6ifOXS/img/ellipse-30@2x.png" />
-          <div class="text-wrapper-3">ชื่อ :</div>
-          <div class="text-wrapper-4">นามสกุล :</div>
-          <div class="text-wrapper-5">เบอร์โทร :</div>
-          <div class="text-wrapper-6">E-Mail :</div>
+           <!-- Can Add Image + JAVASCRIPT-->
+           <label for="imageInput" style="cursor: pointer;">
+            <img class="img" src="https://c.animaapp.com/tmAhLJTv/img/ellipse-30@2x.png" alt="User Image" id="imgPreview" onclick="openImageInput()"/>
+          </label>
+          <input type="file" id="picInput" accept="image/*" style="display: none;">
+          <!--Forms + JAVASCRIPT-->
+          <form action="/user/edit-profile" method="POST">
           <div class="overlap-3">
-            <!--Add Link-->
-            <a href="UserProfileEdit.html">
-            <div class="rectangle"></div>
-            <div class="text-wrapper-7">Update Profile</div></a>
-
+            <div class="text-wrapper-3">ชื่อ :</div>
+              <input type="text" class="rectangle" placeholder="ชื่อ" name="name"style="font-size: 48px;" disabled id="nameInput"/>
           </div>
+          <div class="overlap-8">
+            <div class="text-wrapper-8">นามสุกล :</div>
+              <input type="text" class="rectangle-6" placeholder="นามสุกล" name="Surename" style="font-size: 48px;" disabled id="SurenameInput"/>
+            </div>
+          <div class="overlap-4">
+            <div class="text-wrapper-4">Username :</div>
+              <input type="text" class="rectangle-2" placeholder="Username" name="username" style="font-size: 48px;" disabled id="usernameInput"/>
+          </div>
+          <div class="overlap-5">
+            <div class="text-wrapper-5">เบอร์โทร :</div>
+              <input type="text" class="rectangle-3" placeholder="เบอร์โทร" name="tel" style="font-size: 48px;" disabled id="telephoneInput"/>
+          </div>
+          <div class="overlap-6">
+            <div class="text-wrapper-6">E-Mail :</div>
+              <input type="text" class="rectangle-4" placeholder="E-Mail" name="email" style="font-size: 48px;" disabled id="emailInput"/>
+          </div>
+            <!--Add Javascript-->
+            <div class="overlap-7 " id="updateButton">
+              <div class="rectangle-5" id="updateButton" ></div>
+              <div class="text-wrapper-7" id="updateButton">Update Profile</div>
+          </div>
+          </form>
         </div>
-
-        <!--Add Link-->
-        <a href="Reserve.html">
-        <div class="overlap-4">
-          <div class="text-wrapper-8">ประวัติการจอง</div>
-          <div class="rectangle-2"></div>
+        <div class="overlap-9">
+          <div class="text-wrapper-9">ประวัติการจอง</div>
+          <!--Add Link-->
+          <a href="Reserve.html">
+          <div class="rectangle-7"></div>
           <div class="password">ข้าวแกงกะหรี่</div>
           <div class="password-2">1</div>
           <div class="password-3">15/09/2023</div>
           <div class="password-4">18:00:01</div>
-        </a>
         </div>
-        <a href="Reserve.html">
-        <div class="overlap-5">
-          <div class="rectangle-3"></div>
+        <div class="overlap-10">
+          <div class="rectangle-8"></div>
           <div class="password-5">กะเพราหมูสับ</div>
           <div class="password-6">2</div>
           <div class="password-7">15/09/2023</div>
           <div class="password-8">20:00:02</div>
-        </a>
         </div>
-        <a href="Reserve.html">
-        <div class="overlap-6">
-          <div class="rectangle-3"></div>
+        <div class="overlap-11">
+          <div class="rectangle-8"></div>
           <div class="password-5">ข้าวราดแกง</div>
           <div class="password-6">3</div>
           <div class="password-7">16/09/2023</div>
           <div class="password-8">21:20:22</div>
-        </a>
         </div>
-
+      </a>
       </div>
     </div>
+      <!-- Script -->
+      <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+      <script src="UserProfile.js"></script>
   </body>
 </html>
