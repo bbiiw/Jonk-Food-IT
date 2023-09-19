@@ -34,42 +34,83 @@
           </div>
         </div>
         <div class="overlap-2">
-           <!-- Can Add Image + JAVASCRIPT-->
-           <label for="imageInput" style="cursor: pointer;">
-            <img class="img" src="https://c.animaapp.com/tmAhLJTv/img/ellipse-30@2x.png" alt="User Image" id="imgPreview" onclick="openImageInput()"/>
-          </label>
-          <input type="file" id="picInput" accept="image/*" style="display: none;">
           <!--Forms + JAVASCRIPT-->
-          <form action="/user/edit-profile" method="POST">
-          <div class="overlap-3">
-            <div class="text-wrapper-3">ชื่อ :</div>
-              <input type="text" class="rectangle" placeholder="ชื่อ" name="name"style="font-size: 48px;" disabled id="nameInput"/>
-          </div>
-          <div class="overlap-8">
-            <div class="text-wrapper-8">นามสุกล :</div>
-              <input type="text" class="rectangle-6" placeholder="นามสุกล" name="Surename" style="font-size: 48px;" disabled id="SurenameInput"/>
+          <!-- Before edit -->
+          <div>
+            <div class="overlap-3">
+              <div class="text-wrapper-3" style="font-size: 48px;">ชื่อ :</div>
+                <span class="rectangle" id="first_name" style="font-size: 48px;"></span>
+              </div>
+              <div class="overlap-8">
+                <div class="text-wrapper-8">นามสุกล :</div>
+                <span class="rectangle-6" id="last_name" style="font-size: 48px;"></span>
+              </div>
+              
+              <div class="overlap-4">
+                <div class="text-wrapper-4">Username :</div>
+                <span class="rectangle-2" id="username" style="font-size: 48px;"></span>
+              </div>
+              
+              <div class="overlap-5">
+                <div class="text-wrapper-5">เบอร์โทร :</div>
+                <span class="rectangle-3" id="tel" style="font-size: 48px;"></span>
+              </div>
+              
+              <div class="overlap-6">
+                <div class="text-wrapper-6">E-Mail :</div>
+                <span class="rectangle-4" id="email" style="font-size: 48px;"></span>
+              </div>
             </div>
-          <div class="overlap-4">
-            <div class="text-wrapper-4">Username :</div>
-              <input type="text" class="rectangle-2" placeholder="Username" name="username" style="font-size: 48px;" disabled id="usernameInput"/>
-          </div>
-          <div class="overlap-5">
-            <div class="text-wrapper-5">เบอร์โทร :</div>
-              <input type="text" class="rectangle-3" placeholder="เบอร์โทร" name="tel" style="font-size: 48px;" disabled id="telephoneInput"/>
-          </div>
-          <div class="overlap-6">
-            <div class="text-wrapper-6">E-Mail :</div>
-              <input type="text" class="rectangle-4" placeholder="E-Mail" name="email" style="font-size: 48px;" disabled id="emailInput"/>
-          </div>
             <!--Add Javascript-->
-            <div class="overlap-7 " id="updateButton">
-              <div class="rectangle-5" id="updateButton" ></div>
-              <div class="text-wrapper-7" id="updateButton">Update Profile</div>
+            <div class="overlap-7 " id="editButton">
+              <div class="rectangle-5" id="editButton" ></div>
+              <div class="text-edit" id="editButton">Edit Profile</div>
+            </div>
+            
+          <!-- Edit -->
+          <div id="editProfile" style="display: none;">
+            <form>
+                <!-- Can Add Image + JAVASCRIPT-->
+              <label for="imageInput" style="cursor: pointer;">
+                <img class="img" src="https://c.animaapp.com/tmAhLJTv/img/ellipse-30@2x.png" alt="User Image" id="imgPreview" onclick="openImageInput()"/>
+              </label>
+              <input type="file" id="picInput" accept="image/*" style="display: none;">
+              <div class="overlap-3">
+                <div class="text-wrapper-3">ชื่อ :</div>
+                  <input type="text" class="rectangle" placeholder="ชื่อ" name="first_name" id="edit_first_name" style="font-size: 48px;" required />
+              </div>
+  
+              <div class="overlap-8">
+                <div class="text-wrapper-8">นามสุกล :</div>
+                  <input type="text" class="rectangle-6" placeholder="นามสุกล" name="last_name" id="edit_last_name" style="font-size: 48px;" required />
+              </div>
+              
+              <div class="overlap-4">
+                <div class="text-wrapper-4">Username :</div>
+                  <input type="text" class="rectangle-2" placeholder="Username" name="username" id="edit_username" style="font-size: 48px;" disabled />
+              </div>
+              
+              <div class="overlap-5">
+                <div class="text-wrapper-5">เบอร์โทร :</div>
+                  <input type="text" class="rectangle-3" placeholder="เบอร์โทร" name="tel" id="edit_tel" style="font-size: 48px;" required />
+              </div>
+  
+              <div class="overlap-6">
+                <div class="text-wrapper-6">E-Mail :</div>
+                  <input type="text" class="rectangle-4" placeholder="E-Mail" name="email" id="edit_email" style="font-size: 48px;" required />
+              </div>
+
+              <!--Add Javascript-->
+              <div class="overlap-7 " id="updateButton">
+                <div class="rectangle-5" id="updateButton" ></div>
+                <div class="text-wrapper-7" id="updateButton">Update Profile</div>
+              </div>
+            </form>
           </div>
-          </form>
-        </div>
-        <div class="overlap-9">
-          <div class="text-wrapper-9">ประวัติการจอง</div>
+          
+          </div>
+          <div class="overlap-9">
+            <div class="text-wrapper-9">ประวัติการจอง</div>
           <!--Add Link-->
           <a href="Reserve.html">
           <div class="rectangle-7"></div>

@@ -125,45 +125,40 @@ app.post('/shop/login', async (req, res) => {
 // PROFILE PAGE
 app.get('/user/profile', async (req, res) => {
     if (req.session.loggedin) {
-        const username = req.session.username
-        connection.promise().query(`SELECT c.first_name, c.last_name u.username u.tel u.email
-                                    FROM customer c
-                                    JOIN users u
-                                    ON (c.user_id = u.user_id)
-                                    WHERE u.username = ?`, [username], (error, result) => {
-                                        if (result.length > 0) {
-                                            const UserProfile = result[0]
-                                            res.sendFile(path.join(__dirname, '../frontend/User/UserProfile.html'))
-                                        }
-                                    })
+        const username = req.session.username.username
+        connection.query(`SELECT first_name, last_name, username, tel, email 
+                        FROM customer c 
+                        JOIN users u 
+                        ON (c.user_id = u.user_id) 
+                        WHERE u.username = ?`, [username], (error, result) => {
+                            if (result.length > 0) {
+                                const userProfile = result[0]
+                                res.json(userProfile)
+                            }
+                        })
     } else {
-        res.sendFile(path.join(__dirname, '../frontend/User/LoginUser.html'))
         return res.send('กรุณาล็อกอิน')
     }
 })
 
 // EDIT PROFILE
-app.post('/user/edit-profile', async (req, res) => {
+app.post('/user/editprofile', async (req, res) => {
     if (req.session.loggedin) {
-        const username = req.session.username
+        const username = req.session.username.username
         const { first_name, last_name, tel, email } = req.body
-        connection.promise().query(`UPDATE customer c
-                                    JOIN users u
-                                    ON c.user_id = u.user_id
-                                    SET c.first_name = ?, c.last_name, u.tel = ?, u.email = ?
-                                    WHERE u.username = ?`, [first_name, last_name, tel, email, username], (error, result) => {
-                                        if (result.affectedRows > 0) {
-                                            Swal.fire({
-                                                icon: 'success',
-                                                title: 'อัปเดตโปรไฟล์สำเร็จ',
-                                                text: 'โปรไฟล์ของคุณได้รับการอัปเดตแล้ว',
-                                              }).then(() => {
-                                                res.sendFile(path.join(__dirname, '../frontend/User/UserProfile.html'))
-                                              })
-                                        }
-                                    })
+        connection.query(`UPDATE customer c
+                        JOIN users u
+                        ON (c.user_id = u.user_id)
+                        SET c.first_name = ?, c.last_name = ?, u.tel = ?, u.email = ?
+                        WHERE u.username = ?`, [first_name, last_name, tel, email, username], (error, result) => {
+                            if (result.affectedRows > 0) {
+                                return res.send('แก้ไขโปรไฟล์')
+                            } else {
+                                return res.send('เกิดข้อผิดพลาด')
+                            }
+                        })
     } else {
-        res.sendFile(path.join(__dirname, '../frontend/User/LoginUser.html'))
+        return res.send('กรุณาล็อกอิน')
     }
 })
 

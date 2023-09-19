@@ -226,6 +226,12 @@
   background-color: #ffffff;
 }
 
+span {
+  position: relative;
+  font-family: "Noto Sans", Helvetica;
+  font-weight: bold; /* ตัวหนา */
+}
+
 .user-profile .overlap-4 {
   position: absolute;
   width: 1302px;
@@ -353,6 +359,20 @@
   white-space: nowrap;
 }
 
+.user-profile .text-edit {
+  position: absolute;
+  width: 252px;
+  top: 4px;
+  left: 50px;
+  font-family: "Inter", Helvetica;
+  font-weight: 700;
+  color: #000000;
+  font-size: 28px;
+  letter-spacing: -0.56px;
+  line-height: 48px;
+  white-space: nowrap;
+}
+
 .user-profile .overlap-8 {
   position: absolute;
   width: 709px;
@@ -414,6 +434,12 @@
   background-color: #d9d9d9b2;
   border: 1px solid;
   border-color: #000000;
+}
+
+.pos-span {
+  position: absolute;
+  top: 10px;
+  left: 20px;
 }
 
 .user-profile .password {
