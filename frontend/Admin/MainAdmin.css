@@ -95,7 +95,7 @@
   height: 60px;
   top: 250px;
   left: 1402px;
-}
+} 
 
 .main-admin .rectangle-5 {
   position: absolute;
@@ -115,7 +115,7 @@
   font-size: 24px;
   letter-spacing: 0;
   line-height: normal;
-}
+} 
 
 .main-admin .text-wrapper-3 {
   top: 265px;
@@ -127,7 +127,7 @@
   font-size: 24px;
   letter-spacing: 0;
   line-height: normal;
-}
+} 
 
 .main-admin .ellipse-2 {
   position: absolute;
@@ -227,9 +227,9 @@
   position: absolute;
   width: 403px;
   height: 77px;
-  top: 77px;
+  top: 40px;
   left: 1656px;
-}
+} /*Change Top 77 --> 40*/
 
 .main-admin .rectangle-6 {
   position: absolute;

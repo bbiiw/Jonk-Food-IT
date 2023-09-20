@@ -36,6 +36,10 @@
         <div class="overlap-2">
           <!--Forms + JAVASCRIPT-->
           <!-- Before edit -->
+          <label for="imageInput" style="cursor: pointer;">
+            <img class="img" src="https://c.animaapp.com/tmAhLJTv/img/ellipse-30@2x.png" alt="User Image" id="imgPreview" onclick="openImageInput()"/>
+          </label>
+          <input type="file" id="picInput" accept="image/*" style="display: none;">
           <div>
             <div class="overlap-3">
               <div class="text-wrapper-3" style="font-size: 48px;">ชื่อ :</div>
@@ -71,10 +75,6 @@
           <div id="editProfile" style="display: none;">
             <form>
                 <!-- Can Add Image + JAVASCRIPT-->
-              <label for="imageInput" style="cursor: pointer;">
-                <img class="img" src="https://c.animaapp.com/tmAhLJTv/img/ellipse-30@2x.png" alt="User Image" id="imgPreview" onclick="openImageInput()"/>
-              </label>
-              <input type="file" id="picInput" accept="image/*" style="display: none;">
               <div class="overlap-3">
                 <div class="text-wrapper-3">ชื่อ :</div>
                   <input type="text" class="rectangle" placeholder="ชื่อ" name="first_name" id="edit_first_name" style="font-size: 48px;" required />

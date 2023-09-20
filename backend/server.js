@@ -7,8 +7,8 @@ const path = require('path');
 const { error } = require('console');
 const app = express();
 
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.json()) // to JSON
+app.use(bodyParser.urlencoded({extended: true})) // อ่านข้อมูลจาก <form>
 app.use(cors())
 app.use(express.static(path.join(__dirname, '../frontend')))
 
@@ -30,6 +30,14 @@ connection.connect((error) => {
     }
 })
 
+// ตรวจสอบการเข้าสู่ระบบ
+function isAuthenticated(req, res, next) {
+  if (req.session.loggedin) {
+    return next();
+  }
+  res.sendFile(path.join(__dirname, '../frontend/login.html'))
+}
+
 // Setting Session
 app.use(session({
     secret: 'your-secret-key',
@@ -42,6 +50,7 @@ app.use(session({
 app.get('/', async (req, res) => {
     res.sendFile(path.join(__dirname, '../frontend/login.html'))
 })
+
 
 // ------------ REGISTER SECTION ------------
 // REGISTER ROUTE
@@ -78,6 +87,7 @@ app.post('/user/register', async (req, res) => {
     }
 })
 
+
 // ------------ LOGIN SECTION ------------
 // LOGIN ROUTE
 app.post('/user/login', async (req, res) => {
@@ -86,7 +96,7 @@ app.post('/user/login', async (req, res) => {
         
         const [rows] = await connection.promise().query("SELECT * FROM users WHERE username = ? AND password = ?", // ค้นหาผู้ใช้ customer
         [username, password])
-        if (rows.length === 1) {
+            if (rows.length === 1) {
                 req.session.loggedin = true
                 req.session.username = rows[0]
                 console.log('Customer ได้ทำการเข้าสู่ระบบ')
@@ -123,83 +133,90 @@ app.post('/shop/login', async (req, res) => {
 
 // ------------ PROFILE SECTION ------------
 // PROFILE PAGE
-app.get('/user/profile', async (req, res) => {
-    if (req.session.loggedin) {
+app.get('/user/profile', isAuthenticated, async (req, res) => {
         const username = req.session.username.username
         connection.query(`SELECT first_name, last_name, username, tel, email 
                         FROM customer c 
                         JOIN users u 
                         ON (c.user_id = u.user_id) 
-                        WHERE u.username = ?`, [username], (error, result) => {
+                        WHERE u.username = ?`, 
+                        [username], (error, result) => {
                             if (result.length > 0) {
                                 const userProfile = result[0]
                                 res.json(userProfile)
                             }
                         })
-    } else {
-        return res.send('กรุณาล็อกอิน')
-    }
 })
 
 // EDIT PROFILE
-app.post('/user/editprofile', async (req, res) => {
-    if (req.session.loggedin) {
+app.post('/user/editprofile', isAuthenticated, async (req, res) => {
         const username = req.session.username.username
         const { first_name, last_name, tel, email } = req.body
         connection.query(`UPDATE customer c
                         JOIN users u
                         ON (c.user_id = u.user_id)
                         SET c.first_name = ?, c.last_name = ?, u.tel = ?, u.email = ?
-                        WHERE u.username = ?`, [first_name, last_name, tel, email, username], (error, result) => {
+                        WHERE u.username = ?`, 
+                        [first_name, last_name, tel, email, username], (error, result) => {
                             if (result.affectedRows > 0) {
                                 return res.send('แก้ไขโปรไฟล์')
                             } else {
                                 return res.send('เกิดข้อผิดพลาด')
                             }
                         })
-    } else {
-        return res.send('กรุณาล็อกอิน')
-    }
 })
 
 
 // ------------ MENU SECTION ------------
-// Session for request Order
-app.use((req, res, next) => {
-    if (!req.session.order) {
-      req.session.order = []
-    }
-    next()
+// MENU PAGE
+app.get('/user/menu', isAuthenticated, async (req, res) => {
+        try {
+            // ใช้ Axios เรียก API ของเจ้าของร้านเพื่อโหลดเมนูอาหาร
+            const response = await axios.get('http://localhost:5000/shop/menu')
+            const menu = response.data // เมนูอาหารจะอยู่ในรูปแบบ JSON
+            res.json(menu) // ส่งเมนูอาหารกลับไปยังไคลเอนต์
+        } catch (error) {
+            console.error('เกิดข้อผิดพลาดในการโหลดเมนูอาหาร:', error);
+            res.status(500).json({ error: 'ไม่สามารถโหลดเมนูอาหารได้' });
+        }
 })
 
-// ตรวจสอบการล็อกอินในหน้าจองอาหาร
-app.get('/dashboard/user', async (req, res) => {
-    if (req.session.username) {
-        res.sendFile(__dirname + '/reservation.html')
-    } else {
-        res.redirect('/login')
-    }
-})
+const cart = [];
 
 // ADD TO CART
-app.post('/add-to-cart', async (req, res) => {
-    try {
-        const { customer_id, menu_id, reserve_id, date, time } = req.body
+app.post('/user/cart/add', isAuthenticated, async (req, res) => {
+        const { customer_id, menu_id, reserve_id, items, cost } = req.body
 
-        connection.query("INSERT INTO booking(customer_id, menu_id, reserve_id, date, time) VALUES (?, ?, ?, ?, ?)",
-        [customer_id, menu_id, reserve_id, date, time], (error, result) => {
-            console.log('เพิ่มรายการลงในตะกร้าเรียบร้อย')
-            return res.status(200).send()
+        // เพิ่มเมนูลงตะกร้า
+        cart[customer_id].push({ menu_id, items, cost })
+        
+        connection.query("INSERT INTO booking(customer_id, menu_id, reserve_id, items, cost) VALUES (?, ?, ?, ?, ?)",
+        [customer_id, menu_id, reserve_id, JSON.stringify(items), cost], (error, result) => {
+                // ลบรายการในตะกร้าหลังจากสั่งอาหารสำเร็จ
+                cart.length = 0
         })
+})
+//     try {
+//         const { customer_id, menu_id, reserve_id, date, time } = req.body
 
-    } catch (error) {
-        console.error('เพิ่มอาหารลงตะกร้าไม่สำเร็จ:', error.message)
-        return res.status(500).send('เกิดข้อผิดพลาดในการเพิ่มอาหารลงตะกร้า')
-    }
+//         connection.query("INSERT INTO booking(customer_id, menu_id, reserve_id, date, time) VALUES (?, ?, ?, ?, ?)",
+//         [customer_id, menu_id, reserve_id, date, time], (error, result) => {
+//             console.log('เพิ่มรายการลงในตะกร้าเรียบร้อย')
+//             return res.status(200).send()
+//         })
+
+//     } catch (error) {
+//         console.error('เพิ่มอาหารลงตะกร้าไม่สำเร็จ:', error.message)
+//         return res.status(500).send('เกิดข้อผิดพลาดในการเพิ่มอาหารลงตะกร้า')
+//     }
+// })
+// CART PAGE
+app.get('/user/cart', async (req, res) => {
+    res.json(cart)
 })
 
 // EDIT CART
-app.put('/edit-cart', async (req, res) => {
+app.put('/edit-cart', isAuthenticated, async (req, res) => {
     try {
         const { booking_id, items } = req.body;
 
@@ -215,7 +232,7 @@ app.put('/edit-cart', async (req, res) => {
 })
 
 // CONFIRM CART
-app.post('/confirm', async (req, res) => {
+app.post('/user/confirm', isAuthenticated, async (req, res) => {
     try {
         // รับข้อมูลมาจากตะกร้าในตาราง booking และบันทึกลงในตาราง reserve
         const { customer_id, history_id, total } = req.body
@@ -228,6 +245,49 @@ app.post('/confirm', async (req, res) => {
         console.error('จองอาหารไม่สำเร็จ อาจเกิดข้อผิดพลาด:', error.message)
         return res.status(500).send('เกิดข้อผิดพลาดในการจองคิว')
     }
+})
+
+// SHOP MENU PAGE
+app.get('/shop/menu', isAuthenticated, async (req, res) => {
+    connection.query("SELECT * FROM menu", (error, result) => {
+        
+    })
+})
+
+// SHOP ADD MENU
+app.post('/shop/menu/add',  async (req, res) => {
+    try {
+        const menuData = req.body.menuData
+        menuData.forEach((menuItem) => {
+            const { menu_name, cost, image } = menuItem
+            connection.query("INSERT INTO menu(shop_id, menu_name, cost) VALUES (?, ?, ?)",
+            [1, menu_name, cost], (error, result) => {
+                console.log('บันทึกเมนูสำเร็จ')
+            })
+        })
+        return res.json({ success: true })
+    } catch (error) {
+        console.error('เกิดข้อผิดพลาดในการบันทึกข้อมูลเมนู', error.message)
+        return res.status(500).send('เกิดข้อผิดพลาดในการบันทึกข้อมูลเมนู')
+    }
+})
+
+// SHOP EDIT MENU
+app.post('/shop/menu/edit/:id', isAuthenticated, async (req, res) => {
+    const { menu_name, cost, image } = req.body
+    const { menu_id } = req.params
+    connection.query("UPDATE menu SET menu_name = ?, cost = ?, image = ? WHERE menu_id = ?",
+    [menu_name, cost, image, menu_id], (error, result) => {
+
+    })
+})
+
+// SHOP DELETE MENU
+app.post('/shop/menu/delete/:id', isAuthenticated, (req, res) => {
+    const { menu_id } = req.params
+    connection.query("DELETE FROM menu WHERE menu_id = ?", [menu_id], (error, result) => {
+
+    })
 })
 
 //LISTEN

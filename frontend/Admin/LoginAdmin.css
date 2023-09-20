@@ -208,28 +208,7 @@
   white-space: nowrap;
 }
 
-.log-in-user .rectangle-6 {
-  position: absolute;
-  width: 183px;
-  height: 58px;
-  top: 1269px;
-  left: 1106px;
-}
 
-.log-in-user .text-wrapper-3 {
-  position: absolute;
-  width: 175px;
-  top: 1274px;
-  left: 1138px;
-  transform: rotate(-0.23deg);
-  font-family: "Inter", Helvetica;
-  font-weight: 400;
-  color: #000000;
-  font-size: 32px;
-  letter-spacing: 0;
-  line-height: normal;
-  white-space: nowrap;
-}
 
 .log-in-user .vector {
   position: absolute;
@@ -349,6 +328,31 @@
   height: 40px;
   top: 0;
   left: 1164px;
+}
+
+.log-in-user .log-out-wrapper {
+  display: inline-flex;
+  align-items: flex-start;
+  padding: 5px 9.27px 5px 9px;
+  position: relative;
+  top: 3px;
+  left: 314px;
+  border-radius: 6px;
+  border: 1px solid;
+  border-color: #d0d7de;
+}
+
+.log-in-user .log-out {
+  position: relative;
+  width: fit-content;
+  margin-top: -1px;
+  font-family: "Noto Sans", Helvetica;
+  color: #ffffff;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  letter-spacing: 0;
+  white-space: nowrap;
 }
 
 .log-in-user .ellipse {
