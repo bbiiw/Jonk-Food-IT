@@ -414,7 +414,7 @@
   line-height: normal;
 }
 
-.info .overlap-6 {
+.info .ordered {
   position: absolute;
   width: 200px;
   height: 75px;
@@ -440,7 +440,7 @@
   line-height: normal;
 }
 
-.info .overlap-7 {
+.info .finish {
   position: absolute;
   width: 200px;
   height: 75px;
@@ -466,7 +466,7 @@
   line-height: normal;
 }
 
-.info .overlap-8 {
+.info .accept {
   position: absolute;
   width: 200px;
   height: 75px;
