@@ -440,6 +440,8 @@
   white-space: nowrap;
   position: absolute;
   font-family: "Inter", Helvetica;
+  background-color: #DCBD85;
+  border-radius: 10px;
 }
 
 .cart .element-wrapper {

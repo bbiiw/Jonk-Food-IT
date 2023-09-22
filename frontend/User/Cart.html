@@ -33,19 +33,11 @@
           </div>
         </div>
         <div class="overlap">
-          <div class="rectangle"></div>
+          <!--Add Button + JAVASCRIPT-->
           <div class="rectangle-2"></div>
-          <div class="rectangle-3"></div>
-          <div class="rectangle-4"></div>
           <img class="img" src="https://c.animaapp.com/Z7HejqW2/img/ellipse-9.svg" />
-          <img class="ellipse-2" src="https://c.animaapp.com/Z7HejqW2/img/ellipse-9.svg" />
-          <img class="ellipse-3" src="https://c.animaapp.com/Z7HejqW2/img/ellipse-9.svg" />
           <div class="text-wrapper-2">สรุปรายการอาหาร</div>
           <div class="password">กะเพราหมูสับ 40.00 บาท</div>
-          <div class="password-2">ข้าวแกงกะหรี่ 40.00 บาท</div>
-          <div class="password-3">ข้าวราดแกง 35.00 บาท</div>
-
-          <!--Add Button + JAVASCRIPT-->
           <div class="rectangle-5">
             <button class="quantity-button1" onclick="decrementQuantity('quantity1')"><p style="font-size: 36px;">-</p></button>
           </div>
@@ -55,45 +47,29 @@
           <div class="rectangle-7">
             <button class="quantity-button2" onclick="incrementQuantity('quantity1')"><p style="font-size: 36px;">+</p></button>
           </div>
-          
-          <div class="rectangle-8">
-            <button class="quantity-button3" onclick="decrementQuantity('quantity2')"><p style="font-size: 36px;">-</p></button>
-          </div>
-          <div class="rectangle-9">
-            <span id="quantity2" style="font-size: 36px;">0</span>
-          </div>
-          <div class="rectangle-10">
-            <button class="quantity-button4" onclick="incrementQuantity('quantity2')"><p style="font-size: 36px;">+</p></button>
-          </div>
-          <div class="rectangle-11">
-            <button class="quantity-button5" onclick="decrementQuantity('quantity3')"><p style="font-size: 36px;">-</p></button>
-          </div>
-          <div class="rectangle-12">
-            <span id="quantity3" style="font-size: 36px;">0</span>
-          </div>
-          <div class="rectangle-13">
-            <button class="quantity-button6" onclick="incrementQuantity('quantity3')"><p style="font-size: 36px;">+</p></button>
-          </div>
-        <!--Test JAVASCRIPT-->
-        <script src="ButtonCart.js"></script>
+
+        
         </div>
         <div class="frame-wrapper">
           <div class="frame-4">
             <div class="frame-5">
-              <div class="frame-6"><div class="text-wrapper-3">JONK FOOD IT</div></div>
+              <div class="frame-6">
+                <div class="text-wrapper-3">JONK FOOD IT</div>
+              </div>
             </div>
           </div>
         </div>
         <div class="text-wrapper-4">ยอดรวม</div>
         <div class="overlap-2">
           <!--Add Link-->
-          <a href="Finish.html">
-          <img class="rectangle-14" src="https://c.animaapp.com/Z7HejqW2/img/rectangle-137.png" />
-          <div class="text-wrapper-5">ยืนยัน</div></a>
-
+          <button class="text-wrapper-5">ยืนยัน</button>
         </div>
-        <div class="element-wrapper"><div class="element">0.00&nbsp;&nbsp;บาท</div></div>
+        <div class="element-wrapper"><div class="element">0.00 บาท</div></div>
       </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="Cartbutton.js"></script>
+    <script src="Confirm.js"></script>
   </body>
 </html>

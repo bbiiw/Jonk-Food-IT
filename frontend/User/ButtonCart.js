@@ -26,3 +26,4 @@ document.getElementById("incrementButton").addEventListener("click", incrementQu
 
 // Initialize the quantity display
 updateQuantityDisplay();
+
