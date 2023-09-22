@@ -1,9 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
   // เลือกปุ่ม "confirm"
-  const confirmButton = document.querySelector('.rectangle-7');
+  const confirmButton1 = document.querySelector('.rectangle-7');
+  const confirmButton2 = document.querySelector('.text-wrapper-8');
 
-  // เพิ่มการตรวจสอบเหตุการณ์คลิก
-  confirmButton.addEventListener('click', function(event) {
+  // สร้างฟังก์ชันสำหรับการตรวจสอบและแสดงข้อความแจ้งเตือน
+  function validateAndAlert() {
     event.preventDefault(); // ป้องกันการส่งแบบฟอร์ม
 
     // ดึงค่าของช่อง input
@@ -40,7 +41,12 @@ document.addEventListener('DOMContentLoaded', function() {
         confirmButtonText: 'ตกลง'
       });
     }
-  });
+  }
+
+  // เพิ่มการตรวจสอบเหตุการณ์คลิกสำหรับทั้งสองปุ่ม "confirm"
+  confirmButton1.addEventListener('click', validateAndAlert);
+  confirmButton2.addEventListener('click', validateAndAlert);
 });
+
 
   
