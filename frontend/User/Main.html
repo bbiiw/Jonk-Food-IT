@@ -10,25 +10,43 @@
       <div class="div">
         <div class="overlap">
           <div class="overlap-group">
-            <div class="rectangle"></div>
             <div class="rectangle-2"></div>
             <div class="rectangle-3"></div>
             <div class="text-wrapper">MENU</div>
+
+            <!-- <div class="rectangle"></div>
             <img class="ellipse" src="https://c.animaapp.com/o1y6PJVY/img/ellipse-12-1.svg" />
             <button class="rectangle-4" id="addButton1"></button>
             <div class="text-wrapper-2">เพิ่ม</div>
             <img class="ellipse-2" src="https://c.animaapp.com/o1y6PJVY/img/ellipse-15-1@2x.png" />
             <div class="password">ข้าวแกงกะหรี่</div>
-            <div class="password-2">45.00 บาท</div>
-          </div>
+            <div class="password-2">45.00 บาท</div> -->
+               <!--Category-->
+            <div class="overlap-24">
+              <button class="rectangle-7"></button>
+              <span class="text-wrapper-7">อาหารญี่ปุ่น</span>
+            </div>
+            <div class="overlap-25">
+              <button class="rectangle-7"></button>
+              <span class="text-wrapper-8">เมนูเส้น</span>
+            </div>
+            <div class="overlap-26">
+              <button class="rectangle-7"></button>
+              <span class="text-wrapper-9">อาหารจานเดี่ยว</span>
+            </div>
+            <div class="menu-container-container" id="menu-container-container">
+              
+            </div>
 
+          </div>
+          
           <!--Make Search Bar-->
           <div class="content-wrapper">
             <input type="search" class="content" id="searchInput" placeholder="ค้นหาเมนูอาหาร" style="font-size: 20px;"/>
             <div class="magnifyingglass"> <!--About Cart-->
             </div>
           </div>
-
+          
           <!--Add Link-->
           <a href="Cart.html">
           <div class="overlap-2">
@@ -52,6 +70,7 @@
                 </div>
               </div>
 
+        
               <!--Add link-->
               <a href="../Login.html">
               <div class="log-out-wrapper"><div class="log-out">Log Out</div></div></a>
@@ -71,65 +90,11 @@
           <div class="text-wrapper-5">จำนวนคิว : 0</div>
         </div>
 
-        <!--Make Button-->
-        <div class="overlap-4">
-          <div class="ellipse-wrapper">
-            <img class="ellipse-4" src="https://c.animaapp.com/o1y6PJVY/img/ellipse-15@2x.png" />
-          </div>
-          <button class="overlap-5" id="addButton2"><div class="text-wrapper-6">เพิ่ม</div></button>
-          <div class="password-3">ราดหน้าหมี่กรอบ</div>
-          <div class="password-4">40.00 บาท</div>
-        </div>
-        <div class="overlap-6">
-          <div class="img-wrapper">
-            <img class="ellipse-4" src="https://c.animaapp.com/o1y6PJVY/img/ellipse-17@2x.png" />
-          </div>
-          <button class="overlap-7" id="addButton3"><div class="text-wrapper-6">เพิ่ม</div></button>
-          <div class="password-5">ข้าวราดแกง</div>
-          <div class="password-6">35.00 บาท</div>
-        </div>
-        <div class="overlap-8">
-          <div class="overlap-9">
-            <img class="ellipse-4" src="https://c.animaapp.com/o1y6PJVY/img/ellipse-16@2x.png" />
-          </div>
-          <button class="overlap-10" id="addButton4"><div class="text-wrapper-6">เพิ่ม</div></button>
-          <div class="password-7">กะเพราหมูสับ</div>
-          <div class="password-8">40.00 บาท</div>
-        </div>
-        <div class="overlap-11">
-          <div class="overlap-12">
-            <img class="ellipse-4" src="https://c.animaapp.com/o1y6PJVY/img/ellipse-21@2x.png" />
-          </div>
-          <button class="overlap-13" id="addButton5"><div class="text-wrapper-7">เพิ่ม</div></button>
-          <div class="password-9">ข้าวหน้าไก่ราดซอสสลัด</div>
-          <div class="password-4">40.00 บาท</div>
-        </div>
-        <div class="overlap-14">
-          <div class="overlap-15">
-            <img class="ellipse-4" src="https://c.animaapp.com/o1y6PJVY/img/ellipse-19@2x.png" />
-          </div>
-          <button class="overlap-16" id="addButton6"><div class="text-wrapper-6">เพิ่ม</div></button>
-          <div class="password-10">ข้าวห่อไข่</div>
-          <div class="password-11">40.00 บาท</div>
-        </div>
-        <div class="overlap-17">
-          <div class="overlap-18">
-            <img class="ellipse-4" src="https://c.animaapp.com/o1y6PJVY/img/ellipse-16-1@2x.png" />
-          </div>
-          <button class="overlap-19" id="addButton7"><div class="text-wrapper-6">เพิ่ม</div></button>
-          <div class="password-12">ข้าวหน้าไก่ราดซอสบาบีคิว</div>
-          <div class="password-13">45.00 บาท</div>
-        </div>
-        <div class="overlap-20">
-          <div class="overlap-21">
-            <img class="ellipse-4" src="https://c.animaapp.com/o1y6PJVY/img/ellipse-17-1@2x.png" />
-          </div>
-          <button class="overlap-22" id="addButton8"><div class="text-wrapper-6">เพิ่ม</div></button>
-          <div class="password-14">ข้าวหน้าไก่เทอริยากิ</div>
-          <div class="password-13">45.00 บาท</div>
-        </div>
         <!--Test JAVASCRIPT-->
         <script src="ButtonAdd.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="Menu.js"></script>
       </div>
     </div>
   </body>

@@ -34,6 +34,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 title: 'มีชื่อผู้ใช้ Username นี้แล้ว',
                 text: 'กรุณาลองใหม่อีกครั้ง',
             });
+        } else if (response.data === 'กรุณากรอกข้อมูลให้ครบถ้วน'){
+          Swal.fire({
+            icon: 'error',
+            title: 'กรุณากรอกข้อมูลให้ครบถ้วน',
+            text: 'กรุณาลองใหม่อีกครั้ง',
+          });
         } else {
           Swal.fire({
             icon: 'error',

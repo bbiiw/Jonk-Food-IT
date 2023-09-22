@@ -2,16 +2,16 @@ let isEditing = false;
 
 // ฟังก์ชันสำหรับแสดงข้อมูลโปรไฟล์ผู้ใช้
 function displayUserProfile() {
-  axios.get('http://localhost:5000/user/profile') // สร้างเส้นทางใหม่สำหรับการดึงข้อมูลโปรไฟล์
+    axios.get('http://localhost:5000/user/profile') // สร้างเส้นทางใหม่สำหรับการดึงข้อมูลโปรไฟล์
     .then((response) => {
       const { first_name, last_name, username, tel, email } = response.data;
 
       // แสดงข้อมูลบนหน้าเว็บ
-      document.getElementById('first_name').textContent = first_name;
-      document.getElementById('last_name').textContent = last_name;
-      document.getElementById('username').textContent = username;
-      document.getElementById('tel').textContent = tel;
-      document.getElementById('email').textContent = email;
+      document.getElementById('first_name').value = first_name;
+      document.getElementById('last_name').value = last_name;
+      document.getElementById('username').value = username;
+      document.getElementById('tel').value = tel;
+      document.getElementById('email').value = email;
 
       // // ตั้งค่าฟิลด์แบบแก้ไขให้เป็นค่าเดียวกับข้อมูลแบบอ่าน
       document.getElementById('edit_first_name').value = first_name;
