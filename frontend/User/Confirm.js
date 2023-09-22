@@ -1,4 +1,4 @@
-document.querySelector('.text-wrapper-5').addEventListener('click', function () {
+document.querySelector('.text-5').addEventListener('click', function () {
     Swal.fire({
       icon: 'success',
       title: 'จองสำเร็จแล้ว',

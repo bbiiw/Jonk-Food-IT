@@ -237,7 +237,7 @@
   border-color: #000000;
 }
 
-.resever .password-2 {
+.resever .queue {
   width: 371px;
   top: 84px;
   left: 133px;
@@ -251,7 +251,7 @@
   line-height: normal;
 }
 
-.resever .password-3 {
+.resever .menu-col {
   width: 371px;
   top: 81px;
   left: 578px;
@@ -265,7 +265,7 @@
   line-height: normal;
 }
 
-.resever .password-4 {
+.resever .count {
   width: 371px;
   top: 84px;
   left: 949px;
@@ -279,7 +279,7 @@
   line-height: normal;
 }
 
-.resever .password-5 {
+.resever .price-col {
   width: 349px;
   top: 81px;
   left: 1461px;
@@ -304,7 +304,7 @@
   border-color: #000000;
 }
 
-.resever .password-6 {
+.resever .price {
   width: 371px;
   top: 80px;
   left: 1404px;
@@ -326,10 +326,10 @@
   left: 172px;
 }
 
-.resever .password-7 {
+.resever .Resever_id {
   width: 371px;
-  top: 0;
-  left: 0;
+  top: 75px;
+  left: 170px;
   white-space: nowrap;
   position: absolute;
   font-family: "Inter", Helvetica;
@@ -340,10 +340,10 @@
   line-height: normal;
 }
 
-.resever .password-8 {
+.resever .Menu {
   width: 371px;
-  top: 0;
-  left: 345px;
+  top: 75px;
+  left: 525px;
   white-space: nowrap;
   position: absolute;
   font-family: "Inter", Helvetica;
@@ -354,7 +354,7 @@
   line-height: normal;
 }
 
-.resever .password-9 {
+.resever .amount {
   width: 371px;
   top: 80px;
   left: 984px;

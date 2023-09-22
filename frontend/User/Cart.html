@@ -6,16 +6,19 @@
     <link rel="stylesheet" href="Cart.css" />
   </head>
   <body>
+
     <div class="cart">
-      <div class="div">
         <div class="frame">
-          <div class="div-wrapper"><div class="text-wrapper">Skip to content</div></div>
+          <div class="div-wrapper">
+            <div class="text-wrapper">Skip to content</div>
+          </div>
           <div class="overlap-group-wrapper">
             <div class="overlap-group">
               <div class="ellipse-wrapper">
                 <!--Add Link-->
-                <a href="Main.html">
-                <img class="ellipse" src="https://c.animaapp.com/Z7HejqW2/img/ellipse-1@2x.png" /></a>
+              <a href="Main.html">
+                <img class="logo" src="https://c.animaapp.com/Z7HejqW2/img/ellipse-1@2x.png" />
+              </a>
 
               </div>
               <div class="auto-layout">
@@ -23,7 +26,10 @@
                 <div class="frame-3">
                   <!--Add Link-->
                   <a href="../Login.html">
-                  <div class="log-out-wrapper"><div class="log-out">Log Out</div></div></a>
+                  <div class="log-out-wrapper">
+                    <div class="log-out">Log Out</div>
+                  </div>
+                </a>
                   <a href="UserProfile.html">
                   <img class="user" src="https://c.animaapp.com/Z7HejqW2/img/user-1@2x.png" /></a>
 
@@ -38,13 +44,13 @@
           <img class="img" src="https://c.animaapp.com/Z7HejqW2/img/ellipse-9.svg" />
           <div class="text-wrapper-2">สรุปรายการอาหาร</div>
           <div class="password">กะเพราหมูสับ 40.00 บาท</div>
-          <div class="rectangle-5">
+          <div class="minus-button">
             <button class="quantity-button1" onclick="decrementQuantity('quantity1')"><p style="font-size: 36px;">-</p></button>
           </div>
-          <div class="rectangle-6">
+          <div class="zero">
             <span id="quantity1" style="font-size: 36px;">0</span>
           </div>
-          <div class="rectangle-7">
+          <div class="plus-button">
             <button class="quantity-button2" onclick="incrementQuantity('quantity1')"><p style="font-size: 36px;">+</p></button>
           </div>
 
@@ -59,14 +65,16 @@
             </div>
           </div>
         </div>
-        <div class="text-wrapper-4">ยอดรวม</div>
+
+        <span class="text-4">ยอดรวม</span>
         <div class="overlap-2">
           <!--Add Link-->
-          <button class="text-wrapper-5">ยืนยัน</button>
+          <button class="text-5">ยืนยัน</button>
         </div>
         <div class="element-wrapper"><div class="element">0.00 บาท</div></div>
       </div>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="ButtonCart.js"></script>
