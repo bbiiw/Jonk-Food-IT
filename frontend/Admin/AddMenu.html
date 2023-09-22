@@ -8,84 +8,79 @@
   <body>
     <div class="add-menu">
       <div class="div">
-        <div class="text-wrapper-4">เพิ่มเมนู</div>
         <div class="overlap">
-          <div class="text-wrapper">ชื่อ:</div>
-          <div class="text-wrapper-2">ราคา:</div>
-          <div class="password-2">รูปภาพ:</div>
-
-          <!-- Make From-->
-          <form id="add-menu-form" action="/shop/menu/add" method="POST" enctype="multipart/form-data">        
-            <input type="text" class="rectangle-4" placeholder="ชื่ออาหาร"  name="name" style="font-size: 24px;"/>
-            <input type="text" class="rectangle" placeholder="ราคา"  name="price" style="font-size: 24px;"/>
-            
-            <div class="overlap-group">
-            <!-- Can Add Image-->
-            <label for="imageInput" style="cursor: pointer;">
-            <div class="rectangle-3"></div>
-            <div class="password">choose file</div>
-            
-            <input type="file" id="image" name="image" accept="image/*" style="display: none;">
-            </label>
+          <div class="overlap-group">
+            <div class="overlap-2">
+              <div class="text-wrapper-3">ชื่อ:</div>
             </div>
-          </from>
-        </div>
-
-        <!-- add button -->
-        <div class="overlap-3" id="add-button" onclick="addMenuItem()">
-          <img class="rectangle-6" src="https://c.animaapp.com/N3hlQb1U/img/rectangle-142.png" />
-          <div class="text-wrapper-7">add</div>
-        </div>
-
-        <!-- List Menu added -->
-        <div class="text-wrapper-3">รายการเมนู</div>
-        <div class="rectangle-wrapper">
-            <div id="list-item"></div>
-        </div>
-
-        <!-- confirm-button -->
-          <div class="overlap-4" id="confirm-btn" style="display: none;" onclick="confirmMenu()">
-            <!-- Add link-->
-            <img class="rectangle-6" src="https://c.animaapp.com/N3hlQb1U/img/rectangle-142.png" />
-            <div class="text-wrapper-8">confirm</div>
-          </div>
-
-        <!-- <img class="vector" src="https://c.animaapp.com/N3hlQb1U/img/vector-3@2x.png" />
-          <img class="img" src="https://c.animaapp.com/N3hlQb1U/img/vector-3@2x.png" /> -->
-
-        <div class="overlap-2">
-          <div class="rectangle-5"></div>
-          <div class="frame">
-            <div class="div-wrapper"><div class="text-wrapper-5">JONK FOOD IT</div></div>
-          </div>
-        </div>
+            <div class="text-wrapper-4">ราคา:</div>
+            <div class="password-2">รูปภาพ:</div>
+            <div class="text-wrapper">หมวดหมู่:</div>
         
+            <!--Form Input-->
+            <form id="add-menu-form" action="/shop/menu/add" method="POST" enctype="multipart/form-data">  
+              <input type="text" class="rectangle-4" placeholder="ชื่ออาหาร"  name="name" style="font-size: 24px;"/>
+              <input type="text" class="rectangle" placeholder="ราคา"  name="price" style="font-size: 24px;"/>
+              <input type="file" id="image" name="image" accept="image/*" style="display: none;">
+              <label for="fileInput" class="password">Choose File</label>
+              <select name="อาหารจานเดี่ยว" class="div-wrapper" id="อาหารจานเดี่ยว" style="font-size: 24px;">
+                <option value="อาหารจานเดี่ยว">อาหารจานเดี่ยว</option>
+                <option value="เมนูเส้น">เมนูเส้น</option>
+                <option value="อาหารญี่ปุ่น">อาหารญี่ปุ่น</option>
+              </select>
+            </form>
+            <!--Button-->>
+              <button class="text-wrapper-5" id="add-button" onclick="addMenuItem()">Add</button>
+            
+            <div class="overlap-5" id="confirm-btn" style="display: none;" onclick="confirmMenu()">
+              <a href="MainAdmin.html">
+                <button class="text-wrapper-6">Confirm</button>
+              </a>           
+            </div>
+          </div>
+
+          <!--For Add Information-->
+          <div class="rectangle-5">
+            <div id="list-item"></div>
+          </div>
+          <div class="rectangle-6"></div>
+
+        </div>
+
+        <div class="text-wrapper-7">รายการเมนู</div>
+        <div class="text-wrapper-8">เพิ่มเมนู</div>
+        <div class="overlap-6">
+          <div class="rectangle-8"></div>
+          <div class="frame">
+            <div class="frame-2">
+              <div class="text-wrapper-9">JONK FOOD IT</div>
+            </div>
+          </div>
+        </div>
+
         <div class="overlap-group-wrapper">
           <div class="overlap-group-2">
-            <div class="frame-2"><div class="text-wrapper-6">Skip to content</div></div>
             <div class="frame-3">
+              <div class="text-wrapper-10">Skip to content</div>
+            </div>
+            <div class="frame-4">
               <div class="auto-layout-wrapper">
                 <div class="auto-layout">
-                  <div class="frame-4"></div>
                   <div class="frame-5"></div>
+                  <div class="frame-6"></div>
                 </div>
               </div>
-              
-              <!--Add Link-->
+
               <a href="MainAdmin.html">
-                <img class="ellipse" src="https://c.animaapp.com/Z7HejqW2/img/ellipse-1@2x.png" />
-              </a>
+                <img class="ellipse" src="https://c.animaapp.com/Z7HejqW2/img/ellipse-1@2x.png" /></a>
             </div>
           </div>
-        </div>
-
-
         </div>
       </div>
     </div>
-          <!-- Script -->
-          <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-          <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-          <script src="AddMenu.js"></script>
+        <!-- Script -->
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="AddMenu.js"></script>
   </body>
 </html>

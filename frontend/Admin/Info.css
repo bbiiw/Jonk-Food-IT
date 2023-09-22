@@ -1,0 +1,493 @@
+.info {
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.info .div {
+  background-color: #ffffff;
+  width: 1920px;
+  height: 1500px;
+  position: relative;
+}
+
+.info .frame {
+  position: absolute;
+  width: 464px;
+  height: 72px;
+  top: 0;
+  left: 0;
+}
+
+.info .div-wrapper {
+  position: absolute;
+  width: 16px;
+  height: 48px;
+  top: 0;
+  left: -976px;
+  background-color: #5b89bf;
+  overflow: hidden;
+}
+
+.info .text-wrapper {
+  position: absolute;
+  width: 10px;
+  height: 268px;
+  top: 25px;
+  left: 8px;
+  font-family: "Noto Sans", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: 21px;
+}
+
+.info .overlap-group-wrapper {
+  position: absolute;
+  width: 1930px;
+  height: 72px;
+  top: 0;
+  left: 0;
+  background-color: #046683;
+}
+
+.info .overlap-group {
+  position: relative;
+  width: 1822px;
+  height: 46px;
+  top: 14px;
+  left: 102px;
+}
+
+.info .ellipse-wrapper {
+  position: absolute;
+  width: 1280px;
+  height: 46px;
+  top: 0;
+  left: 0;
+}
+
+.info .ellipse {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  top: -12px;
+  left: -6px;
+  object-fit: cover;
+}
+
+.info .auto-layout {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 418.66px;
+  position: absolute;
+  top: 0;
+  left: 622px;
+}
+
+.info .frame-2 {
+  position: relative;
+  width: 388.16px;
+  height: 40px;
+}
+
+.info .frame-3 {
+  position: relative;
+  width: 393.19px;
+  height: 40px;
+}
+
+.info .log-out-wrapper {
+  display: inline-flex;
+  align-items: flex-start;
+  padding: 5px 9.27px 5px 9px;
+  position: absolute;
+  top: 6px;
+  left: 196px;
+  border-radius: 6px;
+  border: 1px solid;
+  border-color: #d0d7de;
+}
+
+.info .log-out {
+  position: relative;
+  width: fit-content;
+  margin-top: -1px;
+  font-family: "Noto Sans", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 16px;
+  letter-spacing: 0;
+  line-height: 24px;
+  white-space: nowrap;
+}
+
+.info .user {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  top: 3px;
+  left: 299px;
+  object-fit: cover;
+}
+
+.info .overlap {
+  position: absolute;
+  width: 1920px;
+  height: 105px;
+  top: 1395px;
+  left: 0;
+  background-image: url(https://c.animaapp.com/3cznobqH/img/rectangle-136.svg);
+  background-size: 100% 100%;
+}
+
+.info .frame-wrapper {
+  position: relative;
+  width: 1280px;
+  height: 68px;
+  left: 110px;
+  opacity: 0.42;
+}
+
+.info .frame-4 {
+  position: relative;
+  width: 454px;
+  height: 18px;
+  top: 25px;
+  left: 16px;
+}
+
+.info .text-wrapper-2 {
+  position: absolute;
+  height: 18px;
+  top: 25px;
+  left: -10px;
+  font-family: "Noto Sans", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 12px;
+  letter-spacing: 0;
+  line-height: 18px;
+  white-space: nowrap;
+}
+
+.info .overlap-2 {
+  position: absolute;
+  width: 1920px;
+  height: 398px;
+  top: 314px;
+  left: 0;
+}
+
+.info .rectangle {
+  top: 198px;
+  position: absolute;
+  width: 1920px;
+  height: 200px;
+  left: 0;
+  background-color: #d9d9d9b2;
+  border: 1px solid;
+  border-color: #000000;
+}
+
+.info .password {
+  width: 371px;
+  top: 279px;
+  left: 1405px;
+  position: absolute;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 36px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.info .password-2 {
+  width: 371px;
+  top: 279px;
+  left: 172px;
+  position: absolute;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 36px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.info .password-3 {
+  width: 371px;
+  top: 279px;
+  left: 517px;
+  position: absolute;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 36px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.info .password-4 {
+  width: 371px;
+  top: 279px;
+  left: 985px;
+  position: absolute;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 36px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.info .rectangle-2 {
+  top: 0;
+  position: absolute;
+  width: 1920px;
+  height: 200px;
+  left: 0;
+  background-color: #d9d9d9b2;
+  border: 1px solid;
+  border-color: #000000;
+}
+
+.info .password-5 {
+  width: 371px;
+  top: 85px;
+  left: 134px;
+  position: absolute;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 36px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.info .password-6 {
+  width: 371px;
+  top: 82px;
+  left: 579px;
+  position: absolute;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 36px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.info .password-7 {
+  width: 371px;
+  top: 85px;
+  left: 950px;
+  position: absolute;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 36px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.info .password-8 {
+  width: 349px;
+  top: 82px;
+  left: 1462px;
+  position: absolute;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 36px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.info .overlap-3 {
+  position: absolute;
+  width: 1920px;
+  height: 200px;
+  top: 712px;
+  left: 0;
+  background-color: #d9d9d9b2;
+  border: 1px solid;
+  border-color: #000000;
+}
+
+.info .password-9 {
+  width: 371px;
+  top: 80px;
+  left: 1404px;
+  position: absolute;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 36px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.info .overlap-4 {
+  position: absolute;
+  width: 716px;
+  height: 24px;
+  top: 81px;
+  left: 172px;
+}
+
+.info .password-10 {
+  width: 371px;
+  top: 0;
+  left: 0;
+  position: absolute;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 36px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.info .password-11 {
+  width: 371px;
+  top: 0;
+  left: 345px;
+  position: absolute;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 36px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.info .password-12 {
+  width: 371px;
+  top: 80px;
+  left: 984px;
+  position: absolute;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 36px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.info .overlap-5 {
+  position: absolute;
+  width: 1920px;
+  height: 200px;
+  top: 912px;
+  left: 0;
+  background-color: #d9d9d9b2;
+  border: 1px solid;
+  border-color: #000000;
+}
+
+.info .text-wrapper-3 {
+  top: 157px;
+  left: 150px;
+  font-size: 48px;
+  position: absolute;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.info .overlap-6 {
+  position: absolute;
+  width: 200px;
+  height: 75px;
+  top: 1216px;
+  left: 172px;
+  background-color: #dcbd85;
+  border-radius: 10px;
+  /* border: 3px solid; */
+  border-color: #000000;
+}
+
+.info .text-wrapper-4 {
+  width: 152px;
+  top: 18px;
+  left: 25px;
+  font-size: 28px;
+  white-space: nowrap;
+  position: absolute;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.info .overlap-7 {
+  position: absolute;
+  width: 200px;
+  height: 75px;
+  top: 1216px;
+  left: 505px;
+  background-color: #dcbd85;
+  border-radius: 10px;
+  /* border: 3px solid; */
+  border-color: #000000;
+}
+
+.info .text-wrapper-5 {
+  width: 152px;
+  top: 19px;
+  left: 25px;
+  font-size: 28px;
+  white-space: nowrap;
+  position: absolute;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.info .overlap-8 {
+  position: absolute;
+  width: 200px;
+  height: 75px;
+  top: 1216px;
+  left: 815px;
+  background-color: #dcbd85;
+  border-radius: 10px;
+  /* border: 3px solid; */
+  border-color: #000000;
+}
+
+.info .text-wrapper-6 {
+  width: 152px;
+  top: 19px;
+  left: 25px;
+  font-size: 28px;
+  white-space: nowrap;
+  position: absolute;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  letter-spacing: 0;
+  line-height: normal;
+}

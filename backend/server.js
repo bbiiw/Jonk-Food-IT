@@ -34,8 +34,9 @@ connection.connect((error) => {
 function isAuthenticated(req, res, next) {
   if (req.session.loggedin) {
     return next();
+  } else {
+    res.sendFile(path.join(__dirname, '../frontend/login.html'))
   }
-  res.sendFile(path.join(__dirname, '../frontend/login.html'))
 }
 
 // Setting Session
@@ -96,7 +97,7 @@ app.post('/user/login', async (req, res) => {
         
         const [rows] = await connection.promise().query("SELECT * FROM users WHERE username = ? AND password = ?", // ค้นหาผู้ใช้ customer
         [username, password])
-            if (rows.length === 1) {
+            if (rows.length === 1 && rows[0].type == 'customer') {
                 req.session.loggedin = true
                 req.session.username = rows[0]
                 console.log('Customer ได้ทำการเข้าสู่ระบบ')
@@ -116,7 +117,7 @@ app.post('/shop/login', async (req, res) => {
         
         const [rows] = await connection.promise().query("SELECT * FROM users WHERE username = ? AND password = ?", // ค้นหาผู้ใช้ shop
         [username, password])
-            if (rows.length === 1) {
+            if (rows.length === 1 && rows[0].type == 'shop') {
                 req.session.loggedin = true
                 req.session.username = rows[0]
                 res.send('เข้าสู่ระบบสำเร็จ')
@@ -210,6 +211,7 @@ app.post('/user/cart/add', isAuthenticated, async (req, res) => {
 //         return res.status(500).send('เกิดข้อผิดพลาดในการเพิ่มอาหารลงตะกร้า')
 //     }
 // })
+
 // CART PAGE
 app.get('/user/cart', async (req, res) => {
     res.json(cart)
@@ -248,14 +250,14 @@ app.post('/user/confirm', isAuthenticated, async (req, res) => {
 })
 
 // SHOP MENU PAGE
-app.get('/shop/menu', isAuthenticated, async (req, res) => {
-    connection.query("SELECT * FROM menu", (error, result) => {
-        
+app.get('/shop/menu', async (req, res) => {
+    connection.query("SELECT menu_name, cost FROM menu", (error, result) => {
+        res.json(result)
     })
 })
 
 // SHOP ADD MENU
-app.post('/shop/menu/add',  async (req, res) => {
+app.post('/shop/menu/add', async (req, res) => {
     try {
         const menuData = req.body.menuData
         menuData.forEach((menuItem) => {

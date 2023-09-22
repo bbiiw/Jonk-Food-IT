@@ -14,32 +14,28 @@
   position: relative;
 }
 
-.add-menu .menu-detail {
-  display: flex;
-  color: #333;
-  font-size: 60px;
-  text-decoration: none; 
-  padding: 30px;
-  align-items: center;
-  height: 200px;
-  background-color: #d9d9d9b2;
-  border: 1px solid;
-}
-
 .add-menu .overlap {
   position: absolute;
-  width: 548px;
-  height: 450px;
+  width: 1839px;
+  height: 671px;
   top: 293px;
   left: 52px;
+}
+
+.add-menu .overlap-group {
+  position: absolute;
+  width: 548px;
+  height: 552px;
+  top: 0;
+  left: 0;
   background-color: #6b6b6b80;
   border-radius: 20px;
 }
 
 .add-menu .text-wrapper {
   width: 157px;
-  top: 29px;
-  left: 44px;
+  top: 409px;
+  left: 46px;
   font-weight: 400;
   font-size: 30px;
   letter-spacing: 0;
@@ -48,6 +44,51 @@
   position: absolute;
   font-family: "Inter", Helvetica;
   color: #000000;
+}
+
+.add-menu .div-wrapper {
+  position: absolute;
+  width: 437px;
+  height: 39px;
+  top: 458px;
+  left: 46px;
+  background-color: #ffffff;
+  border-radius: 10px;
+}
+
+.add-menu .text-wrapper-2 {
+  width: 346px;
+  top: 7px;
+  left: 18px;
+  font-weight: 400;
+  font-size: 24px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  font-family: "Inter", Helvetica;
+  color: #000000;
+}
+
+.add-menu .overlap-2 {
+  position: absolute;
+  width: 157px;
+  height: 33px;
+  top: 29px;
+  left: 44px;
+}
+
+.add-menu .text-wrapper-3 {
+  position: absolute;
+  width: 157px;
+  top: 0;
+  left: 0;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 30px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
 }
 
 .add-menu .rectangle {
@@ -60,7 +101,7 @@
   border-radius: 10px;
 }
 
-.add-menu .overlap-group {
+.add-menu .overlap-3 {
   position: absolute;
   width: 437px;
   height: 43px;
@@ -68,7 +109,15 @@
   left: 46px;
 }
 
-
+.add-menu .rectangle-2 {
+  position: absolute;
+  width: 437px;
+  height: 39px;
+  top: 0;
+  left: 0;
+  background-color: #ffffff;
+  border-radius: 10px;
+}
 
 .add-menu .rectangle-3 {
   position: absolute;
@@ -82,15 +131,18 @@
 
 .add-menu .password {
   position: absolute;
-  width: 314px;
-  top: 9px;
-  left: 20px;
+  width: 150px;
+  height: 35px;
+  top: 350px;
+  left: 75px;
   font-family: "Inter", Helvetica;
   font-weight: 400;
   color: #000000;
-  font-size: 16px;
+  font-size: 24px;
   letter-spacing: 0;
   line-height: normal;
+  background-color: #dcbd85;
+  border-radius: 10px;
 }
 
 .add-menu .rectangle-4 {
@@ -103,7 +155,7 @@
   border-radius: 10px;
 }
 
-.add-menu .text-wrapper-2 {
+.add-menu .text-wrapper-4 {
   width: 474px;
   top: 154px;
   left: 46px;
@@ -131,7 +183,93 @@
   white-space: nowrap;
 }
 
-.add-menu .text-wrapper-3 {
+.add-menu .overlap-4 {
+  position: absolute;
+  width: 1433px;
+  height: 637px;
+  top: 0;
+  left: 376px;
+}
+
+.add-menu .img {
+  position: absolute;
+  width: 183px;
+  height: 58px;
+  top: 579px;
+  left: 0;
+}
+
+.add-menu .text-wrapper-5 {
+  position: absolute;
+  width: 175px;
+  top: 581px;
+  left: 59px;
+  transform: rotate(-0.23deg);
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 32px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+  background-color: #dcbd85;
+  border-radius: 10px;
+}
+
+.add-menu .rectangle-5 {
+  position: absolute;
+  width: 1200px;
+  height: 588px;
+  top: 0;
+  left: 625px;
+  background-color: #6f696991;
+}
+
+.add-menu .rectangle-6 {
+  position: absolute;
+  width: 1200px;
+  height: 200px;
+  top: 0;
+  left: 625px;
+  background-color: #d9d9d9b2;
+  border: 1px solid;
+  border-color: #000000;
+}
+
+.add-menu .overlap-5 {
+  position: absolute;
+  width: 210px;
+  height: 58px;
+  top: 613px;
+  left: 1629px;
+}
+
+.add-menu .rectangle-7 {
+  position: absolute;
+  width: 183px;
+  height: 58px;
+  top: 0;
+  left: 0;
+}
+
+.add-menu .text-wrapper-6 {
+  position: absolute;
+  width: 175px;
+  top: 5px;
+  left: 35px;
+  transform: rotate(-0.23deg);
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 32px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+  background-color: #dcbd85;
+  border-radius: 10px;
+}
+
+.add-menu .text-wrapper-7 {
   width: 157px;
   top: 241px;
   left: 677px;
@@ -153,7 +291,7 @@
   height: 5px;
 }
 
-.add-menu .img {
+.add-menu .vector-2 {
   top: -5288px;
   left: -3480px;
   position: absolute;
@@ -161,7 +299,7 @@
   height: 5px;
 }
 
-.add-menu .text-wrapper-4 {
+.add-menu .text-wrapper-8 {
   width: 514px;
   top: 121px;
   left: 64px;
@@ -175,7 +313,7 @@
   font-style: var(--h1-font-style);
 }
 
-.add-menu .overlap-2 {
+.add-menu .overlap-6 {
   position: absolute;
   width: 1923px;
   height: 112px;
@@ -183,7 +321,7 @@
   left: -3px;
 }
 
-.add-menu .rectangle-5 {
+.add-menu .rectangle-8 {
   position: absolute;
   width: 1923px;
   height: 105px;
@@ -200,7 +338,7 @@
   left: 55px;
 }
 
-.add-menu .div-wrapper {
+.add-menu .frame-2 {
   position: relative;
   width: 454px;
   height: 18px;
@@ -208,7 +346,7 @@
   left: 28px;
 }
 
-.add-menu .text-wrapper-5 {
+.add-menu .text-wrapper-9 {
   position: absolute;
   height: 18px;
   top: -1px;
@@ -235,7 +373,7 @@
   height: 72px;
 }
 
-.add-menu .frame-2 {
+.add-menu .frame-3 {
   position: absolute;
   width: 16px;
   height: 48px;
@@ -245,7 +383,7 @@
   overflow: hidden;
 }
 
-.add-menu .text-wrapper-6 {
+.add-menu .text-wrapper-10 {
   position: absolute;
   width: 10px;
   height: 268px;
@@ -259,7 +397,7 @@
   line-height: 21px;
 }
 
-.add-menu .frame-3 {
+.add-menu .frame-4 {
   position: absolute;
   width: 1920px;
   height: 72px;
@@ -284,13 +422,13 @@
   left: 64px;
 }
 
-.add-menu .frame-4 {
+.add-menu .frame-5 {
   position: relative;
   width: 388.16px;
   height: 40px;
 }
 
-.add-menu .frame-5 {
+.add-menu .frame-6 {
   position: relative;
   width: 393.19px;
   height: 40px;
@@ -305,65 +443,14 @@
   object-fit: cover;
 }
 
-.add-menu .overlap-3 {
-  position: absolute;
-  width: 234px;
-  height: 58px;
-  top: 777px;
-  left: 416px;
-}
-
-.add-menu .rectangle-6 {
-  position: absolute;
-  width: 183px;
-  height: 58px;
-  top: 0;
-  left: 0;
-}
-
-.add-menu .text-wrapper-7 {
-  position: absolute;
-  width: 175px;
-  top: 2px;
-  left: 59px;
-  transform: rotate(-0.23deg);
-  font-family: "Inter", Helvetica;
-  font-weight: 400;
-  color: #000000;
-  font-size: 32px;
-  letter-spacing: 0;
-  line-height: normal;
-  white-space: nowrap;
-}
-
-.add-menu .overlap-4 {
-  position: absolute;
-  width: 210px;
-  height: 58px;
-  top: 906px;
-  left: 1681px;
-}
-
-.add-menu .text-wrapper-8 {
-  position: absolute;
-  width: 175px;
-  top: 5px;
-  left: 35px;
-  transform: rotate(-0.23deg);
-  font-family: "Inter", Helvetica;
-  font-weight: 400;
-  color: #000000;
-  font-size: 32px;
-  letter-spacing: 0;
-  line-height: normal;
-  white-space: nowrap;
-}
-
-.add-menu .rectangle-wrapper {
-  position: absolute;
-  width: 1200px;
-  height: 600px;
-  top: 293px;
-  left: 661px;
-  background-color: #6f696991;
+.add-menu .menu-detail {
+  display: flex;
+  color: #333;
+  font-size: 60px;
+  text-decoration: none; 
+  padding: 30px;
+  align-items: center;
+  height: 200px;
+  background-color: #d9d9d9b2;
+  border: 1px solid;
 }

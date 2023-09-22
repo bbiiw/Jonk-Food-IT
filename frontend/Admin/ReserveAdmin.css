@@ -1,0 +1,403 @@
+.resever-admin {
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.resever-admin .div {
+  background-color: #ffffff;
+  width: 1920px;
+  height: 1080px;
+  position: relative;
+}
+
+.resever-admin .frame {
+  position: absolute;
+  width: 464px;
+  height: 72px;
+  top: 0;
+  left: 0;
+}
+
+.resever-admin .div-wrapper {
+  position: absolute;
+  width: 16px;
+  height: 48px;
+  top: 0;
+  left: -976px;
+  background-color: #5b89bf;
+  overflow: hidden;
+}
+
+.resever-admin .text-wrapper {
+  position: absolute;
+  width: 10px;
+  height: 268px;
+  top: 25px;
+  left: 8px;
+  font-family: "Noto Sans", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: 21px;
+}
+
+.resever-admin .overlap-group-wrapper {
+  position: absolute;
+  width: 1930px;
+  height: 72px;
+  top: 0;
+  left: 0;
+  background-color: #046683;
+}
+
+.resever-admin .overlap-group {
+  position: relative;
+  width: 1822px;
+  height: 46px;
+  top: 14px;
+  left: 102px;
+}
+
+.resever-admin .ellipse-wrapper {
+  position: absolute;
+  width: 1280px;
+  height: 46px;
+  top: 0;
+  left: 0;
+}
+
+.resever-admin .ellipse {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  top: -12px;
+  left: -6px;
+  object-fit: cover;
+}
+
+.resever-admin .auto-layout {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 418.66px;
+  position: absolute;
+  top: 0;
+  left: 622px;
+}
+
+.resever-admin .frame-2 {
+  position: relative;
+  width: 388.16px;
+  height: 40px;
+}
+
+.resever-admin .frame-3 {
+  position: relative;
+  width: 393.19px;
+  height: 40px;
+}
+
+.resever-admin .log-out-wrapper {
+  display: inline-flex;
+  align-items: flex-start;
+  padding: 5px 9.27px 5px 9px;
+  position: absolute;
+  top: 6px;
+  left: 196px;
+  border-radius: 6px;
+  border: 1px solid;
+  border-color: #d0d7de;
+}
+
+.resever-admin .log-out {
+  position: relative;
+  width: fit-content;
+  margin-top: -1px;
+  font-family: "Noto Sans", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 16px;
+  letter-spacing: 0;
+  line-height: 24px;
+  white-space: nowrap;
+}
+
+.resever-admin .user {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  top: 3px;
+  left: 299px;
+  object-fit: cover;
+}
+
+.resever-admin .overlap {
+  position: absolute;
+  width: 1920px;
+  height: 98px;
+  top: 982px;
+  left: 0;
+  background-image: url(https://c.animaapp.com/7OlDzEzZ/img/rectangle-136.svg);
+  background-size: 100% 100%;
+}
+
+.resever-admin .frame-wrapper {
+  position: relative;
+  width: 1280px;
+  height: 68px;
+  left: 71px;
+  opacity: 0.42;
+}
+
+.resever-admin .frame-4 {
+  position: relative;
+  width: 454px;
+  height: 18px;
+  top: 25px;
+  left: 16px;
+}
+
+.resever-admin .text-wrapper-2 {
+  position: absolute;
+  height: 18px;
+  top: 25px;
+  left: -10px;
+  font-family: "Noto Sans", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 12px;
+  letter-spacing: 0;
+  line-height: 18px;
+  white-space: nowrap;
+}
+
+.resever-admin .overlap-2 {
+  position: absolute;
+  width: 1920px;
+  height: 200px;
+  top: 72px;
+  left: 0;
+  background-color: #d9d9d9b2;
+  border: 1px solid;
+  border-color: #000000;
+}
+
+.resever-admin .password {
+  width: 371px;
+  top: 84px;
+  left: 133px;
+  position: absolute;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 36px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.resever-admin .password-2 {
+  width: 371px;
+  top: 81px;
+  left: 578px;
+  position: absolute;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 36px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.resever-admin .overlap-3 {
+  position: absolute;
+  width: 714px;
+  height: 38px;
+  top: 82px;
+  left: 985px;
+}
+
+.resever-admin .password-3 {
+  width: 371px;
+  top: 0;
+  left: 0;
+  position: absolute;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 36px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.resever-admin .password-4 {
+  width: 349px;
+  top: 0;
+  left: 365px;
+  position: absolute;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 36px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.resever-admin .overlap-4 {
+  position: absolute;
+  width: 1920px;
+  height: 200px;
+  top: 272px;
+  left: 0;
+  background-color: #d9d9d9b2;
+  border: 1px solid;
+  border-color: #000000;
+}
+
+.resever-admin .overlap-5 {
+  position: absolute;
+  width: 476px;
+  height: 75px;
+  top: 62px;
+  left: 1324px;
+}
+
+.resever-admin .password-5 {
+  position: absolute;
+  width: 371px;
+  top: 19px;
+  left: 0;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 36px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.resever-admin .rectangle {
+  background-color: #dcbd85;
+  border-radius: 10px;
+  border: 3px solid;
+  border-color: #000000;
+  position: absolute;
+  width: 200px;
+  height: 75px;
+  top: 0;
+  left: 276px;
+}
+
+.resever-admin .text-wrapper-3 {
+  position: absolute;
+  width: 200px;
+  height: 75px;
+  top: 0px;
+  left: 275px;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 28px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+  background-color: #dcbd85;
+  border-radius: 10px;
+  border-color: #000000;
+}
+
+.resever-admin .password-6 {
+  width: 371px;
+  top: 80px;
+  left: 171px;
+  position: absolute;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 36px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.resever-admin .password-7 {
+  width: 371px;
+  top: 80px;
+  left: 555px;
+  position: absolute;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 36px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.resever-admin .password-8 {
+  width: 371px;
+  top: 80px;
+  left: 943px;
+  position: absolute;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 36px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.resever-admin .overlap-6 {
+  position: absolute;
+  width: 1920px;
+  height: 200px;
+  top: 474px;
+  left: 0;
+  background-color: #d9d9d9b2;
+  border: 1px solid;
+  border-color: #000000;
+}
+
+.resever-admin .img {
+  position: absolute;
+  width: 200px;
+  height: 75px;
+  top: 0;
+  left: 276px;
+}
+
+.resever-admin .text-wrapper-4 {
+  position: absolute;
+  width: 200px;
+  height: 75px;
+  top: 0px;
+  left: 275px;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 28px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+  background-color: #dcbd85;
+  border-radius: 10px;
+  border-color: #000000;
+}
+
+.resever-admin .overlap-7 {
+  position: absolute;
+  width: 1920px;
+  height: 200px;
+  top: 676px;
+  left: 0;
+  background-color: #d9d9d9b2;
+  border: 1px solid;
+  border-color: #000000;
+}

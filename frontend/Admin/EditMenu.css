@@ -17,7 +17,7 @@
 .edit-menu .overlap {
   position: absolute;
   width: 694px;
-  height: 450px;
+  height: 557px;
   top: 248px;
   left: 384px;
   background-color: #6b6b6b80;
@@ -25,6 +25,43 @@
 }
 
 .edit-menu .text-wrapper {
+  width: 157px;
+  top: 401px;
+  left: 22px;
+  font-weight: 400;
+  font-size: 30px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+  position: absolute;
+  font-family: "Inter", Helvetica;
+  color: #000000;
+}
+
+.edit-menu .overlap-group {
+  position: absolute;
+  width: 628px;
+  height: 39px;
+  top: 450px;
+  left: 22px;
+  background-color: #ffffff;
+  border-radius: 10px;
+}
+
+.edit-menu .text-wrapper-2 {
+  width: 346px;
+  top: 7px;
+  left: 18px;
+  font-weight: 400;
+  font-size: 24px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  font-family: "Inter", Helvetica;
+  color: #000000;
+}
+
+.edit-menu .text-wrapper-3 {
   width: 157px;
   top: 21px;
   left: 20px;
@@ -38,7 +75,7 @@
   color: #000000;
 }
 
-.edit-menu .rectangle {
+.edit-menu .rectangle-4 {
   position: absolute;
   width: 628px;
   height: 39px;
@@ -48,12 +85,22 @@
   border-radius: 10px;
 }
 
-.edit-menu .overlap-group {
+.edit-menu .overlap-2 {
   position: absolute;
   width: 628px;
   height: 42px;
   top: 325px;
   left: 22px;
+}
+
+.edit-menu .rectangle-2 {
+  position: absolute;
+  width: 628px;
+  height: 39px;
+  top: 0;
+  left: 0;
+  background-color: #ffffff;
+  border-radius: 10px;
 }
 
 .edit-menu .rectangle-3 {
@@ -68,18 +115,24 @@
 
 .edit-menu .password {
   position: absolute;
-  width: 314px;
-  top: 8px;
-  left: 20px;
+  width: 130px;
+  height: 30px;
+  top: 340px;
+  left: 35px;
   font-family: "Inter", Helvetica;
-  font-weight: 400;
+  font-weight: 100;
   color: #000000;
   font-size: 16px;
   letter-spacing: 0;
   line-height: normal;
+  background-color: #dcbd85;
+  border-radius: 10px;
+  border-color: #000000;
+  font-size: 24px;
+ 
 }
 
-.edit-menu .rectangle-4 {
+.edit-menu .rectangle {
   position: absolute;
   width: 628px;
   height: 39px;
@@ -89,7 +142,7 @@
   border-radius: 10px;
 }
 
-.edit-menu .text-wrapper-2 {
+.edit-menu .text-wrapper-4 {
   width: 474px;
   top: 146px;
   left: 22px;
@@ -133,7 +186,7 @@
   height: 5px;
 }
 
-.edit-menu .text-wrapper-3 {
+.edit-menu .text-wrapper-5 {
   width: 514px;
   top: 121px;
   left: 64px;
@@ -147,7 +200,7 @@
   font-style: var(--h1-font-style);
 }
 
-.edit-menu .overlap-2 {
+.edit-menu .overlap-3 {
   position: absolute;
   width: 1923px;
   height: 112px;
@@ -180,7 +233,7 @@
   left: 28px;
 }
 
-.edit-menu .text-wrapper-4 {
+.edit-menu .text-wrapper-6 {
   position: absolute;
   height: 18px;
   top: -1px;
@@ -217,7 +270,7 @@
   overflow: hidden;
 }
 
-.edit-menu .text-wrapper-5 {
+.edit-menu .text-wrapper-7 {
   position: absolute;
   width: 10px;
   height: 268px;
@@ -286,12 +339,12 @@
   background-color: #e6b2b2;
 }
 
-.edit-menu .overlap-3 {
+.edit-menu .overlap-4 {
   position: absolute;
   width: 210px;
   height: 58px;
-  top: 752px;
-  left: 909px;
+  top: 856px;
+  left: 907px;
 }
 
 .edit-menu .rectangle-7 {
@@ -302,7 +355,7 @@
   left: 0;
 }
 
-.edit-menu .text-wrapper-6 {
+.edit-menu .text-wrapper-8 {
   position: absolute;
   width: 175px;
   top: 5px;

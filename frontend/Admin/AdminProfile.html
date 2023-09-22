@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="globals.css" />
+    <link rel="stylesheet" href="AdminProfileguide.css" />
+    <link rel="stylesheet" href="AdminProfile.css" />
+  </head>
+  <body>
+    <div class="ADMIN-profile">
+      <div class="div">
+        <div class="frame">
+          <div class="div-wrapper"><div class="text-wrapper">Skip to content</div></div>
+          <div class="overlap-group-wrapper">
+            <div class="overlap-group">
+              <div class="ellipse-wrapper">
+                <a href="MainAdmin.html">
+                  <img class="ellipse" src="https://c.animaapp.com/Z7HejqW2/img/ellipse-1@2x.png" /></a>
+              </div>
+              <div class="auto-layout">
+                <div class="frame-2"></div>
+                <div class="auto-layout-wrapper">
+                  <a href="../Login.html">
+                  <div class="log-out-wrapper">
+                    <div class="log-out">Log Out</div>
+                  </div>
+                </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="overlap">
+          <div class="frame-wrapper">
+            <div class="frame-3"><div class="text-wrapper-2">JONK FOOD IT</div></div>
+          </div>
+        </div>
+
+        <!--Start Information-->
+        <div class="overlap-2">
+          <!-- Can Add Image + JAVASCRIPT-->
+          <label for="imageInput" style="cursor: pointer;">
+            <img class="img" src="https://c.animaapp.com/tmAhLJTv/img/ellipse-30@2x.png" alt="User Image" id="imgPreview" onclick="openImageInput()"/>
+          </label>
+          <input type="file" id="picInput" accept="image/*" style="display: none;">
+          <div class="overlap-3">
+            <div class="text-wrapper-3">ชื่อร้านค้า :</div>
+            <!--Forms + JAVASCRIPT-->
+            <form action="">
+              <input type="text" class="rectangle" placeholder="ชื่อร้านค้า"  name="nameshop"style="font-size: 48px;" disabled id="nameShopInput"/>
+              </form>
+          </div>
+          <div class="overlap-4">
+            <div class="text-wrapper-4">Username :</div>
+            <!--Forms + JAVASCRIPT-->
+            <form action="">
+              <input type="text" class="rectangle-2" placeholder="Username"  name="username" style="font-size: 48px;" disabled id="usernameInput"/>
+              </form>
+          </div>
+          <div class="overlap-5">
+            <div class="text-wrapper-5">เบอร์โทร :</div>
+            <!--Forms + JAVASCRIPT-->
+            <form action="">
+              <input type="text" class="rectangle-3" placeholder="เบอร์โทร"  name="tel" style="font-size: 48px;" disabled id="telephoneInput"/>
+              </form>
+          </div>
+          <div class="overlap-6">
+            <div class="text-wrapper-6">E-Mail :</div>
+            <!--Forms + JAVASCRIPT-->
+            <form action="">
+              <input type="text" class="rectangle-4" placeholder="E-Mail"  name="email" style="font-size: 48px;" disabled id="emailInput"/>
+              </form>
+          </div>
+
+
+          <!--Add Javascript-->
+          <div class="overlap-7 " id="updateButton">
+            <button class="rectangle-5" id="updateButton" ></button>
+            <div class="text-wrapper-7" id="updateButton">Update Profile</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="InputAdminProfile.js"></script>
+  </body>
+</html>
