@@ -274,15 +274,40 @@ app.post('/shop/menu/add', async (req, res) => {
     }
 })
 
+
+// app.post('/shop/menu/edit/:id', isAuthenticated, async (req, res) => {
+//     const { menu_name, cost, image } = req.body
+//     const { menu_id } = req.params
+//     connection.query("UPDATE menu SET menu_name = ?, cost = ?, image = ? WHERE menu_id = ?",
+//     [menu_name, cost, image, menu_id], (error, result) => {
+
+//     })
+// })
+
 // SHOP EDIT MENU
 app.post('/shop/menu/edit/:id', isAuthenticated, async (req, res) => {
-    const { menu_name, cost, image } = req.body
-    const { menu_id } = req.params
-    connection.query("UPDATE menu SET menu_name = ?, cost = ?, image = ? WHERE menu_id = ?",
-    [menu_name, cost, image, menu_id], (error, result) => {
+    try {
+        // ดึงข้อมูลจากการส่งฟอร์ม
+        const { menu_name, cost, image, category, menu_id } = req.body;
 
-    })
-})
+        // อัปเดตรายการเมนูในฐานข้อมูลโดยใช้ menu_id
+        connection.query(
+            'UPDATE menu SET menu_name = ?, cost = ?, image = ?, category = ? WHERE menu_id = ?',
+            [menu_name, cost, image, category, menu_id],
+            (error, result) => {
+                if (error) {
+                    console.error('เกิดข้อผิดพลาดในการอัปเดตรายการเมนู:', error.message);
+                    return res.status(500).send('เกิดข้อผิดพลาดในระหว่างการอัปเดตรายการเมนู');
+                }
+                console.log('อัปเดตรายการเมนูสำเร็จ');
+                return res.status(200).send('อัปเดตรายการเมนูสำเร็จ');
+            }
+        );
+    } catch (error) {
+        console.error('เกิดข้อผิดพลาดในการจัดการการแก้ไขรายการเมนู:', error.message);
+        return res.status(500).send('เกิดข้อผิดพลาดในการจัดการการแก้ไขรายการเมนู');
+    }
+});
 
 // SHOP DELETE MENU
 app.post('/shop/menu/delete/:id', isAuthenticated, (req, res) => {
