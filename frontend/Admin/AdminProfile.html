@@ -36,50 +36,71 @@
         </div>
 
         <!--Start Information-->
+        <!-- Before edit -->
         <div class="overlap-2">
           <!-- Can Add Image + JAVASCRIPT-->
           <label for="imageInput" style="cursor: pointer;">
             <img class="img" src="https://c.animaapp.com/tmAhLJTv/img/ellipse-30@2x.png" alt="User Image" id="imgPreview" onclick="openImageInput()"/>
           </label>
           <input type="file" id="picInput" accept="image/*" style="display: none;">
+
           <div class="overlap-3">
             <div class="text-wrapper-3">ชื่อร้านค้า :</div>
-            <!--Forms + JAVASCRIPT-->
-            <form action="">
-              <input type="text" class="rectangle" placeholder="ชื่อร้านค้า"  name="nameshop"style="font-size: 48px;" disabled id="nameShopInput"/>
-              </form>
+              <input type="text" id="shop_name" class="rectangle" placeholder="ชื่อร้านค้า"  name="nameshop"style="font-size: 48px;" readonly/>
           </div>
           <div class="overlap-4">
             <div class="text-wrapper-4">Username :</div>
-            <!--Forms + JAVASCRIPT-->
-            <form action="">
-              <input type="text" class="rectangle-2" placeholder="Username"  name="username" style="font-size: 48px;" disabled id="usernameInput"/>
-              </form>
+              <input type="text" id="username" class="rectangle-2" placeholder="Username"  name="username" style="font-size: 48px;" readonly/>
           </div>
           <div class="overlap-5">
             <div class="text-wrapper-5">เบอร์โทร :</div>
-            <!--Forms + JAVASCRIPT-->
-            <form action="">
-              <input type="text" class="rectangle-3" placeholder="เบอร์โทร"  name="tel" style="font-size: 48px;" disabled id="telephoneInput"/>
-              </form>
+              <input type="text" id="tel" class="rectangle-3" placeholder="เบอร์โทร"  name="tel" style="font-size: 48px;" readonly/>
           </div>
           <div class="overlap-6">
-            <div class="text-wrapper-6">E-Mail :</div>
-            <!--Forms + JAVASCRIPT-->
-            <form action="">
-              <input type="text" class="rectangle-4" placeholder="E-Mail"  name="email" style="font-size: 48px;" disabled id="emailInput"/>
-              </form>
+            <div class="text-wrapper-6">E-Mail :</div>>
+              <input type="text" id="email" class="rectangle-4" placeholder="E-Mail"  name="email" style="font-size: 48px;" readonly/>
           </div>
 
 
           <!--Add Javascript-->
-          <div class="overlap-7 " id="updateButton">
-            <button class="rectangle-5" id="updateButton" ></button>
-            <div class="text-wrapper-7" id="updateButton">Update Profile</div>
+          <div class="overlap-7 " id="editButton">
+            <button class="rectangle-5" id="editButton"></button>
+            <div class="text-wrapper-7" id="editButton">Edit Profile</div>
           </div>
+        
+        <!-- Edit -->
+        <div id="editProfile" style="display: none;">
+          <form>
+            <!-- Can Add Image + JAVASCRIPT-->
+            <div class="overlap-3">
+              <div class="text-wrapper-3">ชื่อร้านค้า :</div>
+                <input type="text" id="edit_shop_name" class="rectangle" placeholder="ชื่อร้านค้า"  name="nameshop"style="font-size: 48px;" required/>
+            </div>
+            <div class="overlap-4">
+              <div class="text-wrapper-4">Username :</div>
+                <input type="text" id="edit_username" class="rectangle-2" placeholder="Username"  name="username" style="font-size: 48px;" disabled/>
+            </div>
+            <div class="overlap-5">
+              <div class="text-wrapper-5">เบอร์โทร :</div>
+                <input type="text" id="edit_tel" class="rectangle-3" placeholder="เบอร์โทร"  name="tel" style="font-size: 48px;" required/>
+            </div>
+            <div class="overlap-6">
+              <div class="text-wrapper-6">E-Mail :</div>>
+                <input type="text" id="edit_email" class="rectangle-4" placeholder="E-Mail"  name="email" style="font-size: 48px;" required/>
+            </div>
+
+            <!--Add Javascript-->
+            <div class="overlap-7 " id="updateButton">
+              <button class="rectangle-5" id="updateButton" ></button>
+              <div class="text-wrapper-7" id="updateButton">Update Profile</div>
+            </div>
+          </form>
+
         </div>
       </div>
     </div>
-    <script src="InputAdminProfile.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="AdminProfile.js"></script>
   </body>
 </html>
