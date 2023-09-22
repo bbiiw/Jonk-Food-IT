@@ -78,7 +78,7 @@ app.post('/user/register', async (req, res) => {
         const user_id = userResult[0].insertId
 
         // เพิ่มผู้ใช้ใหม่ลงในตาราง CUSTOMER
-        const customerResult = await connection.promise().query("INSERT INTO customer(user_id, first_name, last_name, stu_id) VALUES(?, ?, ?, ?)",
+        const customerResult = await connection.promise().query("INSERT INTO customer(user_id, first_name, last_name) VALUES(?, ?, ?)",
         [user_id, first_name, last_name, username])
             console.log('สร้างบัญชีสำเร็จและทำการบันทึกลง Customer')
             return res.send('ลงทะเบียนสำเร็จ')
