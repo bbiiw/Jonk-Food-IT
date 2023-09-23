@@ -16,7 +16,11 @@ function handleFileSelect() {
           if (image.width <= 250 && image.height <= 250) {
             imagePreview.innerHTML = `<img src="${e.target.result}" />`;
           } else {
-            alert("กรุณาเลือกรูปภาพที่มีขนาดไม่เกิน 250x250 พิกเซล");
+            Swal.fire({
+              icon: 'error',
+              title: 'รูปภาพของคุณมีขนาดใหญ่เกิน',
+              text: 'กรุณาเลือกรูปภาพที่มีขนาดไม่เกิน 250x250 พิกเซล',
+            })
             fileInput.value = "";
             imagePreview.innerHTML = "";
           }
