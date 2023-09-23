@@ -15,21 +15,21 @@ document.addEventListener('DOMContentLoaded', function() {
     if (namefoodInput.trim() === '' && priceInput.trim() === '') {
       // แสดง SweetAlert2 ในกรณีที่ข้อมูลไม่ถูกกรอกครบ
       Swal.fire({
-        title: 'กรุณากรอกชื่ออาหารและราคา',
+        title: 'กรุณากรอกข้อมูลให้ครบ',
         icon: 'error',
         confirmButtonText: 'ตกลง'
       });
     } else if (namefoodInput.trim() === '') {
       // แสดง SweetAlert2 ในกรณีที่ชื่ออาหารไม่ถูกกรอก
       Swal.fire({
-        title: 'กรุณากรอกชื่ออาหาร',
+        title: 'กรุณากรอกข้อมูลให้ครบ',
         icon: 'error',
         confirmButtonText: 'ตกลง'
       });
     } else if (priceInput.trim() === '') {
       // แสดง SweetAlert2 ในกรณีที่ราคาไม่ถูกกรอก
       Swal.fire({
-        title: 'กรุณากรอกราคา',
+        title: 'กรุณากรอกข้อมูลให้ครบ',
         icon: 'error',
         confirmButtonText: 'ตกลง'
       });
