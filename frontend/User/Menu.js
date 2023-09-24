@@ -45,13 +45,13 @@ function searchMenu() {
     const searchInput = document.getElementById('searchInput');
     const searchText = searchInput.value.toLowerCase(); // รับข้อความค้นหาและแปลงเป็นตัวพิมพ์เล็ก
   
-    const menuCards = document.querySelectorAll('.menu-card'); // รับรายการเมนูทั้งหมด
-    menuCards.forEach((menuCard) => {
+    const menuContainer = document.querySelectorAll('.menuContainer'); // รับรายการเมนูทั้งหมด
+    menuContainer.forEach((menuContainer) => {
       const menuName = menuCard.querySelector('.password').textContent.toLowerCase(); // รับข้อมูลชื่อเมนูและแปลงเป็นตัวพิมพ์เล็ก
       if (menuName.includes(searchText)) {
-        menuCard.style.display = 'block'; // แสดงเมนูที่ตรงกับคำค้นหา
+        menuContainer.style.display = 'block'; // แสดงเมนูที่ตรงกับคำค้นหา
       } else {
-        menuCard.style.display = 'none'; // ซ่อนเมนูที่ไม่ตรงกับคำค้นหา
+        menuContainer.style.display = 'none'; // ซ่อนเมนูที่ไม่ตรงกับคำค้นหา
       }
     });
   }
