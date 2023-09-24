@@ -6,8 +6,8 @@ document.getElementById('newImage').addEventListener('change', (event) => {
     if (newImage) {
     const imagePreview = document.getElementById('imagePreview');
     // แสดงรูปภาพใหม่ใน <div> ที่มี id="imagePreview"
-    const imageUrl = URL.createObjectURL(newImageFile);
-    imagePreview.innerHTML = `<img src="${imageUrl}" alt="New Image" width="100">`;
+    const imageUrl = URL.createObjectURL(newImage);
+    imagePreview.innerHTML = `<img class="menu-img" src="${imageUrl}" alt="New Image" width="100">`;
   }
 });
 
@@ -48,12 +48,18 @@ confirmButton.addEventListener('click', () => {
     formData.append('newImage', newImageFile);
   }
 
-  axios.post(`http://localhost:5000/shop/menu/edit/${menuId}`, formData)
+  axios.post(`http://localhost:5000/shop/menu/edit/${menuId}`, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  })
   .then((response) => {
-      Swal.fire('เสร็จสิ้น!', 'แก้ไขเมนูสำเร็จ', 'success')
-      .then(() => {
-        window.location.href = 'http://localhost:5000/Admin/MainAdmin.html';
-      });
+      if (response.data.success) {
+        Swal.fire('เสร็จสิ้น!', 'แก้ไขเมนูสำเร็จ', 'success')
+        .then(() => {
+          window.location.href = 'http://localhost:5000/Admin/MainAdmin.html';
+        });
+      }
   })
   .catch((error) => {
     console.error('เกิดข้อผิดพลาดในการบันทึกข้อมูลเมนู: ' + error);

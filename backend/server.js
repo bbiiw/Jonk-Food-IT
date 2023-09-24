@@ -333,20 +333,32 @@ app.get('/Admin/EditMenu.html/:id', async (req, res) => {
 })
 
 // SHOP EDIT MENU
-app.post('/shop/menu/edit/:id', async (req, res) => {
+app.post('/shop/menu/edit/:id', upload.single('newImage'), async (req, res) => {
     try {
-        const { menu_name, cost, category_id, image_path } = req.body;
-        const menu_id = req.params.id;
-        // // // // //
-        // เดี๋ยวมาทำต่อ
-        connection.query(`UPDATE menu SET menu_name = ?, cost = ?, category_id = ?, image_ = ?
-                        FROM menu m 
-                        JOIN image i
-                        USING (image_id)                    
-                        WHERE menu_id = ?`,
-            [menu_name, cost, menu_id],
+        const { menu_name, cost, category_id } = req.body
+        const menu_id = req.params.id
+        const newImage = req.file
+        console.log({menu_name, cost, category_id, newImage})
+
+        // ถ้ามีการอัปโหลดรูปภาพใหม่
+        // อัปเดตข้อมูลรูปภาพในตาราง image
+        if (newImage) {
+            const image = newImage.filename
+            connection.query(`UPDATE image
+                            SET image_path = ?
+                            WHERE image_id = (SELECT image_id
+                                            FROM menu
+                                            WHERE menu_id= ?)`,
+                [image, menu_id], (error, result) => {
+                    console.log('อัปเดตรูปภาพสำเร็จ')
+                })
+        }
+        // อัปเดตข้อมูลเมนูอาหาร
+        connection.query(`UPDATE menu SET menu_name = ?, cost = ?, category_id = ? WHERE menu_id = ?`,
+            [menu_name, cost, category_id, menu_id],
             (error, result) => {
                 console.log('อัปเดตรายการเมนูสำเร็จ')
+                res.json({ success: true})
             })
     } catch (error) {
         console.error('เกิดข้อผิดพลาดในการจัดการการแก้ไขรายการเมนู:', error.message)
@@ -361,6 +373,7 @@ app.delete('/shop/menu/delete/:id', (req, res) => {
         connection.query("DELETE FROM menu WHERE menu_id = ?", [menu_id], 
         (error, result) => {
             console.log('ลบเมนูสำเร็จ')
+            res.json({ success: true })
         })
     } catch (error) {
        console.error('เกิดข้อผิดพลาดในการจัดการการแก้ไขรายการเมนู:', error.message)
