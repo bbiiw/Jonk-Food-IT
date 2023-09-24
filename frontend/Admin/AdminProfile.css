@@ -325,15 +325,29 @@
   left: 0;
   background-color: #dcbd85;
   border-radius: 15px;
-  /* border: 3px solid; */
+  border: 3px solid;
   border-color: #000000;
 }
 
 .ADMIN-profile .text-wrapper-7 {
   position: absolute;
   width: 252px;
-  top: 0;
+  top: -4px;
   left: 40px;
+  font-family: "Inter", Helvetica;
+  font-weight: 700;
+  color: #000000;
+  font-size: 28px;
+  letter-spacing: -0.56px;
+  line-height: 48px;
+  white-space: nowrap;
+}
+
+.ADMIN-profile .text-edit {
+  position: absolute;
+  width: 252px;
+  top: -4px;
+  left: 50px;
   font-family: "Inter", Helvetica;
   font-weight: 700;
   color: #000000;

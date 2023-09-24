@@ -3,6 +3,7 @@ function fetchMenuData() {
 
     .then((response) => {
         const menuContainer = document.getElementById('menu-container-container')
+        menuContainer.className = 'menuContainer';
         let myHTML = ''   
         for(let i=0;i<Object.keys(response.data).length;i++){
             console.log(response.data)

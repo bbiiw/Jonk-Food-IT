@@ -368,6 +368,41 @@ app.delete('/shop/menu/delete/:id', (req, res) => {
    }
 })
 
+//TEST
+// PROFILE PAGE
+app.get('/admin/profile', isAuthenticated, async (req, res) => {
+    const username = req.session.username.username
+    connection.query(`SELECT shop_name, username, tel, email 
+                    FROM shop s 
+                    JOIN users u 
+                    ON (s.user_id = u.user_id) 
+                    WHERE u.username = ?`, 
+                    [username], (error, result) => {
+                        if (result.length > 0) {
+                            const adminProfile = result[0]
+                            res.json(adminProfile)
+                        }
+                    })
+})
+
+// EDIT PROFILE ADMIN
+app.post('/admin/editprofile', isAuthenticated, async (req, res) => {
+    const username = req.session.username.username
+    const { shop_name, tel, email } = req.body
+    connection.query(`UPDATE shop s
+                    JOIN users u
+                    ON (s.user_id = u.user_id)
+                    SET s.shop_name = ?, u.tel = ?, u.email = ?
+                    WHERE u.username = ?`, 
+                    [shop_name, tel, email, username], (error, result) => {
+                        if (result.affectedRows > 0) {
+                            return res.send('แก้ไขโปรไฟล์')
+                        } else {
+                            return res.send('เกิดข้อผิดพลาด')
+                        }
+                    })
+})
+
 //LISTEN
 app.listen(5000, () => {
     console.log('Server running on port 5000')
