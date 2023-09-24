@@ -4,8 +4,18 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const mysql = require('mysql2');
 const path = require('path');
-const { error } = require('console');
+const multer = require('multer');
 const app = express();
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, '../frontend/picture/'); // บันทึกไฟล์ลงในโฟลเดอร์ uploads/
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.originalname); // ตั้งชื่อไฟล์ชื่อเดิม
+    }
+});
+const upload = multer({ storage })
 
 app.use(bodyParser.json()) // to JSON
 app.use(bodyParser.urlencoded({extended: true})) // อ่านข้อมูลจาก <form>
@@ -251,70 +261,111 @@ app.post('/user/confirm', isAuthenticated, async (req, res) => {
 
 // SHOP MENU PAGE
 app.get('/shop/menu', async (req, res) => {
-    connection.query("SELECT menu_name, cost FROM menu", (error, result) => {
+    connection.query(`SELECT menu_id, menu_name, cost, i.image_path 
+                    FROM menu m
+                    JOIN image i
+                    USING (image_id)`, (error, result) => {
+        console.log(result)
         res.json(result)
     })
 })
 
 // SHOP ADD MENU
-app.post('/shop/menu/add', async (req, res) => {
-    try {
-        const menuData = req.body.menuData
-        menuData.forEach((menuItem) => {
-            const { menu_name, cost, image } = menuItem
-            connection.query("INSERT INTO menu(shop_id, menu_name, cost) VALUES (?, ?, ?)",
-            [1, menu_name, cost], (error, result) => {
-                console.log('บันทึกเมนูสำเร็จ')
-            })
+app.post('/shop/menu/add', upload.any('image'), async (req, res) => {
+    // ตรวจสอบข้อมูลเมนูอาหารและรูปภาพที่ส่งมาจากฟอร์ม
+    const { menu_name, cost, category_id } = req.body
+    const images = req.files
+    const image_paths = images.map(image => image.filename)
+    console.log({ menu_name, cost, category_id, image_paths })
+
+    // บันทึกข้อมูลรูปภาพลงในตาราง image
+    const imageInsertQueries = image_paths.map(image_path => {
+        return new Promise((resolve, reject) => {
+            connection.query("INSERT INTO image (image_path) VALUES (?)", [image_path], (error, result) => {
+                    console.log("เพิ่มรูปภาพสำเร็จ");
+                    resolve(result.insertId); // เมื่อบันทึกสำเร็จ ส่ง image_id กลับ
+            });
+        });
+    });
+
+    // รอสำเร็จของทุกคำสั่ง INSERT ของรูปภาพ
+    Promise.all(imageInsertQueries)
+        .then(imageIds => {
+            // ตรวจสอบเมนูอาหารและบันทึกลงฐานข้อมูล
+            const menuInsertQueries = imageIds.map((image_id, index) => {
+                return new Promise((resolve, reject) => {
+                    connection.query("INSERT INTO menu (shop_id, menu_name, cost, category_id, image_id) VALUES (?, ?, ?, ?, ?)", 
+                        [1, menu_name[index], cost[index], category_id[index], image_id], (menuErr, menuResult) => {
+                                console.log("เพิ่มเมนูสำเร็จ");
+                                resolve(menuResult);
+                    });
+                });
+            });
+
+            // รอสำเร็จของทุกคำสั่ง INSERT ของเมนู
+            return Promise.all(menuInsertQueries);
         })
-        return res.json({ success: true })
-    } catch (error) {
-        console.error('เกิดข้อผิดพลาดในการบันทึกข้อมูลเมนู', error.message)
-        return res.status(500).send('เกิดข้อผิดพลาดในการบันทึกข้อมูลเมนู')
-    }
-})
+        .then(() => {
+            res.json({ success: true});
+        })
+});
 
-
-// app.post('/shop/menu/edit/:id', isAuthenticated, async (req, res) => {
-//     const { menu_name, cost, image } = req.body
-//     const { menu_id } = req.params
-//     connection.query("UPDATE menu SET menu_name = ?, cost = ?, image = ? WHERE menu_id = ?",
-//     [menu_name, cost, image, menu_id], (error, result) => {
-
-//     })
-// })
-
-// SHOP EDIT MENU
-app.post('/shop/menu/edit/:id', isAuthenticated, async (req, res) => {
+// EDIT MENU PAGE
+app.get('/Admin/EditMenu.html/:id', async (req, res) => {
     try {
-        // ดึงข้อมูลจากการส่งฟอร์ม
-        const { menu_name, cost, image, category, menu_id } = req.body;
-
-        // อัปเดตรายการเมนูในฐานข้อมูลโดยใช้ menu_id
-        connection.query(
-            'UPDATE menu SET menu_name = ?, cost = ?, image = ?, category = ? WHERE menu_id = ?',
-            [menu_name, cost, image, category, menu_id],
-            (error, result) => {
-                if (error) {
-                    console.error('เกิดข้อผิดพลาดในการอัปเดตรายการเมนู:', error.message);
-                    return res.status(500).send('เกิดข้อผิดพลาดในระหว่างการอัปเดตรายการเมนู');
-                }
-                console.log('อัปเดตรายการเมนูสำเร็จ');
-                return res.status(200).send('อัปเดตรายการเมนูสำเร็จ');
+        const menu_id = req.params.id
+        connection.query(`SELECT menu_name, cost, image_path, category_id 
+                        FROM menu m 
+                        JOIN image i
+                        USING (image_id)
+                        WHERE m.menu_id = ?`, [menu_id], 
+        (error, result) => {
+            if (result.length > 0) {
+                res.json(result[0])
+            } else {
+                res.status(404).json({ error: 'ไม่พบข้อมูล'})
             }
-        );
+        })
     } catch (error) {
         console.error('เกิดข้อผิดพลาดในการจัดการการแก้ไขรายการเมนู:', error.message);
         return res.status(500).send('เกิดข้อผิดพลาดในการจัดการการแก้ไขรายการเมนู');
     }
-});
+})
+
+// SHOP EDIT MENU
+app.post('/shop/menu/edit/:id', async (req, res) => {
+    try {
+        const { menu_name, cost, category_id, image_path } = req.body;
+        const menu_id = req.params.id;
+        // // // // //
+        // เดี๋ยวมาทำต่อ
+        connection.query(`UPDATE menu SET menu_name = ?, cost = ?, category_id = ?, image_ = ?
+                        FROM menu m 
+                        JOIN image i
+                        USING (image_id)                    
+                        WHERE menu_id = ?`,
+            [menu_name, cost, menu_id],
+            (error, result) => {
+                console.log('อัปเดตรายการเมนูสำเร็จ')
+            })
+    } catch (error) {
+        console.error('เกิดข้อผิดพลาดในการจัดการการแก้ไขรายการเมนู:', error.message)
+        return res.status(500).send('เกิดข้อผิดพลาดในการจัดการการแก้ไขรายการเมนู')
+    }
+})
 
 // SHOP DELETE MENU
-app.post('/shop/menu/delete/:id', isAuthenticated, (req, res) => {
-    const { menu_id } = req.params
-    connection.query("DELETE FROM menu WHERE menu_id = ?", [menu_id], (error, result) => {
-
-    })
+app.delete('/shop/menu/delete/:id', (req, res) => {
+    try {
+        const menu_id = req.params.id
+        connection.query("DELETE FROM menu WHERE menu_id = ?", [menu_id], 
+        (error, result) => {
+            console.log('ลบเมนูสำเร็จ')
+        })
+    } catch (error) {
+       console.error('เกิดข้อผิดพลาดในการจัดการการแก้ไขรายการเมนู:', error.message)
+       return res.status(500).send('เกิดข้อผิดพลาดในการจัดการการแก้ไขรายการเมนู')
+   }
 })
 
 //LISTEN

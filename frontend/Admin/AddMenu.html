@@ -21,21 +21,21 @@
             <form id="add-menu-form" action="/shop/menu/add" method="POST" enctype="multipart/form-data">  
               <input type="text" class="rectangle-4" placeholder="ชื่ออาหาร"  name="name" style="font-size: 24px;"/>
               <input type="text" class="rectangle" placeholder="ราคา"  name="price" style="font-size: 24px;"/>
-              <input type="file" id="image" name="image" accept="image/*" style="display: none;">
-              <label for="fileInput" class="password">Choose File</label>
-              <select name="อาหารจานเดี่ยว" class="div-wrapper" id="อาหารจานเดี่ยว" style="font-size: 24px;">
-                <option value="อาหารจานเดี่ยว">อาหารจานเดี่ยว</option>
-                <option value="เมนูเส้น">เมนูเส้น</option>
-                <option value="อาหารญี่ปุ่น">อาหารญี่ปุ่น</option>
+              
+              <input type="file" class="password" name="image" accept="image/*">
+              <!-- <label for="fileInput" class="password">Choose File</label> -->
+              
+              <select id="category_id" name="category_id" class="div-wrapper" style="font-size: 24px;">
+                <option value="1">อาหารจานเดี่ยว</option>
+                <option value="2">เมนูเส้น</option>
+                <option value="3">อาหารญี่ปุ่น</option>
               </select>
             </form>
             <!--Button-->>
               <button class="text-wrapper-5" id="add-button" onclick="addMenuItem()">Add</button>
-            
+
             <div class="overlap-5" id="confirm-btn" style="display: none;" onclick="confirmMenu()">
-              <a href="MainAdmin.html">
                 <button class="text-wrapper-6">Confirm</button>
-              </a>           
             </div>
           </div>
 
@@ -43,12 +43,12 @@
           <div class="rectangle-5">
             <div id="list-item"></div>
           </div>
-          <div class="rectangle-6"></div>
 
         </div>
 
         <div class="text-wrapper-7">รายการเมนู</div>
         <div class="text-wrapper-8">เพิ่มเมนู</div>
+
         <div class="overlap-6">
           <div class="rectangle-8"></div>
           <div class="frame">

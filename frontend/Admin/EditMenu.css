@@ -115,7 +115,6 @@
 
 .edit-menu .password {
   position: absolute;
-  width: 130px;
   height: 30px;
   top: 340px;
   left: 35px;
@@ -125,7 +124,7 @@
   font-size: 16px;
   letter-spacing: 0;
   line-height: normal;
-  background-color: #dcbd85;
+  /* background-color: #dcbd85; */
   border-radius: 10px;
   border-color: #000000;
   font-size: 24px;
@@ -332,11 +331,12 @@
 
 .edit-menu .rectangle-6 {
   position: absolute;
+  border-radius: 50%;
   width: 250px;
   height: 250px;
   top: 248px;
   left: 70px;
-  background-color: #e6b2b2;
+  background-color: #dcbd85;
 }
 
 .edit-menu .overlap-4 {
@@ -368,4 +368,17 @@
   letter-spacing: 0;
   line-height: normal;
   white-space: nowrap;
+}
+
+.edit-menu .circle {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.edit-menu .menu-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }

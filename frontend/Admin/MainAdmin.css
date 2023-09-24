@@ -14,16 +14,13 @@
   position: relative;
 }
 
-.main-admin .overlap {
-  position: absolute;
+/* .main-admin .overlap {
+  display: flex;
   width: 1920px;
   height: 200px;
   top: 415px;
   left: 0;
-  background-color: #d9d9d9b2;
-  border: 1px solid;
-  border-color: #000000;
-}
+} */
 
 .main-admin .overlap-group {
   position: absolute;
@@ -39,8 +36,7 @@
   position: absolute;
   width: 100px;
   height: 100px;
-  top: 0;
-  left: 0;
+  left: 150px;
   object-fit: cover;
 }
 
@@ -48,12 +44,13 @@
   position: absolute;
   width: 142px;
   height: 60px;
-  top: 76px;
   left: 1380px;
   /* background-image: url(https://c.animaapp.com/kvmV61Vo/img/rectangle-174-1.svg); */
   background-size: 100% 100%;
   background-color: #E45454;
   border-radius: 10px; 
+  border: 2px solid;
+  border-color: #000000;
 } /*Change top 71 --> 46 Add BG color , Border */
 
 .main-admin .text-wrapper {
@@ -71,8 +68,7 @@
 .main-admin .overlap-2 {
   position: absolute;
   width: 142px;
-  height: 60px;
-  top: 70px;
+  height: 65px;
   left: 1615px;
 }
 
@@ -101,9 +97,8 @@
 } /*Change Top 17 --> 5 ,Left 47 --> 30*/
 
 .main-admin .password {
-  top: 83px;
-  left: 320px;
   position: absolute;
+  left: 450px;
   width: 371px;
   font-family: "Inter", Helvetica;
   font-weight: 400;
@@ -115,9 +110,8 @@
 }
 
 .main-admin .password-2 {
-  top: 83px;
-  left: 849px;
   position: absolute;
+  left: 1000px;
   width: 371px;
   font-family: "Inter", Helvetica;
   font-weight: 400;
@@ -980,3 +974,39 @@
   letter-spacing: 0;
   line-height: normal;
 } /*Change Left 70 --> 30*/
+
+.main-admin .window-food {
+  position: absolute;
+  width: 1920px;
+  height: 2000px;
+  top: 415px;
+  left: 0;
+  border: 1px solid;
+  border-color: #000000;
+}
+
+.main-admin .card-detail {
+  display: flex;
+  color: #333;
+  font-size: 60px;
+  text-decoration: none; 
+  padding: 30px;
+  align-items: center;
+  height: 200px;
+  background-color: #d9d9d9b2;
+  border: 1px solid;
+}
+
+.main-admin .circle {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-left: 150px;
+}
+
+.main-admin .menu-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

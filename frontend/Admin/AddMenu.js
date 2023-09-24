@@ -4,13 +4,15 @@ function addMenuItem() {
     const menu_name = document.querySelector('input[name="name"]').value;
     const cost = document.querySelector('input[name="price"]').value;
     const image = document.querySelector('input[name="image"]').files[0];
+    const category = document.querySelector('select[name="category_id"]').value;
   
-    if (!menu_name || !cost) {
+    if (!menu_name || !cost || !image || !category) {
       return Swal.fire('กรุณากรอกข้อมูลให้ครบ', '', 'error');
     }
 
     // เพิ่มข้อมูลรายการอาหารลงในตัวแปร menuData
-    menuData.push({ menu_name, cost });
+    menuData.push({ menu_name, cost, image, category });
+    console.log(menuData)
     
     // ตรวจสอบขนาดของ menuData
     if (menuData.length >= 3) {
@@ -24,10 +26,12 @@ function addMenuItem() {
     menuRow.classList.add('menu-row');
     menuRow.innerHTML = `
         <div class="menu-detail">
-            <span class="menu-name">${menu_name}&nbsp;</span>
-            <span class="menu-price">${cost} บาท</span>
+            <div class="circle">
+                <img class="menu-img" src="${URL.createObjectURL(image)}" alt="${menu_name}" width="100">
+            </div>
+            <div class="menu-name">${menu_name}</div>
+            <div class="menu-price">${cost} บาท</div>
         </div>`;
-    // <img src="${URL.createObjectURL(image)}" alt="${name}" width="100">
     
     // เพิ่มแถวรายการอาหารลงในส่วนที่ 2
     const menuList = document.querySelector('#list-item');
@@ -44,11 +48,23 @@ function addMenuItem() {
 }
 
 function confirmMenu() {
+    const formData = new FormData();
+    menuData.forEach((menuItem, index) => {
+        formData.append(`menu_name[${index}]`, menuItem.menu_name);
+        formData.append(`cost[${index}]`, menuItem.cost);
+        formData.append(`category_id[${index}]`, menuItem.category);
+        formData.append(`image[${index}]`, menuItem.image);
+    });
+
     // ส่งข้อมูลไปยัง Backend
-    axios.post('http://localhost:5000/shop/menu/add', { menuData })
-      .then((response) => {
+    axios.post('http://localhost:5000/shop/menu/add', formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    })
+    .then((response) => {
         if (response.data.success) {
-            Swal.fire('สำเร็จ!', 'บันทึกข้อมูลเมนูสำเร็จ', 'success')
+            Swal.fire('สำเร็จ!', 'เพิ่มเมนูสำเร็จ', 'success')
             .then(() => {
                 window.location.href = 'http://localhost:5000/Admin/MainAdmin.html';
                 menuData = [];
@@ -59,11 +75,10 @@ function confirmMenu() {
             });
         } else {
             Swal.fire('เกิดข้อผิดพลาด!', 'เกิดข้อผิดพลาดในการบันทึกข้อมูลเมนู', 'error');
-          }
-      })
-      .catch((error) => {
+        }
+    })
+    .catch((error) => {
         console.error(error);
         Swal.fire('เกิดข้อผิดพลาดในการบันทึกข้อมูลเมนู', '', 'error');
-      });
+    });
 }
-  
