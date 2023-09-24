@@ -68,7 +68,9 @@ function deleteMenu(menuId) {
         icon: 'success',
         confirmButtonText: 'ตกลง'
       }).then(() => {
-        window.location.reload();
+        if (response.data.success) {
+          window.location.reload();
+        }
       });
     })
     .catch((error) => {
