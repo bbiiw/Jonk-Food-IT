@@ -16,7 +16,7 @@ axios.get(`http://localhost:5000/Admin/EditMenu.html/${menuId}`)
   .then((response) => {
     const menuData = response.data;
     document.getElementById('menu_name').value = menuData.menu_name;
-    document.getElementById('cost').value = menuData.cost;
+    document.getElementById('cost').value = menuData.cost.toFixed(2);
     document.getElementById('category_id').value = menuData.category_id
 
     // ตรวจสอบว่ามี URL ของรูปภาพเดิมหรือไม่
