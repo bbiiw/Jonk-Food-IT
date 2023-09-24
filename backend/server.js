@@ -9,7 +9,7 @@ const app = express();
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, '../frontend/picture/'); // บันทึกไฟล์ลงในโฟลเดอร์ uploads/
+        cb(null, '../frontend/picture/'); // บันทึกไฟล์ลงในโฟลเดอร์ picture
     },
     filename: (req, file, cb) => {
         cb(null, file.originalname); // ตั้งชื่อไฟล์ชื่อเดิม
@@ -81,7 +81,7 @@ app.post('/user/register', async (req, res) => {
         
         // เพิ่มผู้ใช้ใหม่ลงในตาราง USERS
         const userResult = await connection.promise().query("INSERT INTO users(username, password, email, tel, type) VALUES(?, ?, ?, ?, ?)",
-        [username, password, email, tel, type])
+            [username, password, email, tel, type])
             console.log('สร้างบัญชีสำเร็จและทำการบันทึกลง Users')
             
         // ดึง user_id จากตาราง users
@@ -89,7 +89,7 @@ app.post('/user/register', async (req, res) => {
 
         // เพิ่มผู้ใช้ใหม่ลงในตาราง CUSTOMER
         const customerResult = await connection.promise().query("INSERT INTO customer(user_id, first_name, last_name) VALUES(?, ?, ?)",
-        [user_id, first_name, last_name, username])
+            [user_id, first_name, last_name, username])
             console.log('สร้างบัญชีสำเร็จและทำการบันทึกลง Customer')
             return res.send('ลงทะเบียนสำเร็จ')
     } catch (error) {
@@ -106,7 +106,7 @@ app.post('/user/login', async (req, res) => {
         const { username, password } = req.body
         
         const [rows] = await connection.promise().query("SELECT * FROM users WHERE username = ? AND password = ?", // ค้นหาผู้ใช้ customer
-        [username, password])
+            [username, password])
             if (rows.length === 1 && rows[0].type == 'customer') {
                 req.session.loggedin = true
                 req.session.username = rows[0]
@@ -126,7 +126,7 @@ app.post('/shop/login', async (req, res) => {
         const { username, password } = req.body
         
         const [rows] = await connection.promise().query("SELECT * FROM users WHERE username = ? AND password = ?", // ค้นหาผู้ใช้ shop
-        [username, password])
+            [username, password])
             if (rows.length === 1 && rows[0].type == 'shop') {
                 req.session.loggedin = true
                 req.session.username = rows[0]
@@ -143,53 +143,88 @@ app.post('/shop/login', async (req, res) => {
 
 
 // ------------ PROFILE SECTION ------------
-// PROFILE PAGE
+// USER PROFILE PAGE
 app.get('/user/profile', isAuthenticated, async (req, res) => {
-        const username = req.session.username.username
-        connection.query(`SELECT first_name, last_name, username, tel, email 
-                        FROM customer c 
-                        JOIN users u 
-                        ON (c.user_id = u.user_id) 
-                        WHERE u.username = ?`, 
-                        [username], (error, result) => {
-                            if (result.length > 0) {
-                                const userProfile = result[0]
-                                res.json(userProfile)
-                            }
-                        })
+    const username = req.session.username.username
+    connection.query(`SELECT first_name, last_name, username, tel, email 
+                    FROM customer c 
+                    JOIN users u 
+                    ON (c.user_id = u.user_id) 
+                    WHERE u.username = ?`, 
+                    [username], (error, result) => {
+        if (result.length > 0) {
+            const userProfile = result[0]
+            res.json(userProfile)
+        }
+    })
 })
 
-// EDIT PROFILE
+// USER EDIT PROFILE
 app.post('/user/editprofile', isAuthenticated, async (req, res) => {
-        const username = req.session.username.username
-        const { first_name, last_name, tel, email } = req.body
-        connection.query(`UPDATE customer c
+    const username = req.session.username.username
+    const { first_name, last_name, tel, email } = req.body
+    connection.query(`UPDATE customer c
                         JOIN users u
                         ON (c.user_id = u.user_id)
                         SET c.first_name = ?, c.last_name = ?, u.tel = ?, u.email = ?
                         WHERE u.username = ?`, 
                         [first_name, last_name, tel, email, username], (error, result) => {
-                            if (result.affectedRows > 0) {
-                                return res.send('แก้ไขโปรไฟล์')
-                            } else {
-                                return res.send('เกิดข้อผิดพลาด')
-                            }
-                        })
+        if (result.affectedRows > 0) {
+            return res.send('แก้ไขโปรไฟล์')
+        } else {
+            return res.send('เกิดข้อผิดพลาด')
+        }
+    })
+})
+                    
+// SHOP PROFILE PAGE
+app.get('/shop/profile', isAuthenticated, async (req, res) => {
+    const username = req.session.username.username
+    connection.query(`SELECT shop_name, username, tel, email 
+                    FROM shop s 
+                    JOIN users u 
+                    ON (s.user_id = u.user_id) 
+                    WHERE u.username = ?`, 
+                    [username], (error, result) => {
+        if (result.length > 0) {
+            const adminProfile = result[0]
+            res.json(adminProfile)
+        }
+    })
+})
+
+// SHOP EDIT PROFILE
+app.post('/shop/editprofile', isAuthenticated, async (req, res) => {
+    const username = req.session.username.username
+    const { shop_name, tel, email } = req.body
+    connection.query(`UPDATE shop s
+                    JOIN users u
+                    ON (s.user_id = u.user_id)
+                    SET s.shop_name = ?, u.tel = ?, u.email = ?
+                    WHERE u.username = ?`, 
+                    [shop_name, tel, email, username], (error, result) => {
+        if (result.affectedRows > 0) {
+            return res.send('แก้ไขโปรไฟล์')
+        } else {
+            return res.send('เกิดข้อผิดพลาด')
+        }
+    })
 })
 
 
-// ------------ MENU SECTION ------------
+
+// ------------ USER MENU SECTION ------------
 // MENU PAGE
 app.get('/user/menu', isAuthenticated, async (req, res) => {
-        try {
-            // ใช้ Axios เรียก API ของเจ้าของร้านเพื่อโหลดเมนูอาหาร
-            const response = await axios.get('http://localhost:5000/shop/menu')
-            const menu = response.data // เมนูอาหารจะอยู่ในรูปแบบ JSON
+    try {
+        // ใช้ Axios เรียก API ของเจ้าของร้านเพื่อโหลดเมนูอาหาร
+        const response = await axios.get('http://localhost:5000/shop/menu')
+        const menu = response.data // เมนูอาหารจะอยู่ในรูปแบบ JSON
             res.json(menu) // ส่งเมนูอาหารกลับไปยังไคลเอนต์
-        } catch (error) {
-            console.error('เกิดข้อผิดพลาดในการโหลดเมนูอาหาร:', error);
-            res.status(500).json({ error: 'ไม่สามารถโหลดเมนูอาหารได้' });
-        }
+    } catch (error) {
+        console.error('เกิดข้อผิดพลาดในการโหลดเมนูอาหาร:', error);
+        res.status(500).json({ error: 'ไม่สามารถโหลดเมนูอาหารได้' });
+    }
 })
 
 const cart = [];
@@ -202,7 +237,7 @@ app.post('/user/cart/add', isAuthenticated, async (req, res) => {
         cart[customer_id].push({ menu_id, items, cost })
         
         connection.query("INSERT INTO booking(customer_id, menu_id, reserve_id, items, cost) VALUES (?, ?, ?, ?, ?)",
-        [customer_id, menu_id, reserve_id, JSON.stringify(items), cost], (error, result) => {
+            [customer_id, menu_id, reserve_id, JSON.stringify(items), cost], (error, result) => {
                 // ลบรายการในตะกร้าหลังจากสั่งอาหารสำเร็จ
                 cart.length = 0
         })
@@ -233,7 +268,7 @@ app.put('/edit-cart', isAuthenticated, async (req, res) => {
         const { booking_id, items } = req.body;
 
         connection.query("UPDATE booking SET items = ? WHERE booking_id = ?",
-        [items, booking_id], (error, result) => {
+            [items, booking_id], (error, result) => {
             console.log('ตะกร้าถูกอัปเดต เพิ่ม/ลดเมนูสำเร็จ')
             return res.status(200).send('ตะกร้าถูกอัปเดตแล้ว')
         })
@@ -249,7 +284,7 @@ app.post('/user/confirm', isAuthenticated, async (req, res) => {
         // รับข้อมูลมาจากตะกร้าในตาราง booking และบันทึกลงในตาราง reserve
         const { customer_id, history_id, total } = req.body
         connection.query("INSERT INTO reserve(customer_id, menu_id, items, history_id, total) SELECT menu_id, items FROM booking",
-        [customer_id, history_id, total], (error, result) => {
+            [customer_id, history_id, total], (error, result) => {
             console.log('รายการอาหารทำการจองคิว')
             return res.status(200).send('จองอาหารสำเร็จ')
         })
@@ -259,6 +294,9 @@ app.post('/user/confirm', isAuthenticated, async (req, res) => {
     }
 })
 
+
+
+// ------------ SHOP MENU SECTION ------------
 // SHOP MENU PAGE
 app.get('/shop/menu', async (req, res) => {
     connection.query(`SELECT menu_id, menu_name, cost, i.image_path, category_id
@@ -331,8 +369,7 @@ app.get('/Admin/EditMenu.html/:id', async (req, res) => {
                         FROM menu m 
                         JOIN image i
                         USING (image_id)
-                        WHERE m.menu_id = ?`, [menu_id], 
-        (error, result) => {
+                        WHERE m.menu_id = ?`, [menu_id], (error, result) => {
             if (result.length > 0) {
                 res.json(result[0])
             } else {
@@ -361,10 +398,9 @@ app.post('/shop/menu/edit/:id', upload.single('newImage'), async (req, res) => {
                             SET image_path = ?
                             WHERE image_id = (SELECT image_id
                                             FROM menu
-                                            WHERE menu_id = ?)`,
-                [image, menu_id], (error, result) => {
-                    console.log('อัปเดตรูปภาพสำเร็จ')
-                })
+                                            WHERE menu_id = ?)`, [image, menu_id], (error, result) => {
+                console.log('อัปเดตรูปภาพสำเร็จ')
+            })
         }
         // อัปเดตข้อมูลเมนูอาหาร
         connection.query(`UPDATE menu SET menu_name = ?, cost = ?, category_id = ? WHERE menu_id = ?`,
@@ -383,8 +419,7 @@ app.post('/shop/menu/edit/:id', upload.single('newImage'), async (req, res) => {
 app.delete('/shop/menu/delete/:id', (req, res) => {
     try {
         const menu_id = req.params.id
-        connection.query("DELETE FROM menu WHERE menu_id = ?", [menu_id], 
-        (error, result) => {
+        connection.query("DELETE FROM menu WHERE menu_id = ?", [menu_id], (error, result) => {
             console.log('ลบเมนูสำเร็จ')
             res.json({ success: true })
         })
@@ -394,42 +429,7 @@ app.delete('/shop/menu/delete/:id', (req, res) => {
    }
 })
 
-//TEST
-// PROFILE PAGE
-app.get('/admin/profile', isAuthenticated, async (req, res) => {
-    const username = req.session.username.username
-    connection.query(`SELECT shop_name, username, tel, email 
-                    FROM shop s 
-                    JOIN users u 
-                    ON (s.user_id = u.user_id) 
-                    WHERE u.username = ?`, 
-                    [username], (error, result) => {
-                        if (result.length > 0) {
-                            const adminProfile = result[0]
-                            res.json(adminProfile)
-                        }
-                    })
-})
-
-// EDIT PROFILE ADMIN
-app.post('/admin/editprofile', isAuthenticated, async (req, res) => {
-    const username = req.session.username.username
-    const { shop_name, tel, email } = req.body
-    connection.query(`UPDATE shop s
-                    JOIN users u
-                    ON (s.user_id = u.user_id)
-                    SET s.shop_name = ?, u.tel = ?, u.email = ?
-                    WHERE u.username = ?`, 
-                    [shop_name, tel, email, username], (error, result) => {
-                        if (result.affectedRows > 0) {
-                            return res.send('แก้ไขโปรไฟล์')
-                        } else {
-                            return res.send('เกิดข้อผิดพลาด')
-                        }
-                    })
-})
-
-//LISTEN
+//LISTEN SERVER
 app.listen(5000, () => {
     console.log('Server running on port 5000')
 })

@@ -2,7 +2,7 @@ let isEditing = false;
 
 // ฟังก์ชันสำหรับแสดงข้อมูลโปรไฟล์ผู้ใช้
 function displayUserProfile() {
-    axios.get('http://localhost:5000/admin/profile') // สร้างเส้นทางใหม่สำหรับการดึงข้อมูลโปรไฟล์
+    axios.get('http://localhost:5000/shop/profile') // สร้างเส้นทางใหม่สำหรับการดึงข้อมูลโปรไฟล์
     .then((response) => {
       const { shop_name, username, tel, email } = response.data;
 
@@ -44,7 +44,7 @@ function updateProfile() {
   const tel = document.getElementById('edit_tel').value;
   const email = document.getElementById('edit_email').value;
 
-  axios.post('http://localhost:5000/admin/editprofile', { shop_name, username, tel, email })
+  axios.post('http://localhost:5000/shop/editprofile', { shop_name, username, tel, email })
     .then((response) => {
       if (response.data === 'แก้ไขโปรไฟล์') {
         Swal.fire('เสร็จสิ้น!', 'อัปเดตโปรไฟล์สำเร็จ', 'success');
