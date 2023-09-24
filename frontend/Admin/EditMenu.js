@@ -1,4 +1,3 @@
-
 const urlParams = new URLSearchParams(window.location.search);
 const menuId = urlParams.get('menu_id'); // ดึงค่า menuId จาก URL
 
