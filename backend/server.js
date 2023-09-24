@@ -261,10 +261,23 @@ app.post('/user/confirm', isAuthenticated, async (req, res) => {
 
 // SHOP MENU PAGE
 app.get('/shop/menu', async (req, res) => {
-    connection.query(`SELECT menu_id, menu_name, cost, i.image_path 
+    connection.query(`SELECT menu_id, menu_name, cost, i.image_path, category_id
                     FROM menu m
                     JOIN image i
                     USING (image_id)`, (error, result) => {
+        console.log(result)
+        res.json(result)
+    })
+})
+
+app.get('/shop/menu/category/:categotyId', async (req, res) => {
+    const category_id = req.params.categotyId
+
+    connection.query(`SELECT menu_id, menu_name, cost, i.image_path, category_id
+                    FROM menu
+                    JOIN image i
+                    USING (image_id)
+                    WHERE category_id = ?`, [category_id], (error, result) => {
         console.log(result)
         res.json(result)
     })
@@ -348,7 +361,7 @@ app.post('/shop/menu/edit/:id', upload.single('newImage'), async (req, res) => {
                             SET image_path = ?
                             WHERE image_id = (SELECT image_id
                                             FROM menu
-                                            WHERE menu_id= ?)`,
+                                            WHERE menu_id = ?)`,
                 [image, menu_id], (error, result) => {
                     console.log('อัปเดตรูปภาพสำเร็จ')
                 })

@@ -1,6 +1,7 @@
 // ฟังก์ชันสำหรับแสดงข้อมูลเมนูในหน้า HTML
 function displayMenuData(menuData) {
   const menuContainer = document.getElementById('menu-container');
+  menuContainer.innerHTML = ''; // ล้างข้อมูลเมนูเดิม
 
   // วนลูปเพื่อแสดงข้อมูลเมนูใน HTML
   menuData.forEach((menuItem) => {
@@ -93,3 +94,23 @@ function searchMenu() {
     }
   });
 }
+
+// เลือกทุกปุ่มหมวดหมู่
+const categoryButtons = document.querySelectorAll('.rectangle-6');
+// เพิ่มการตรวจสอบเมื่อคลิกที่ปุ่มหมวดหมู่
+categoryButtons.forEach((button) => {
+  button.addEventListener('click', () => {
+    // รับค่า category-id จากปุ่มที่คลิก
+    const categoryId = button.getAttribute('category-id');
+    // ส่งคำขอไปยัง Express.js เพื่อรับเมนูตามหมวดหมู่
+    axios.get(`http://localhost:5000/shop/menu/category/${categoryId}`)
+      .then((response) => {
+        const menuData = response.data;
+        displayMenuData(menuData);
+      })
+      .catch((error) => {
+        console.error('เกิดข้อผิดพลาดในการรับข้อมูลเมนู: ' + error);
+      });
+  });
+});
+
