@@ -216,15 +216,11 @@ app.post('/shop/editprofile', isAuthenticated, async (req, res) => {
 // ------------ USER MENU SECTION ------------
 // MENU PAGE
 app.get('/user/menu', isAuthenticated, async (req, res) => {
-    try {
-        // ใช้ Axios เรียก API ของเจ้าของร้านเพื่อโหลดเมนูอาหาร
-        const response = await axios.get('http://localhost:5000/shop/menu')
-        const menu = response.data // เมนูอาหารจะอยู่ในรูปแบบ JSON
-            res.json(menu) // ส่งเมนูอาหารกลับไปยังไคลเอนต์
-    } catch (error) {
-        console.error('เกิดข้อผิดพลาดในการโหลดเมนูอาหาร:', error);
-        res.status(500).json({ error: 'ไม่สามารถโหลดเมนูอาหารได้' });
-    }
+    connection.query(`SELECT menu_name, cost
+                        FROM menu`, (error, result) => {
+                            const menu = result
+                            res.json(menu)
+                        })
 })
 
 const cart = [];
