@@ -2,8 +2,7 @@ function fetchMenuData() {
     axios.get('http://localhost:5000/user/menu')
 
     .then((response) => {
-        const menuContainer = document.getElementById('menu-container-container')
-        menuContainer.className = 'menuContainer';
+        const menuContainer = document.getElementById('menu-container-container');
         let myHTML = ''   
         for(let i=0;i<Object.keys(response.data).length;i++){
             console.log(response.data)
@@ -46,9 +45,9 @@ function searchMenu() {
     const searchInput = document.getElementById('searchInput');
     const searchText = searchInput.value.toLowerCase(); // รับข้อความค้นหาและแปลงเป็นตัวพิมพ์เล็ก
   
-    const menuContainer = document.querySelectorAll('.menuContainer'); // รับรายการเมนูทั้งหมด
+    const menuContainer = document.querySelectorAll('.menu-container'); // รับรายการเมนูทั้งหมด
     menuContainer.forEach((menuContainer) => {
-      const menuName = menuCard.querySelector('.password').textContent.toLowerCase(); // รับข้อมูลชื่อเมนูและแปลงเป็นตัวพิมพ์เล็ก
+      const menuName = menuContainer.querySelector('.menu-name').textContent.toLowerCase(); // รับข้อมูลชื่อเมนูและแปลงเป็นตัวพิมพ์เล็ก
       if (menuName.includes(searchText)) {
         menuContainer.style.display = 'block'; // แสดงเมนูที่ตรงกับคำค้นหา
       } else {
