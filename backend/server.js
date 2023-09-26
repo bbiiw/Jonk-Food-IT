@@ -69,6 +69,10 @@ app.post('/user/register', async (req, res) => {
     try {
         const { first_name, last_name, username, password, confirm_password, email, tel } = req.body
         const type = "customer"
+
+        if(!first_name || !last_name || !username || !password || !confirm_password || !email || !tel){
+            return res.send('กรุณากรอกข้อมูลให้ครบถ้วน')
+        }
         if (password != confirm_password) {
             return res.send('รหัสผ่านไม่ตรงกัน')
         }

@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const submitUserForm = document.getElementById('submit-user-form');
-  
+    const registerUserForm = document.getElementById('user-register');
+
     submitUserForm.addEventListener('click', async (e) => {
       e.preventDefault();
   
@@ -54,6 +55,13 @@ document.addEventListener('DOMContentLoaded', () => {
           title: 'เกิดข้อผิดพลาดในการลงทะเบียน',
           text: 'กรุณาลองใหม่อีกครั้ง',
         });
+      }
+    });
+    
+    registerUserForm.addEventListener('keydown', async (event) => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        submitUserForm.click(); // คลิกที่ปุ่ม submit เมื่อกด Enter
       }
     });
   });

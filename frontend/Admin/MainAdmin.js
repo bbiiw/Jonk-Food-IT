@@ -113,4 +113,3 @@ categoryButtons.forEach((button) => {
       });
   });
 });
-
