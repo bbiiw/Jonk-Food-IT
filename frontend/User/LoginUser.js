@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const submitLoginUser = document.getElementById('submit-login-user');
+    const loginUserForm = document.getElementById('login-user-form');
     
     submitLoginUser.addEventListener('click', async (e) => {
       e.preventDefault();
@@ -60,6 +61,12 @@ document.addEventListener('DOMContentLoaded', () => {
           title: 'เกิดข้อผิดพลาดในการเข้าสู่ระบบ',
           text: 'กรุณาลองใหม่ภายหลัง',
         });
+      }
+    });
+    loginUserForm.addEventListener('keydown', async (event) => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        submitLoginUser.click(); // ทำการคลิกที่ปุ่มเข้าสู่ระบบ
       }
     });
   });
