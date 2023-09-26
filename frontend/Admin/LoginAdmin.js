@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const submitShopUser = document.getElementById('submit-login-shop');
+    const loginShopForm = document.getElementById('login-shop-form');
   
     submitShopUser.addEventListener('click', async (e) => {
       e.preventDefault();
@@ -60,6 +61,12 @@ document.addEventListener('DOMContentLoaded', () => {
           title: 'เกิดข้อผิดพลาดในการเข้าสู่ระบบ',
           text: 'กรุณาลองใหม่ภายหลัง',
         });
+      }
+    });
+    loginShopForm.addEventListener('keydown', async (event) => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        submitShopUser.click(); // ทำการคลิกที่ปุ่มเข้าสู่ระบบ
       }
     });
   });
