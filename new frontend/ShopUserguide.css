@@ -1,0 +1,8 @@
+:root {
+  --h1-font-family: "Inter-Bold", Helvetica;
+  --h1-font-weight: 700;
+  --h1-font-size: 48px;
+  --h1-letter-spacing: -0.96px;
+  --h1-line-height: 48px;
+  --h1-font-style: normal;
+}

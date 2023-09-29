@@ -1,0 +1,224 @@
+.shop-user {
+  background-color: #d9d9d9;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.shop-user .div {
+  background-color: #d9d9d9;
+  width: 1920px;
+  height: 3000px;
+  position: relative;
+}
+
+.shop-user .JONK-FOOD-IT {
+  position: absolute;
+  width: 570px;
+  top: 94px;
+  left: 675px;
+  font-family: var(--h1-font-family);
+  font-weight: var(--h1-font-weight);
+  color: #000000;
+  font-size: var(--h1-font-size);
+  text-align: center;
+  letter-spacing: var(--h1-letter-spacing);
+  line-height: var(--h1-line-height);
+  font-style: var(--h1-font-style);
+}
+
+.shop-user .overlap {
+  position: absolute;
+  width: 1920px;
+  height: 105px;
+  top: 2895px;
+  left: 0;
+  background-image: url(https://c.animaapp.com/CT0AxP0b/img/rectangle-136.svg);
+  background-size: 100% 100%;
+}
+
+.shop-user .frame {
+  position: relative;
+  width: 454px;
+  height: 18px;
+  top: 35px;
+  left: 54px;
+}
+
+.shop-user .text-wrapper {
+  position: absolute;
+  height: 18px;
+  top: -1px;
+  left: 0;
+  font-family: "Noto Sans", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 12px;
+  letter-spacing: 0;
+  line-height: 18px;
+  white-space: nowrap;
+}
+
+.shop-user .overlap-group-wrapper {
+  position: absolute;
+  width: 1920px;
+  height: 72px;
+  top: 0;
+  left: 0;
+}
+
+.shop-user .overlap-group {
+  position: relative;
+  height: 72px;
+}
+
+.shop-user .div-wrapper {
+  position: absolute;
+  width: 16px;
+  height: 48px;
+  top: 0;
+  left: 480px;
+  background-color: #5b89bf;
+  overflow: hidden;
+}
+
+.shop-user .text-wrapper-2 {
+  position: absolute;
+  width: 10px;
+  height: 268px;
+  top: 25px;
+  left: 8px;
+  font-family: "Noto Sans", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: 21px;
+}
+
+.shop-user .frame-2 {
+  position: absolute;
+  width: 1920px;
+  height: 72px;
+  top: 0;
+  left: 0;
+  background-color: #046683;
+}
+
+.shop-user .frame-3 {
+  position: absolute;
+  width: 1280px;
+  height: 40px;
+  top: 16px;
+  left: 594px;
+}
+
+.shop-user .auto-layout {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 418.66px;
+  position: absolute;
+  top: 0;
+  left: 470px;
+}
+
+.shop-user .frame-4 {
+  position: relative;
+  width: 388.16px;
+  height: 40px;
+}
+
+.shop-user .frame-5 {
+  position: absolute;
+  width: 393px;
+  height: 40px;
+  top: 0;
+  left: 938px;
+}
+
+.shop-user .log-out-wrapper {
+  display: inline-flex;
+  align-items: flex-start;
+  padding: 5px 9.27px 5px 9px;
+  position: absolute;
+  top: 6px;
+  left: 196px;
+  border-radius: 6px;
+  border: 1px solid;
+  border-color: #d0d7de;
+}
+
+.shop-user .log-out {
+  position: relative;
+  width: fit-content;
+  margin-top: -1px;
+  font-family: "Noto Sans", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 16px;
+  letter-spacing: 0;
+  line-height: 24px;
+  white-space: nowrap;
+}
+
+.shop-user .user {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  top: 3px;
+  left: 299px;
+  object-fit: cover;
+}
+
+.shop-user .ellipse {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  top: 6px;
+  left: 38px;
+  object-fit: cover;
+}
+
+.shop-user .Go-to-Shop {
+  position: absolute;
+  width: 1500px;
+  height: 300px;
+  top: 270px;
+  left: 130px;
+  background-color: #efd7ad;
+  border-radius: 20px;
+}
+
+.shop-user .element {
+  position: absolute;
+  width: 125px;
+  height: 125px;
+  top: 45px;
+  left: 49px;
+  object-fit: cover;
+}
+
+.shop-user .text-wrapper-3 {
+  position: absolute;
+  top: 207px;
+  left: 25px;
+  font-family: "Inter", Helvetica;
+  font-weight: 700;
+  color: #000000;
+  font-size: 64px;
+  text-align: center;
+  letter-spacing: -1.28px;
+  line-height: 36px;
+  white-space: nowrap;
+}
+
+.shop-user .rectangle {
+  position: absolute;
+  width: 1500px;
+  height: 300px;
+  top: 670px;
+  left: 130px;
+  background-color: #efd7ad;
+  border-radius: 20px;
+}
