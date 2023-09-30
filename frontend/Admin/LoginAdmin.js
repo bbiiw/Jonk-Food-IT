@@ -38,13 +38,14 @@ document.addEventListener('DOMContentLoaded', () => {
   
       try {
         const response = await axios.post('http://localhost:5000/shop/login', data);
-        if (response.data === 'เข้าสู่ระบบสำเร็จ') {
+        if (response.data.success) {
+          const shop_id = response.data.shop_id;
           Swal.fire({
             icon: 'success',
             title: 'เข้าสู่ระบบสำเร็จ',
             text: 'ยินดีต้อนรับ!',
           }).then(() => {
-            window.location.href = 'http://localhost:5000/Admin/MainAdmin.html';
+            window.location.href = `http://localhost:5000/Admin/MainAdmin.html?shop_id=${shop_id}`;
           });
           loginShopForm.reset();
         } else {

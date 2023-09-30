@@ -1,3 +1,6 @@
+const urlParams = new URLSearchParams(window.location.search);
+const shop_id = urlParams.get('shop_id'); // ดึงค่า shop_id จาก URL
+
 // ฟังก์ชันสำหรับแสดงข้อมูลเมนูในหน้า HTML
 function displayMenuData(menuData) {
   const menuContainer = document.getElementById('menu-container');
@@ -35,7 +38,7 @@ function displayMenuData(menuData) {
 }
 
 // ใช้ Axios เพื่อรับข้อมูลจาก Express.js
-axios.get('http://localhost:5000/shop/menu')
+axios.get(`http://localhost:5000/Admin/MainAdmin.html/${shop_id}`)
 .then((response) => {
   const menuData = response.data;
   displayMenuData(menuData);

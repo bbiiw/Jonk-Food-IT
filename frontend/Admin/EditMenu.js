@@ -55,9 +55,10 @@ confirmButton.addEventListener('click', () => {
   })
   .then((response) => {
       if (response.data.success) {
+        const shop_id = response.data.shop_id;
         Swal.fire('เสร็จสิ้น!', 'แก้ไขเมนูสำเร็จ', 'success')
         .then(() => {
-          window.location.href = 'http://localhost:5000/Admin/MainAdmin.html';
+          window.location.href = `http://localhost:5000/Admin/MainAdmin.html?shop_id=${shop_id}`;
         });
       }
   })

@@ -407,3 +407,26 @@
   line-height: var(--h1-line-height);
   font-style: var(--h1-font-style);
 }
+
+.log-in-user .rectangle-6 {
+  position: absolute;
+  width: 183px;
+  height: 58px;
+  top: 1269px;
+  left: 1106px;
+}
+
+.log-in-user .text-wrapper-3 {
+  position: absolute;
+  width: 175px;
+  top: 1274px;
+  left: 1138px;
+  transform: rotate(-0.23deg);
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 32px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}

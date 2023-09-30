@@ -64,9 +64,10 @@ function confirmMenu() {
     })
     .then((response) => {
         if (response.data.success) {
+            const shop_id = response.data.shop_id;
             Swal.fire('สำเร็จ!', 'เพิ่มเมนูสำเร็จ', 'success')
             .then(() => {
-                window.location.href = 'http://localhost:5000/Admin/MainAdmin.html';
+                window.location.href = `http://localhost:5000/Admin/MainAdmin.html?shop_id=${shop_id}`;
                 menuData = [];
                 const menuList = document.querySelector('#list-item');
                 const confirmbtn = document.querySelector('#confirm-btn');

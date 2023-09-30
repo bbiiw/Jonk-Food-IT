@@ -40,14 +40,6 @@ connection.connect((error) => {
     }
 })
 
-// ตรวจสอบการเข้าสู่ระบบ
-function isAuthenticated(req, res, next) {
-  if (req.session.loggedin) {
-    return next();
-  } else {
-    res.sendFile(path.join(__dirname, '../frontend/login.html'))
-  }
-}
 
 // Setting Session
 app.use(session({
@@ -62,6 +54,26 @@ app.get('/', async (req, res) => {
     res.sendFile(path.join(__dirname, '../frontend/login.html'))
 })
 
+// ตรวจสอบการเข้าสู่ระบบ
+function isAuthenticated(req, res, next) {
+  if (req.session.loggedin) {
+    return next()
+  } else {
+    res.redirect('/')
+  }
+}
+
+// LOGOUT
+app.get('/logout', async (req, res) => {
+    req.session.destroy((error) => {
+        if (error) {
+            console.error('เกิดข้อผิดพลาดในการ Logout: ' + err);
+        } else {
+            res.redirect('/') // ส่งกลับไปยังหน้าแรกของร้านหลังจาก Logout
+        }
+    })
+})
+
 
 // ------------ REGISTER SECTION ------------
 // REGISTER ROUTE
@@ -70,7 +82,7 @@ app.post('/user/register', async (req, res) => {
         const { first_name, last_name, username, password, confirm_password, email, tel } = req.body
         const type = "customer"
 
-        if(!first_name || !last_name || !username || !password || !confirm_password || !email || !tel){
+        if (!first_name || !last_name || !username || !password || !confirm_password || !email || !tel) {
             return res.send('กรุณากรอกข้อมูลให้ครบถ้วน')
         }
         if (password != confirm_password) {
@@ -93,8 +105,45 @@ app.post('/user/register', async (req, res) => {
 
         // เพิ่มผู้ใช้ใหม่ลงในตาราง CUSTOMER
         const customerResult = await connection.promise().query("INSERT INTO customer(user_id, first_name, last_name) VALUES(?, ?, ?)",
-            [user_id, first_name, last_name, username])
+            [user_id, first_name, last_name])
             console.log('สร้างบัญชีสำเร็จและทำการบันทึกลง Customer')
+            return res.send('ลงทะเบียนสำเร็จ')
+    } catch (error) {
+        console.error('เกิดข้อผิดพลาดในการเพิ่มข้อมูลผู้ใช้:', error.message)
+        return res.status(500).send('เกิดข้อผิดพลาดในการสมัครสมาชิก')
+    }
+})
+
+app.post('/shop/register', async (req, res) => {
+    try {
+        const { shop_name, username, password, confirm_password, email, tel } = req.body
+        const type = "shop"
+
+        if (!shop_name || !username || !password || !confirm_password || !email || !tel) {
+            return res.send('กรุณากรอกข้อมูลให้ครบถ้วน')
+        }
+        if (password != confirm_password) {
+            return res.send('รหัสผ่านไม่ตรงกัน')
+        }
+
+        const checkUsername = await connection.promise().query("SELECT * FROM users where username = ?", [username])
+        if (checkUsername[0].length != 0) {
+            // username ซ้ำ
+            return res.send('มีชื่อผู้ใช้(Username)นี้แล้ว')
+        }
+        
+        // เพิ่มผู้ใช้ใหม่ลงในตาราง USERS
+        const userResult = await connection.promise().query("INSERT INTO users(username, password, email, tel, type) VALUES(?, ?, ?, ?, ?)",
+            [username, password, email, tel, type])
+            console.log('สร้างบัญชีสำเร็จและทำการบันทึกลง Users')
+            
+        // ดึง user_id จากตาราง users
+        const user_id = userResult[0].insertId
+
+        // เพิ่มผู้ใช้ใหม่ลงในตาราง SHOP
+        const shopResult = await connection.promise().query("INSERT INTO shop(user_id, shop_name) VALUES(?, ?)",
+            [user_id, shop_name])
+            console.log('สร้างบัญชีสำเร็จและทำการบันทึกลง Shop')
             return res.send('ลงทะเบียนสำเร็จ')
     } catch (error) {
         console.error('เกิดข้อผิดพลาดในการเพิ่มข้อมูลผู้ใช้:', error.message)
@@ -113,7 +162,7 @@ app.post('/user/login', async (req, res) => {
             [username, password])
             if (rows.length === 1 && rows[0].type == 'customer') {
                 req.session.loggedin = true
-                req.session.username = rows[0]
+                req.session.user = rows[0]
                 console.log('Customer ได้ทำการเข้าสู่ระบบ')
                 res.send('เข้าสู่ระบบสำเร็จ')
             } else {
@@ -128,13 +177,20 @@ app.post('/user/login', async (req, res) => {
 app.post('/shop/login', async (req, res) => {
     try {
         const { username, password } = req.body
-        
+
         const [rows] = await connection.promise().query("SELECT * FROM users WHERE username = ? AND password = ?", // ค้นหาผู้ใช้ shop
             [username, password])
             if (rows.length === 1 && rows[0].type == 'shop') {
                 req.session.loggedin = true
-                req.session.username = rows[0]
-                res.send('เข้าสู่ระบบสำเร็จ')
+                req.session.user = rows[0]
+                
+                const user_id = rows[0].user_id
+                const [shopId] = await connection.promise().query(`
+                    SELECT shop_id FROM shop
+                    JOIN users USING (user_id)
+                    WHERE user_id = ?`, [user_id])
+                const shop_id = shopId[0].shop_id
+                res.json({ shop_id: shop_id, success: true})
                 console.log('Shop ได้ทำการเข้าสู่ระบบ')
             } else {
                 res.send('เข้าสู่ระบบไม่สำเร็จ')
@@ -149,7 +205,7 @@ app.post('/shop/login', async (req, res) => {
 // ------------ PROFILE SECTION ------------
 // USER PROFILE PAGE
 app.get('/user/profile', isAuthenticated, async (req, res) => {
-    const username = req.session.username.username
+    const username = req.session.user.username
     connection.query(`SELECT first_name, last_name, username, tel, email 
                     FROM customer c 
                     JOIN users u 
@@ -165,7 +221,7 @@ app.get('/user/profile', isAuthenticated, async (req, res) => {
 
 // USER EDIT PROFILE
 app.post('/user/editprofile', isAuthenticated, async (req, res) => {
-    const username = req.session.username.username
+    const username = req.session.user.username
     const { first_name, last_name, tel, email } = req.body
     connection.query(`UPDATE customer c
                         JOIN users u
@@ -183,7 +239,7 @@ app.post('/user/editprofile', isAuthenticated, async (req, res) => {
                     
 // SHOP PROFILE PAGE
 app.get('/shop/profile', isAuthenticated, async (req, res) => {
-    const username = req.session.username.username
+    const username = req.session.user.username
     connection.query(`SELECT shop_name, username, tel, email 
                     FROM shop s 
                     JOIN users u 
@@ -199,7 +255,7 @@ app.get('/shop/profile', isAuthenticated, async (req, res) => {
 
 // SHOP EDIT PROFILE
 app.post('/shop/editprofile', isAuthenticated, async (req, res) => {
-    const username = req.session.username.username
+    const username = req.session.user.username
     const { shop_name, tel, email } = req.body
     connection.query(`UPDATE shop s
                     JOIN users u
@@ -298,36 +354,49 @@ app.post('/user/confirm', isAuthenticated, async (req, res) => {
 
 // ------------ SHOP MENU SECTION ------------
 // SHOP MENU PAGE
-app.get('/shop/menu', async (req, res) => {
-    connection.query(`SELECT menu_id, menu_name, cost, i.image_path, category_id
+app.get('/Admin/MainAdmin.html/:shop_id', isAuthenticated, async (req, res) => {
+    const shop_id = req.params.shop_id
+    connection.query(`SELECT menu_id, menu_name, cost, image_path, category_id
                     FROM menu m
                     JOIN image i
-                    USING (image_id)`, (error, result) => {
+                    USING (image_id)
+                    WHERE shop_id = ?`, [shop_id],(error, result) => {
         console.log(result)
         res.json(result)
     })
 })
 
+// SHOP MENU CATEGORY
 app.get('/shop/menu/category/:categotyId', async (req, res) => {
     const category_id = req.params.categotyId
+    const user_id = req.session.user.user_id
+    const [shopId] = await connection.promise().query(`SELECT shop_id FROM shop
+                                                        JOIN users USING (user_id)
+                                                        WHERE user_id = ?`, [user_id])
+    const shop_id = shopId[0].shop_id
 
     connection.query(`SELECT menu_id, menu_name, cost, i.image_path, category_id
                     FROM menu
                     JOIN image i
                     USING (image_id)
-                    WHERE category_id = ?`, [category_id], (error, result) => {
+                    WHERE category_id = ? AND shop_id = ?`, [category_id, shop_id], (error, result) => {
         console.log(result)
         res.json(result)
     })
 })
 
 // SHOP ADD MENU
-app.post('/shop/menu/add', upload.any('image'), async (req, res) => {
+app.post('/shop/menu/add', isAuthenticated, upload.any('image'), async (req, res) => {
     // ตรวจสอบข้อมูลเมนูอาหารและรูปภาพที่ส่งมาจากฟอร์ม
+    const user_id = req.session.user.user_id
+    const [shopId] = await connection.promise().query(`SELECT shop_id FROM shop
+                                                        JOIN users USING (user_id)
+                                                        WHERE user_id = ?`, [user_id])
+    const shop_id = shopId[0].shop_id
     const { menu_name, cost, category_id } = req.body
     const images = req.files
     const image_paths = images.map(image => image.filename)
-    console.log({ menu_name, cost, category_id, image_paths })
+    console.log({ menu_name, cost, category_id, image_paths, shop_id })
 
     // บันทึกข้อมูลรูปภาพลงในตาราง image
     const imageInsertQueries = image_paths.map(image_path => {
@@ -345,8 +414,8 @@ app.post('/shop/menu/add', upload.any('image'), async (req, res) => {
             // ตรวจสอบเมนูอาหารและบันทึกลงฐานข้อมูล
             const menuInsertQueries = imageIds.map((image_id, index) => {
                 return new Promise((resolve, reject) => {
-                    connection.query("INSERT INTO menu (shop_id, menu_name, cost, category_id, image_id) VALUES (?, ?, ?, ?, ?)", 
-                        [1, menu_name[index], cost[index], category_id[index], image_id], (menuErr, menuResult) => {
+                    connection.query("INSERT INTO menu(shop_id, menu_name, cost, category_id, image_id) VALUES (?, ?, ?, ?, ?)", 
+                        [shop_id, menu_name[index], cost[index], category_id[index], image_id], (menuErr, menuResult) => {
                                 console.log("เพิ่มเมนูสำเร็จ");
                                 resolve(menuResult);
                     });
@@ -357,7 +426,7 @@ app.post('/shop/menu/add', upload.any('image'), async (req, res) => {
             return Promise.all(menuInsertQueries);
         })
         .then(() => {
-            res.json({ success: true});
+            res.json({ shop_id: shop_id, success: true});
         })
 });
 
@@ -385,6 +454,11 @@ app.get('/Admin/EditMenu.html/:id', async (req, res) => {
 // SHOP EDIT MENU
 app.post('/shop/menu/edit/:id', upload.single('newImage'), async (req, res) => {
     try {
+        const user_id = req.session.user.user_id
+        const [shopId] = await connection.promise().query(`SELECT shop_id FROM shop
+                                                            JOIN users USING (user_id)
+                                                            WHERE user_id = ?`, [user_id])
+        const shop_id = shopId[0].shop_id
         const { menu_name, cost, category_id } = req.body
         const menu_id = req.params.id
         const newImage = req.file
@@ -407,7 +481,7 @@ app.post('/shop/menu/edit/:id', upload.single('newImage'), async (req, res) => {
             [menu_name, cost, category_id, menu_id],
             (error, result) => {
                 console.log('อัปเดตรายการเมนูสำเร็จ')
-                res.json({ success: true})
+                res.json({ shop_id: shop_id, success: true})
             })
     } catch (error) {
         console.error('เกิดข้อผิดพลาดในการจัดการการแก้ไขรายการเมนู:', error.message)
