@@ -31,23 +31,6 @@
   padding-top: 12rem;
 }
 
-.main .menu-container {
-  position: relative;
-  width: 1920px;
-  height: 200px;
-  top: 179px;
-  left: 23px;
-  background-color: #d9d9d9b2;
-  border: 1px solid;
-  border-color: #000000;
-}
-.menu-container-container {
-  top:500px;
-  /* flex-direction: row; */
-}
-
-
-
 .main .rectangle-2 {
   position: absolute;
   width: 794px;
@@ -386,15 +369,6 @@
   left: 0;
 }
 
-.main .rectangle-7 {
-  position: absolute;
-  width: 1920px;
-  height: 105px;
-  top: 87px;
-  left: 0;
-  background-color: #046683;
-}
-
 .main .frame-wrapper {
   position: absolute;
   width: 1280px;
@@ -477,59 +451,6 @@
   top: 0;
   left: 0;
   object-fit: cover;
-}
-
-.main .overlap-5 {
-  position: relative;
-  width: 142px;
-  height: 60px;
-  top: -90px;
-  left: 1500px;
-  /* background-image: url(https://c.animaapp.com/o1y6PJVY/img/rectangle-174-1.svg); */
-  background-color: #046683;
-  background-size: 100% 100%;
-  border-radius: 10px;
-} /* add border and change color */
-
-.main .text-wrapper-6 {
-  top: 15px;
-  left: 51px;
-  color: #ffffff;
-  font-size: 24px;
-  /* position: absolute; */
-  font-family: "Inter", Helvetica;
-  font-weight: 400;
-  letter-spacing: 0;
-  line-height: normal;
-}
-
-.main .menu-name {
-  /* top: 70px; */
-  top: -150px;
-  left: 500px;
-  position: relative;
-  width: 371px;
-  font-family: "Inter", Helvetica;
-  font-weight: 400;
-  color: #000000;
-  font-size: 36px;
-  letter-spacing: 0;
-  line-height: normal;
-  white-space: nowrap;
-}
-
-.main .menu-cost {
-  top: -190px;
-  left: 1000px;
-  position: relative;
-  width: 371px;
-  font-family: "Inter", Helvetica;
-  font-weight: 400;
-  color: #000000;
-  font-size: 36px;
-  letter-spacing: 0;
-  line-height: normal;
-  white-space: nowrap;
 }
 
 .main .overlap-6 {
@@ -700,18 +621,6 @@
   background-size: 100% 100%;
   border-radius: 10px;
 } /* add border and change color */
-
-.main .text-wrapper-7 {
-  top: 15px;
-  left: 45px;
-  color: #ffffff;
-  font-size: 24px;
-  position: absolute;
-  font-family: "Inter", Helvetica;
-  font-weight: 400;
-  letter-spacing: 0;
-  line-height: normal;
-}
 
 .main .overlap-14 {
   position: absolute;
@@ -904,7 +813,7 @@
 .main .text-wrapper-7 {
   width: 294px;
   top: 26px;
-  left: 90px;
+  left: 20px;
   color: #000000;
   font-size: 36px;
   position: absolute;
@@ -925,7 +834,7 @@
 .main .text-wrapper-8 {
   width: 284px;
   top: 26px;
-  left: 110px;
+  left: 30px;
   color: #000000;
   font-size: 36px;
   white-space: nowrap;
@@ -947,7 +856,7 @@
 .main .text-wrapper-9 {
   width: 288px;
   top: 26px;
-  left: 70px;
+  left: 35px;
   color: #000000;
   font-size: 36px;
   position: absolute;
@@ -956,9 +865,10 @@
   letter-spacing: 0;
   line-height: normal;
 }
-.main-admin .window-food {
+
+.main .window-food {
   position: absolute;
-  width: 1920px;
+  width: 1927px;
   height: 2000px;
   top: 415px;
   left: 0;
@@ -966,7 +876,7 @@
   border-color: #000000;
 }
 
-.main-admin .card-detail {
+.main .card-detail {
   display: flex;
   color: #333;
   font-size: 60px;
@@ -978,7 +888,7 @@
   border: 1px solid;
 }
 
-.main-admin .circle {
+.main .circle {
   width: 150px;
   height: 150px;
   border-radius: 50%;
@@ -986,8 +896,56 @@
   margin-left: 150px;
 }
 
-.main-admin .menu-image {
+.main .menu-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.main .menu-name {
+  position: absolute;
+  left: 450px;
+  width: 371px;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 36px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.main .menu-cost {
+  position: absolute;
+  left: 950px;
+  width: 371px;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 36px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.main .overlap-5 {
+  position: relative;
+  width: 142px;
+  height: 60px;
+  left: 1000px;
+  background-color: #046683;
+  background-size: 100% 100%;
+  border-radius: 10px;
+}
+
+.main .text-wrapper-6 {
+  top: 15px;
+  left: 51px;
+  color: #ffffff;
+  font-size: 24px;
+  position: absolute;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: normal;
 }

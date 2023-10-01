@@ -75,7 +75,7 @@ app.get('/logout', async (req, res) => {
 })
 
 
-// ------------ REGISTER SECTION ------------
+// ------------------------ REGISTER SECTION ------------------------
 // REGISTER ROUTE
 app.post('/user/register', async (req, res) => {
     try {
@@ -152,7 +152,7 @@ app.post('/shop/register', async (req, res) => {
 })
 
 
-// ------------ LOGIN SECTION ------------
+// ------------------------ LOGIN SECTION ------------------------
 // LOGIN ROUTE
 app.post('/user/login', async (req, res) => {
     try {
@@ -202,7 +202,7 @@ app.post('/shop/login', async (req, res) => {
 })
 
 
-// ------------ PROFILE SECTION ------------
+// ------------------------ PROFILE SECTION ------------------------
 // USER PROFILE PAGE
 app.get('/user/profile', isAuthenticated, async (req, res) => {
     const username = req.session.user.username
@@ -273,14 +273,42 @@ app.post('/shop/editprofile', isAuthenticated, async (req, res) => {
 
 
 
-// ------------ USER MENU SECTION ------------
-// MENU PAGE
-app.get('/user/menu', isAuthenticated, async (req, res) => {
-    connection.query(`SELECT menu_name, cost
-                        FROM menu`, (error, result) => {
-                            const menu = result
-                            res.json(menu)
-                        })
+// ------------------------ USER MENU SECTION ------------------------
+// USER CHOOSE SHOP
+app.get('/user/shoplist', isAuthenticated, async (req, res) => {
+    connection.query(`SELECT shop_id, shop_name FROM shop`, (error, result) =>{
+        res.json(result)
+        console.log(result)
+    })
+})
+
+// USER MENU PAGE
+app.get('/User/Main.html/:id', isAuthenticated, async (req, res) => {
+    const shop_id = req.params.id
+    connection.query(`SELECT menu_id, menu_name, cost, image_path, category_id
+                    FROM menu m
+                    JOIN image i
+                    USING (image_id)
+                    WHERE shop_id = ?`, [shop_id],(error, result) => {
+        console.log(result)
+        res.json(result)
+    })
+})
+
+// USER MENU CATEGORY
+app.get('/user/menu/:shopId/category/:categotyId', isAuthenticated, async (req, res) => {
+    const category_id = req.params.categotyId
+    const shop_id = req.params.shopId
+    console.log(req.params)
+
+    connection.query(`SELECT menu_id, menu_name, cost, i.image_path, category_id
+                    FROM menu
+                    JOIN image i
+                    USING (image_id)
+                    WHERE category_id = ? AND shop_id = ?`, [category_id, shop_id], (error, result) => {
+        console.log(result)
+        res.json(result)
+    })
 })
 
 const cart = [];
@@ -352,7 +380,7 @@ app.post('/user/confirm', isAuthenticated, async (req, res) => {
 
 
 
-// ------------ SHOP MENU SECTION ------------
+// ------------------------ SHOP MENU SECTION ------------------------
 // SHOP MENU PAGE
 app.get('/Admin/MainAdmin.html/:shop_id', isAuthenticated, async (req, res) => {
     const shop_id = req.params.shop_id
@@ -367,13 +395,9 @@ app.get('/Admin/MainAdmin.html/:shop_id', isAuthenticated, async (req, res) => {
 })
 
 // SHOP MENU CATEGORY
-app.get('/shop/menu/category/:categotyId', async (req, res) => {
+app.get('/shop/menu/:shopId/category/:categotyId', isAuthenticated, async (req, res) => {
     const category_id = req.params.categotyId
-    const user_id = req.session.user.user_id
-    const [shopId] = await connection.promise().query(`SELECT shop_id FROM shop
-                                                        JOIN users USING (user_id)
-                                                        WHERE user_id = ?`, [user_id])
-    const shop_id = shopId[0].shop_id
+    const shop_id = req.params.shopId
 
     connection.query(`SELECT menu_id, menu_name, cost, i.image_path, category_id
                     FROM menu
@@ -431,7 +455,7 @@ app.post('/shop/menu/add', isAuthenticated, upload.any('image'), async (req, res
 });
 
 // EDIT MENU PAGE
-app.get('/Admin/EditMenu.html/:id', async (req, res) => {
+app.get('/Admin/EditMenu.html/:id', isAuthenticated, async (req, res) => {
     try {
         const menu_id = req.params.id
         connection.query(`SELECT menu_name, cost, image_path, category_id 
@@ -452,7 +476,7 @@ app.get('/Admin/EditMenu.html/:id', async (req, res) => {
 })
 
 // SHOP EDIT MENU
-app.post('/shop/menu/edit/:id', upload.single('newImage'), async (req, res) => {
+app.post('/shop/menu/edit/:id', isAuthenticated, upload.single('newImage'), async (req, res) => {
     try {
         const user_id = req.session.user.user_id
         const [shopId] = await connection.promise().query(`SELECT shop_id FROM shop
@@ -490,7 +514,7 @@ app.post('/shop/menu/edit/:id', upload.single('newImage'), async (req, res) => {
 })
 
 // SHOP DELETE MENU
-app.delete('/shop/menu/delete/:id', (req, res) => {
+app.delete('/shop/menu/delete/:id', isAuthenticated, (req, res) => {
     try {
         const menu_id = req.params.id
         connection.query("DELETE FROM menu WHERE menu_id = ?", [menu_id], (error, result) => {
@@ -502,6 +526,11 @@ app.delete('/shop/menu/delete/:id', (req, res) => {
        return res.status(500).send('เกิดข้อผิดพลาดในการจัดการการแก้ไขรายการเมนู')
    }
 })
+
+
+
+// ------------------------ RESERVE SECTION ------------------------
+// ------------------------ REPORT SECTION ------------------------
 
 //LISTEN SERVER
 app.listen(5000, () => {

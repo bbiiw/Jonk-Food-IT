@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
             title: 'เข้าสู่ระบบสำเร็จ',
             text: 'ยินดีต้อนรับ!',
           }).then(() => {
-            window.location.href = 'http://localhost:5000/User/Main.html';
+            window.location.href = 'http://localhost:5000/User/ShopUser.html';
           });
           loginUserForm.reset();
         } else {

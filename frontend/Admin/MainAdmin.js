@@ -106,7 +106,7 @@ categoryButtons.forEach((button) => {
     // รับค่า category-id จากปุ่มที่คลิก
     const categoryId = button.getAttribute('category-id');
     // ส่งคำขอไปยัง Express.js เพื่อรับเมนูตามหมวดหมู่
-    axios.get(`http://localhost:5000/shop/menu/category/${categoryId}`)
+    axios.get(`http://localhost:5000/shop/menu/${shop_id}/category/${categoryId}`)
       .then((response) => {
         const menuData = response.data;
         displayMenuData(menuData);
