@@ -199,14 +199,14 @@
   position: absolute;
   width: 243px;
   height: 98px;
-  top: 32px;
-  left: 1668px;
+  top: 200px;
+  left: 1400px;
   border-radius: 20px;
 }
 
 .main .rectangle-5 {
   position: absolute;
-  width: 243px;
+  width: 443px;
   height: 98px;
   top: 0;
   left: 0;
@@ -225,7 +225,7 @@
 
 .main .rectangle-6 {
   position: absolute;
-  width: 100px;
+  width: 300px;
   height: 67px;
   top: 16px;
   left: 105px;
@@ -234,7 +234,7 @@
   border-radius: 10px;
 } 
 
-.main .num0{
+.main .total-price {
   position: absolute;
   width: 100px;
   height: 67px;
@@ -242,7 +242,12 @@
   left: 140px;
   font-weight: 700;
   border-radius: 10px;
+  white-space: nowrap;
+  font-size: 38px;
+  color: red;
+  text-decoration: none;
 } /*Add This CSS*/
+
 
 .main .frame {
   position: absolute;
@@ -398,28 +403,6 @@
   letter-spacing: 0;
   line-height: 18px;
   white-space: nowrap;
-}
-
-.main .rectangle-8 {
-  position: absolute;
-  width: 1930px;
-  height: 89px;
-  top: 0;
-  left: 0;
-  background-color: #77d875;
-}
-
-.main .text-wrapper-5 {
-  width: 262px;
-  top: 25px;
-  left: 100px;
-  color: #000000;
-  font-size: 36px;
-  position: absolute;
-  font-family: "Inter", Helvetica;
-  font-weight: 400;
-  letter-spacing: 0;
-  line-height: normal;
 }
 
 .main .overlap-4 {
@@ -928,24 +911,65 @@
   white-space: nowrap;
 }
 
-.main .overlap-5 {
+.main .minus-button {
   position: relative;
-  width: 142px;
+  width: 60px;
   height: 60px;
-  left: 1000px;
+  top: 0px;
+  left: 1200px;
+  /* background-image: url(https://c.animaapp.com/o1y6PJVY/img/rectangle-174-1.svg); */
   background-color: #046683;
   background-size: 100% 100%;
-  border-radius: 10px;
+  border-radius: 50%;
+  font-size: 36px;
+} /* add border and change color */
+
+.main .quantity  {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  top: 5px;
+  left: 1265px;
+  font-size: 48px;
 }
 
-.main .text-wrapper-6 {
-  top: 15px;
-  left: 51px;
-  color: #ffffff;
-  font-size: 24px;
+.main .add-button {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  top: 0px;
+  left: 1300px;
+  /* background-image: url(https://c.animaapp.com/o1y6PJVY/img/rectangle-174-1.svg); */
+  background-color: #046683;
+  background-size: 100% 100%;
+  border-radius: 50%;
+  font-size: 36px;
+} /* add border and change color */
+
+/*ตรง QUEUE*/
+
+.main .rectangle-8 {
+  position: absolute;
+  width: 350px;
+  height: 89px;
+  top: 40px;
+  left: 1550px;
+  background-color: #77d875;
+  border: 3px solid;
+  border-radius: 20px;
+}
+
+.main .text-wrapper-5 {
+  width: 262px;
+  top: 60px;
+  left: 1625px;
+  color: #000000;
+  font-size: 36px;
   position: absolute;
   font-family: "Inter", Helvetica;
   font-weight: 400;
   letter-spacing: 0;
   line-height: normal;
 }
+
+/**/

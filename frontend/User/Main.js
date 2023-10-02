@@ -21,11 +21,17 @@ function displayMenuData(menuData) {
       </div>
       <div class="menu-name">${menu_name}</div>
       <div class="menu-cost">${cost} บาท</div>
-
-      <button class="overlap-5" id="addButton2">
-        <div class="text-wrapper-6">เพิ่ม</div>
-      </button>
+      <button class="minus-button" onclick="decrementQuantity(this)">-</button> 
+      <span class="quantity" data-menu-name="${menu_name}" data-menu-price="${cost}">0</span> 
+      <button class="add-button" onclick="incrementQuantity(this)">+</button> 
     </div>`;
+
+    // เพิ่ม quantity และ total ให้กับแต่ละรายการเมนู
+    quantity = 0;
+    total = 0;
+    // เรียกใช้งานฟังก์ชันเพื่ออัปเดตสถานะคิว
+    const queueCount = 11; // ตัวอย่าง: 5 คิว
+    updateQueueStatus(queueCount);
 
     menuContainer.appendChild(menuCard);
   });
@@ -76,6 +82,57 @@ categoryButtons.forEach((button) => {
   });
 });
   
+function incrementQuantity(button) {
+  const quantitySpan = button.previousElementSibling;
+  const menuPrice = parseFloat(quantitySpan.getAttribute('data-menu-price'));
+  const currentQuantity = parseFloat(quantitySpan.textContent);
   
+  const newQuantity = currentQuantity + 1;
+  quantitySpan.textContent = newQuantity;
+  
+  const menuTotal = menuPrice;
+  updateTotal(menuTotal);
+}
+
+function decrementQuantity(button) {
+  const quantitySpan = button.nextElementSibling;
+  const menuPrice = parseFloat(quantitySpan.getAttribute('data-menu-price'));
+  const currentQuantity = parseFloat(quantitySpan.textContent);
+  
+  if (currentQuantity > 0) {
+      const newQuantity = currentQuantity - 1;
+      quantitySpan.textContent = newQuantity;
+      
+      const menuTotal = menuPrice;
+      updateTotal(-menuTotal); // ส่งค่าลบไปยัง updateTotal เพื่อลดราคารวม
+  }
+}
+
+function updateTotal(menuTotal) {
+  total += menuTotal;
+  const totalSpan = document.getElementById('quantity');
+  totalSpan.textContent = total.toFixed(2) + ' บาท';
+}
+
+function updateQueueStatus(queueCount) {
+  const rectangle8 = document.querySelector('.rectangle-8');
+  const textWrapper5 = document.querySelector('.text-wrapper-5');
+  
+  if (queueCount === 0) {
+    rectangle8.style.backgroundColor = '#77d875'; // ถ้าไม่มีคิวจะเป็นสีเขียว
+  } else if (queueCount >= 1 && queueCount <= 10) {
+    rectangle8.style.backgroundColor = 'yellow'; // ถ้าคิวอยู่ระหว่าง 1-10 เป็นสีเหลือง
+  } else {
+    rectangle8.style.backgroundColor = 'red'; // ถ้าคิวมากกว่า 10 เป็นสีแดง
+  }
+    textWrapper5.textContent = `จำนวนคิว : ${queueCount}`;
+}
+
+
+ // เรียกใช้งาน fetchMenuData เมื่อหน้าเว็บโหลดหรือต้องการอัปเดตรายการเมนู
+ window.onload = () => {
+   fetchMenuData();
+   updateTotal(); // เรียกใช้งานเมื่อหน้าเว็บโหลด
+}
   
   
