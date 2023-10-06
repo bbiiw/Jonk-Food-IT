@@ -1,5 +1,8 @@
 const urlParams = new URLSearchParams(window.location.search);
 const shop_id = urlParams.get('shop_id'); // ดึงค่า shop_id จาก URL
+const customer_id = urlParams.get('customer_id'); // ดึงค่า customer_id จาก URL
+const quantity = {}; // เพิ่ม quantity และ total ให้กับแต่ละรายการเมนู
+const total = 0;
 
 // ฟังก์ชันสำหรับแสดงข้อมูลเมนูในหน้า HTML
 function displayMenuData(menuData) {
@@ -26,9 +29,8 @@ function displayMenuData(menuData) {
       <button class="add-button" onclick="incrementQuantity(this)">+</button> 
     </div>`;
 
-    // เพิ่ม quantity และ total ให้กับแต่ละรายการเมนู
-    quantity = 0;
-    total = 0;
+
+    //EXAMPLE CODE
     // เรียกใช้งานฟังก์ชันเพื่ออัปเดตสถานะคิว
     const queueCount = 11; // ตัวอย่าง: 5 คิว
     updateQueueStatus(queueCount);
@@ -85,9 +87,15 @@ categoryButtons.forEach((button) => {
 function incrementQuantity(button) {
   const quantitySpan = button.previousElementSibling;
   const menuPrice = parseFloat(quantitySpan.getAttribute('data-menu-price'));
-  const currentQuantity = parseFloat(quantitySpan.textContent);
+  const menuName = quantitySpan.getAttribute('data-menu-name');
   
-  const newQuantity = currentQuantity + 1;
+  if (!quantity.hasOwnProperty(menuName)) {
+    quantity[menuName] = 0;
+  }
+  
+  quantity[menuName]++;
+  
+  const newQuantity = quantity[menuName];
   quantitySpan.textContent = newQuantity;
   
   const menuTotal = menuPrice;
@@ -97,22 +105,35 @@ function incrementQuantity(button) {
 function decrementQuantity(button) {
   const quantitySpan = button.nextElementSibling;
   const menuPrice = parseFloat(quantitySpan.getAttribute('data-menu-price'));
-  const currentQuantity = parseFloat(quantitySpan.textContent);
+  const menuName = quantitySpan.getAttribute('data-menu-name');
   
-  if (currentQuantity > 0) {
-      const newQuantity = currentQuantity - 1;
-      quantitySpan.textContent = newQuantity;
-      
-      const menuTotal = menuPrice;
-      updateTotal(-menuTotal); // ส่งค่าลบไปยัง updateTotal เพื่อลดราคารวม
+  if (!quantity.hasOwnProperty(menuName)) {
+    quantity[menuName] = 0;
+  }
+  
+  if (quantity[menuName] > 0) {
+    quantity[menuName]--;
+    const newQuantity = quantity[menuName];
+    quantitySpan.textContent = newQuantity;
+    
+    const menuTotal = menuPrice;
+    updateTotal(-menuTotal);
   }
 }
 
-function updateTotal(menuTotal) {
-  total += menuTotal;
+function updateTotal() {
+  let total = 0;
+  for (const menuName in quantity) {
+    if (quantity.hasOwnProperty(menuName)) {
+      const menuPrice = parseFloat(document.querySelector(`[data-menu-name="${menuName}"]`).getAttribute('data-menu-price'));
+      total += quantity[menuName] * menuPrice;
+    }
+  }
+  
   const totalSpan = document.getElementById('quantity');
   totalSpan.textContent = total.toFixed(2) + ' บาท';
 }
+
 
 function updateQueueStatus(queueCount) {
   const rectangle8 = document.querySelector('.rectangle-8');
@@ -126,6 +147,40 @@ function updateQueueStatus(queueCount) {
     rectangle8.style.backgroundColor = 'red'; // ถ้าคิวมากกว่า 10 เป็นสีแดง
   }
     textWrapper5.textContent = `จำนวนคิว : ${queueCount}`;
+}
+
+// เพิ่มฟังก์ชัน addToCart
+function addToCart() {
+  // ตรวจสอบว่ามีรายการสินค้าในตะกร้าหรือไม่
+  let cartItems = [];
+  for (const menuName in quantity) {
+    if (quantity.hasOwnProperty(menuName) && quantity[menuName] > 0) {
+      cartItems.push({
+        menuName: menuName,
+        quantity: quantity[menuName]
+      });
+    }
+  }
+
+  if (cartItems.length === 0) {
+    Swal.fire({
+      icon: 'error',
+      title: 'ตะกร้าว่างเปล่า',
+      text: 'กรุณาเลือกสินค้าลงในตะกร้าก่อน!'
+    });
+  } else {
+    // ตัวอย่างการแสดงข้อมูลในตะกร้า
+    const cartItemsText = cartItems.map(item => `${item.menuName}: ${item.quantity} รายการ`).join('\n');
+
+    Swal.fire({
+      icon: 'success',
+      title: 'เพิ่มสินค้าในตะกร้าสำเร็จ',
+      text: 'รายการที่เพิ่มในตะกร้า:\n' + cartItemsText
+    }).then(() => {
+      // หลังจากกด OK ให้เรียกฟังก์ชันสำหรับการนำรายการไปยังหน้า Cart.html
+      window.location.href = `http://localhost:5000/user/cart.html`;
+    });
+  }
 }
 
 

@@ -311,21 +311,58 @@ app.get('/user/menu/:shopId/category/:categotyId', isAuthenticated, async (req, 
     })
 })
 
-const cart = [];
+const cart = {}; // ใช้วัตถุเก็บรถเข็นสำหรับแต่ละลูกค้า
 
-// ADD TO CART
+// เพิ่มรายการลงในตะกร้า
 app.post('/user/cart/add', isAuthenticated, async (req, res) => {
-        const { customer_id, menu_id, reserve_id, items, cost } = req.body
+    const { customer_id, menu_id, reserve_id, items, cost } = req.body;
 
-        // เพิ่มเมนูลงตะกร้า
-        cart[customer_id].push({ menu_id, items, cost })
-        
-        connection.query("INSERT INTO booking(customer_id, menu_id, reserve_id, items, cost) VALUES (?, ?, ?, ?, ?)",
-            [customer_id, menu_id, reserve_id, JSON.stringify(items), cost], (error, result) => {
-                // ลบรายการในตะกร้าหลังจากสั่งอาหารสำเร็จ
-                cart.length = 0
-        })
-})
+    // ตรวจสอบว่ามีตะกร้าสำหรับลูกค้าหรือไม่
+    if (!cart[customer_id]) {
+        cart[customer_id] = [];
+    }
+
+    // ตรวจสอบว่ารายการเมนูอยู่ในตะกร้าแล้วหรือไม่
+    const existingItem = cart[customer_id].find(item => item.menu_id === menu_id);
+
+    if (existingItem) {
+        // หากรายการมีอยู่ในตะกร้าแล้ว อัปเดตจำนวนหรือคุณสมบัติอื่น ๆ ตามที่จำเป็น
+        existingItem.items = items; // อัปเดตจำนวนหรือคุณสมบัติอื่น ๆ
+    } else {
+        // หากรายการไม่อยู่ในตะกร้า ให้เพิ่ม
+        cart[customer_id].push({ menu_id, items, cost });
+    }
+
+    // แทรกรายการลงในตารางการจอง (booking table)
+    connection.query(
+        "INSERT INTO booking(customer_id, menu_id, reserve_id, items, cost) VALUES (?, ?, ?, ?, ?)",
+        [customer_id, menu_id, reserve_id, JSON.stringify(items), cost],
+        (error, result) => {
+            if (error) {
+                console.error(error);
+                res.status(500).json({ error: 'Internal Server Error' });
+                return;
+            }
+
+            // รายการในตะกร้าเพิ่มเรียบร้อยและแทรกลงในตารางการจอง
+            res.json({ message: 'เพิ่มรายการลงในตะกร้าและจองสำเร็จ' });
+        }
+    );
+});
+
+// หน้ารถเข็น - ดึงและแสดงตะกร้าสำหรับลูกค้าที่ระบุ
+app.get('/user/cart.html', isAuthenticated, async (req, res) => {
+    const customer_id = req.params.customer_id;
+    // const shop_id = req.params.shopId;
+    console.log(req.params)
+    connection.query(``);
+    // ตรวจสอบว่าลูกค้ามีตะกร้าหรือไม่
+    const customerCart = cart[customer_id] || [];
+
+    // คุณสามารถส่ง customerCart ไปยังแอปของคุณเพื่อแสดงเนื้อหาในตะกร้า
+    res.json(customerCart);
+});
+
 //     try {
 //         const { customer_id, menu_id, reserve_id, date, time } = req.body
 
@@ -341,10 +378,11 @@ app.post('/user/cart/add', isAuthenticated, async (req, res) => {
 //     }
 // })
 
-// CART PAGE
-app.get('/user/cart', async (req, res) => {
-    res.json(cart)
-})
+// // CART PAGE
+// app.get('/user/cart/:id', async (req, res) => {
+//     const customer_id = req.params.customer_id;
+//     res.json(cart)
+// })
 
 // EDIT CART
 app.put('/edit-cart', isAuthenticated, async (req, res) => {
