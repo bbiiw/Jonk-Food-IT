@@ -295,6 +295,49 @@ app.get('/User/Main.html/:id', isAuthenticated, async (req, res) => {
     })
 })
 
+app.post('/User/Main.html/:id', (req, res) => {
+    const cartItems = req.body; // ข้อมูลที่ส่งมาจาก client จะอยู่ใน req.body
+    res.send('ข้อมูลถูกรับแล้ว'); // ส่งข้อมูลตอบกลับไปยัง client
+    app.get('/user/cart.html/:customer_id', isAuthenticated, async (req, res) => {
+        const cartData = [];
+
+        // วนลูปผ่านรายการในตะกร้า
+        cartItems.forEach((item) => {
+            const menuId = item.menuId;
+            const quantity = item.quantity;
+
+            // เรียกใช้งานฐานข้อมูลเพื่อดึงข้อมูลเมนูโดยใช้ menuId
+            connection.query(
+            `SELECT menu_id, menu_name, cost, image_path
+            FROM menu m
+            JOIN image i USING (image_id)
+            WHERE menu_id = ?`,
+            [menuId],
+            (error, result) => {
+                const menuData = result[0]; // เราเอาข้อมูลของเมนูออกมาจาก query result
+                
+                // เพิ่มข้อมูลรายการเมนูและจำนวนลงในอาเรย์ cartData
+                cartData.push({
+                    menuId: menuData.menu_id,
+                    menuName: menuData.menu_name,
+                    cost: menuData.cost,
+                    image_path: menuData.image_path,
+                    quantity: quantity
+                });
+                
+                // ถ้า cartData มีข้อมูลเท่ากับจำนวนรายการในตะกร้า แสดงว่าเราได้รวมข้อมูลทั้งหมดแล้ว
+                if (cartData.length === cartItems.length) {
+                    // ส่งข้อมูล cartData กลับไปยัง client
+                    res.send(cartData);
+                    console.log(cartData)
+                    console.log(cartItems)
+                }
+            }
+            );
+        });
+    });
+  });
+
 // USER MENU CATEGORY
 app.get('/user/menu/:shopId/category/:categotyId', isAuthenticated, async (req, res) => {
     const category_id = req.params.categotyId
@@ -311,109 +354,44 @@ app.get('/user/menu/:shopId/category/:categotyId', isAuthenticated, async (req, 
     })
 })
 
-const cart = {}; // ใช้วัตถุเก็บรถเข็นสำหรับแต่ละลูกค้า
-
-// เพิ่มรายการลงในตะกร้า
-app.post('/user/cart/add', isAuthenticated, async (req, res) => {
-    const { customer_id, menu_id, reserve_id, items, cost } = req.body;
-
-    // ตรวจสอบว่ามีตะกร้าสำหรับลูกค้าหรือไม่
-    if (!cart[customer_id]) {
-        cart[customer_id] = [];
-    }
-
-    // ตรวจสอบว่ารายการเมนูอยู่ในตะกร้าแล้วหรือไม่
-    const existingItem = cart[customer_id].find(item => item.menu_id === menu_id);
-
-    if (existingItem) {
-        // หากรายการมีอยู่ในตะกร้าแล้ว อัปเดตจำนวนหรือคุณสมบัติอื่น ๆ ตามที่จำเป็น
-        existingItem.items = items; // อัปเดตจำนวนหรือคุณสมบัติอื่น ๆ
-    } else {
-        // หากรายการไม่อยู่ในตะกร้า ให้เพิ่ม
-        cart[customer_id].push({ menu_id, items, cost });
-    }
-
-    // แทรกรายการลงในตารางการจอง (booking table)
-    connection.query(
-        "INSERT INTO booking(customer_id, menu_id, reserve_id, items, cost) VALUES (?, ?, ?, ?, ?)",
-        [customer_id, menu_id, reserve_id, JSON.stringify(items), cost],
-        (error, result) => {
-            if (error) {
-                console.error(error);
-                res.status(500).json({ error: 'Internal Server Error' });
-                return;
-            }
-
-            // รายการในตะกร้าเพิ่มเรียบร้อยและแทรกลงในตารางการจอง
-            res.json({ message: 'เพิ่มรายการลงในตะกร้าและจองสำเร็จ' });
-        }
-    );
-});
-
-// หน้ารถเข็น - ดึงและแสดงตะกร้าสำหรับลูกค้าที่ระบุ
-app.get('/user/cart.html', isAuthenticated, async (req, res) => {
-    const customer_id = req.params.customer_id;
-    // const shop_id = req.params.shopId;
-    console.log(req.params)
-    connection.query(``);
-    // ตรวจสอบว่าลูกค้ามีตะกร้าหรือไม่
-    const customerCart = cart[customer_id] || [];
-
-    // คุณสามารถส่ง customerCart ไปยังแอปของคุณเพื่อแสดงเนื้อหาในตะกร้า
-    res.json(customerCart);
-});
-
-//     try {
-//         const { customer_id, menu_id, reserve_id, date, time } = req.body
-
-//         connection.query("INSERT INTO booking(customer_id, menu_id, reserve_id, date, time) VALUES (?, ?, ?, ?, ?)",
-//         [customer_id, menu_id, reserve_id, date, time], (error, result) => {
-//             console.log('เพิ่มรายการลงในตะกร้าเรียบร้อย')
-//             return res.status(200).send()
-//         })
-
-//     } catch (error) {
-//         console.error('เพิ่มอาหารลงตะกร้าไม่สำเร็จ:', error.message)
-//         return res.status(500).send('เกิดข้อผิดพลาดในการเพิ่มอาหารลงตะกร้า')
-//     }
-// })
-
-// // CART PAGE
-// app.get('/user/cart/:id', async (req, res) => {
-//     const customer_id = req.params.customer_id;
-//     res.json(cart)
-// })
-
-// EDIT CART
-app.put('/edit-cart', isAuthenticated, async (req, res) => {
-    try {
-        const { booking_id, items } = req.body;
-
-        connection.query("UPDATE booking SET items = ? WHERE booking_id = ?",
-            [items, booking_id], (error, result) => {
-            console.log('ตะกร้าถูกอัปเดต เพิ่ม/ลดเมนูสำเร็จ')
-            return res.status(200).send('ตะกร้าถูกอัปเดตแล้ว')
-        })
-    } catch (error) {
-        console.error('ตะกร้าไม่ถูกอัปเดต อาจเกิดข้อผิดพลาด:', error.message)
-        return res.status(500).send('เกิดข้อผิดพลาดในการแก้ไขเมนูในตะกร้า')
-    }
-})
-
 // CONFIRM CART
-app.post('/user/confirm', isAuthenticated, async (req, res) => {
-    try {
-        // รับข้อมูลมาจากตะกร้าในตาราง booking และบันทึกลงในตาราง reserve
-        const { customer_id, history_id, total } = req.body
-        connection.query("INSERT INTO reserve(customer_id, menu_id, items, history_id, total) SELECT menu_id, items FROM booking",
-            [customer_id, history_id, total], (error, result) => {
-            console.log('รายการอาหารทำการจองคิว')
-            return res.status(200).send('จองอาหารสำเร็จ')
-        })
-    } catch (error) {
-        console.error('จองอาหารไม่สำเร็จ อาจเกิดข้อผิดพลาด:', error.message)
-        return res.status(500).send('เกิดข้อผิดพลาดในการจองคิว')
-    }
+app.post('/user/cart.html/:customer_id', isAuthenticated, async (req, res) => {
+    const customer_id = req.params.customer_id
+    const shop_id = req.params.shop_id
+    const cartData = req.body
+    console.log(cartData)
+    connection.query(`INSERT INTO reserve(customer_id, status_id, total)
+                    VALUES (?, ?, ?)`, [customer_id, 1, cartData.cost]), (error, results) => {
+                        if (error) {
+                          console.error('เกิดข้อผิดพลาดในการเพิ่มรายการ: ' + error);
+                        } else {
+                          console.log('เพิ่มรายการสำเร็จ');
+                          // ดึงค่า reserve_id ที่ถูกสร้างขึ้นล่าสุด
+                          connection.query('SELECT LAST_INSERT_ID() as reserve_id', (error, results) => {
+                            if (error) {
+                              console.error('เกิดข้อผิดพลาดในการดึงค่า reserve_id: ' + error);
+                            } else {
+                              const reserve_id = results[0].reserve_id;
+                              console.log('ค่า reserve_id ที่ถูกสร้างขึ้นล่าสุดคือ: ' + reserve_id);
+                              // ทำสิ่งอื่น ๆ ที่คุณต้องการทำกับค่า reserve_id ที่ถูกสร้างขึ้นล่าสุด
+                            }
+                          });
+                        }
+                    }
+    connection.query(`INSERT INTO booking(customer_id, menu_id, reserve_id, items, cost)
+                    VALUE (?, ?, ?, ?, ?)`,[customer_id, cartData.menuId, reserve_id, cartData.quantity, cost])
+    // try {
+    //     // รับข้อมูลมาจากตะกร้าในตาราง booking และบันทึกลงในตาราง reserve
+    //     const { customer_id, history_id, total } = req.body
+    //     connection.query("INSERT INTO reserve(customer_id, menu_id, items, history_id, total) SELECT menu_id, items FROM booking",
+    //         [customer_id, history_id, total], (error, result) => {
+    //         console.log('รายการอาหารทำการจองคิว')
+    //         return res.status(200).send('จองอาหารสำเร็จ')
+    //     })
+    // } catch (error) {
+    //     console.error('จองอาหารไม่สำเร็จ อาจเกิดข้อผิดพลาด:', error.message)
+    //     return res.status(500).send('เกิดข้อผิดพลาดในการจองคิว')
+    // }
 })
 
 
