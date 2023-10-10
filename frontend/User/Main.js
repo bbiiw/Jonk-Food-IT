@@ -13,7 +13,8 @@ function displayMenuData(menuData) {
   menuData.forEach((menuItem) => {
     const menu_name = menuItem.menu_name;
     const cost = menuItem.cost.toFixed(2);
-    const image = menuItem.image_path
+    const image = menuItem.image_path;
+    const menu_id = menuItem.menu_id;
 
     const menuCard = document.createElement('div');
     menuCard.className = 'menu-card';
@@ -25,7 +26,7 @@ function displayMenuData(menuData) {
       <div class="menu-name">${menu_name}</div>
       <div class="menu-cost">${cost} บาท</div>
       <button class="minus-button" onclick="decrementQuantity(this)">-</button> 
-      <span class="quantity" data-menu-name="${menu_name}" data-menu-price="${cost}">0</span> 
+      <span class="quantity" data-menu-id="${menu_id}" data-menu-name="${menu_name}" data-menu-price="${cost}">0</span> 
       <button class="add-button" onclick="incrementQuantity(this)">+</button> 
     </div>`;
 
@@ -87,15 +88,15 @@ categoryButtons.forEach((button) => {
 function incrementQuantity(button) {
   const quantitySpan = button.previousElementSibling;
   const menuPrice = parseFloat(quantitySpan.getAttribute('data-menu-price'));
-  const menuName = quantitySpan.getAttribute('data-menu-name');
+  const menuId = quantitySpan.getAttribute('data-menu-id');
   
-  if (!quantity.hasOwnProperty(menuName)) {
-    quantity[menuName] = 0;
+  if (!quantity.hasOwnProperty(menuId)) {
+    quantity[menuId] = 0;
   }
   
-  quantity[menuName]++;
+  quantity[menuId]++;
   
-  const newQuantity = quantity[menuName];
+  const newQuantity = quantity[menuId];
   quantitySpan.textContent = newQuantity;
   
   const menuTotal = menuPrice;
@@ -105,15 +106,15 @@ function incrementQuantity(button) {
 function decrementQuantity(button) {
   const quantitySpan = button.nextElementSibling;
   const menuPrice = parseFloat(quantitySpan.getAttribute('data-menu-price'));
-  const menuName = quantitySpan.getAttribute('data-menu-name');
+  const menuId = quantitySpan.getAttribute('data-menu-id');
   
-  if (!quantity.hasOwnProperty(menuName)) {
-    quantity[menuName] = 0;
+  if (!quantity.hasOwnProperty(menuId)) {
+    quantity[menuId] = 0;
   }
   
-  if (quantity[menuName] > 0) {
-    quantity[menuName]--;
-    const newQuantity = quantity[menuName];
+  if (quantity[menuId] > 0) {
+    quantity[menuId]--;
+    const newQuantity = quantity[menuId];
     quantitySpan.textContent = newQuantity;
     
     const menuTotal = menuPrice;
@@ -123,10 +124,10 @@ function decrementQuantity(button) {
 
 function updateTotal() {
   let total = 0;
-  for (const menuName in quantity) {
-    if (quantity.hasOwnProperty(menuName)) {
-      const menuPrice = parseFloat(document.querySelector(`[data-menu-name="${menuName}"]`).getAttribute('data-menu-price'));
-      total += quantity[menuName] * menuPrice;
+  for (const menuId in quantity) {
+    if (quantity.hasOwnProperty(menuId)) {
+      const menuPrice = parseFloat(document.querySelector(`[data-menu-id="${menuId}"]`).getAttribute('data-menu-price'));
+      total += quantity[menuId] * menuPrice;
     }
   }
   
@@ -153,11 +154,11 @@ function updateQueueStatus(queueCount) {
 function addToCart() {
   // ตรวจสอบว่ามีรายการสินค้าในตะกร้าหรือไม่
   let cartItems = [];
-  for (const menuName in quantity) {
-    if (quantity.hasOwnProperty(menuName) && quantity[menuName] > 0) {
-      cartItems.push({
-        menuName: menuName,
-        quantity: quantity[menuName]
+  for (const menuId in quantity) {
+    if (quantity.hasOwnProperty(menuId) && quantity[menuId] > 0) {
+      cartItems.push({ 
+        menuId: menuId,
+        quantity: quantity[menuId]
       });
     }
   }
@@ -170,14 +171,19 @@ function addToCart() {
     });
   } else {
     // ตัวอย่างการแสดงข้อมูลในตะกร้า
-    const cartItemsText = cartItems.map(item => `${item.menuName}: ${item.quantity} รายการ`).join('\n');
 
     Swal.fire({
       icon: 'success',
       title: 'เพิ่มสินค้าในตะกร้าสำเร็จ',
-      text: 'รายการที่เพิ่มในตะกร้า:\n' + cartItemsText
     }).then(() => {
       // หลังจากกด OK ให้เรียกฟังก์ชันสำหรับการนำรายการไปยังหน้า Cart.html
+      axios.post('/User/Main.html/:id', cartItems)
+        .then((response) => {
+          console.log(response.data); // ข้อมูลที่ส่งกลับมาจากเซิร์ฟเวอร์
+        })
+        .catch((error) => {
+          console.error('เกิดข้อผิดพลาด:', error);
+        });
       window.location.href = `http://localhost:5000/user/cart.html`;
     });
   }
@@ -189,5 +195,5 @@ function addToCart() {
    fetchMenuData();
    updateTotal(); // เรียกใช้งานเมื่อหน้าเว็บโหลด
 }
-  
+
   

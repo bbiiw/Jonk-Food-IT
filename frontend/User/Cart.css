@@ -467,3 +467,99 @@
   position: absolute;
   font-family: "Inter", Helvetica;
 }
+.cart .window-food {
+  position: relative;
+  width: 1927px;
+  height: 1350px;
+  top: 100px;
+  left: 85px;
+  border: 1px solid;
+  border-color: #000000;
+}
+
+.cart .card-detail {
+  display: flex;
+  color: #333;
+  font-size: 60px;
+  text-decoration: none; 
+  padding: 30px;
+  align-items: center;
+  height: 200px;
+  background-color: #d9d9d9b2;
+  border: 1px solid;
+}
+
+.cart .circle {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-left: 150px;
+}
+
+.cart .menu-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cart .menu-name {
+  position: absolute;
+  left: 450px;
+  width: 371px;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 36px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.cart .menu-cost {
+  position: absolute;
+  left: 950px;
+  width: 371px;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 36px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.cart .minus-button {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  top: 0px;
+  left: 1200px;
+  /* background-image: url(https://c.animaapp.com/o1y6PJVY/img/rectangle-174-1.svg); */
+  background-color: #046683;
+  background-size: 100% 100%;
+  border-radius: 50%;
+  font-size: 36px;
+} /* add border and change color */
+
+.cart .quantity  {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  top: 5px;
+  left: 1265px;
+  font-size: 48px;
+}
+
+.cart .add-button {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  top: 0px;
+  left: 1300px;
+  /* background-image: url(https://c.animaapp.com/o1y6PJVY/img/rectangle-174-1.svg); */
+  background-color: #046683;
+  background-size: 100% 100%;
+  border-radius: 50%;
+  font-size: 36px;
+}
