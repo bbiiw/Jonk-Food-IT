@@ -158,13 +158,15 @@ app.post('/user/login', async (req, res) => {
     try {
         const { username, password } = req.body
         
-        const [rows] = await connection.promise().query("SELECT * FROM users WHERE username = ? AND password = ?", // ค้นหาผู้ใช้ customer
-            [username, password])
+        const [rows] = await connection.promise().query(`SELECT * FROM users 
+                                                        JOIN customer USING (user_id)
+                                                        WHERE username = ? AND password = ?`, [username, password])
             if (rows.length === 1 && rows[0].type == 'customer') {
                 req.session.loggedin = true
                 req.session.user = rows[0]
                 console.log('Customer ได้ทำการเข้าสู่ระบบ')
-                res.send('เข้าสู่ระบบสำเร็จ')
+                res.json({success: true,
+                          result: rows[0]})
             } else {
                 res.send('เข้าสู่ระบบไม่สำเร็จ')
             }
@@ -285,14 +287,21 @@ app.get('/user/shoplist', isAuthenticated, async (req, res) => {
 // USER MENU PAGE
 app.get('/User/Main.html/:id', isAuthenticated, async (req, res) => {
     const shop_id = req.params.id
-    connection.query(`SELECT menu_id, menu_name, cost, image_path, category_id
+    const [list_menu] = await connection.promise().query(`SELECT menu_id, menu_name, cost, image_path, category_id
                     FROM menu m
                     JOIN image i
                     USING (image_id)
-                    WHERE shop_id = ?`, [shop_id],(error, result) => {
-        console.log(result)
-        res.json(result)
-    })
+                    WHERE shop_id = ?`, [shop_id])
+
+    const [queueCount] = await connection.promise().query(`SELECT COUNT(DISTINCT reserve_id) AS queue FROM reserve
+                                                        JOIN booking
+                                                        USING (reserve_id)
+                                                        JOIN menu
+                                                        USING (menu_id)
+                                                        WHERE shop_id = ?`, [shop_id])
+    
+    console.log(list_menu, queueCount[0].queue)
+    res.json({menu: list_menu, queue: queueCount[0].queue})
 })
 
 app.post('/User/Main.html/:id', (req, res) => {
@@ -355,44 +364,40 @@ app.get('/user/menu/:shopId/category/:categotyId', isAuthenticated, async (req, 
 })
 
 // CONFIRM CART
-app.post('/user/cart.html/:customer_id', isAuthenticated, async (req, res) => {
-    const customer_id = req.params.customer_id
+app.post('/user/cart.html', isAuthenticated, async (req, res) => {
+    const customer_id = req.session.user.customer_id
     const shop_id = req.params.shop_id
-    const cartData = req.body
+    const cartData = req.body;
     console.log(cartData)
-    connection.query(`INSERT INTO reserve(customer_id, status_id, total)
-                    VALUES (?, ?, ?)`, [customer_id, 1, cartData.cost]), (error, results) => {
-                        if (error) {
-                          console.error('เกิดข้อผิดพลาดในการเพิ่มรายการ: ' + error);
-                        } else {
-                          console.log('เพิ่มรายการสำเร็จ');
-                          // ดึงค่า reserve_id ที่ถูกสร้างขึ้นล่าสุด
-                          connection.query('SELECT LAST_INSERT_ID() as reserve_id', (error, results) => {
-                            if (error) {
-                              console.error('เกิดข้อผิดพลาดในการดึงค่า reserve_id: ' + error);
-                            } else {
-                              const reserve_id = results[0].reserve_id;
-                              console.log('ค่า reserve_id ที่ถูกสร้างขึ้นล่าสุดคือ: ' + reserve_id);
-                              // ทำสิ่งอื่น ๆ ที่คุณต้องการทำกับค่า reserve_id ที่ถูกสร้างขึ้นล่าสุด
-                            }
-                          });
-                        }
+    res.send('ข้อมูลถูกรับแล้ว');
+    let total = 0
+    cartData.forEach((cartItem) => {
+        total += parseInt(cartItem.cost);
+    })
+    connection.query(`INSERT INTO reserve(customer_id, status_id, total, date, time)
+                VALUES (?, ?, ?, NOW() + INTERVAL 7 HOUR, NOW() + INTERVAL 7 HOUR)`, [customer_id, 1, total], (error, results) => {
+                    console.log('เพิ่มรายการสำเร็จ');
+                    // ดึงค่า reserve_id ที่ถูกสร้างขึ้นล่าสุด
+                    connection.query('SELECT LAST_INSERT_ID() as reserve_id', (error, results) => {
+                    if (error) {
+                        console.error('เกิดข้อผิดพลาดในการดึงค่า reserve_id: ' + error);
+                    } else {
+                        const reserve_id = results[0].reserve_id;
+                        console.log('ค่า reserve_id ที่ถูกสร้างขึ้นล่าสุดคือ: ' + reserve_id);
+                        // ทำสิ่งอื่น ๆ ที่คุณต้องการทำกับค่า reserve_id ที่ถูกสร้างขึ้นล่าสุด
+                        cartData.forEach((cartItem) => {
+                            connection.query(`INSERT INTO booking(customer_id, menu_id, reserve_id, items, cost)
+                                VALUES (?, ?, ?, ?, ?)`,[customer_id, cartItem.menuId, reserve_id, cartItem.quantity, cartItem.cost],(error, results) => {
+                                    if (error) {
+                                        console.error('เกิดข้อผิดพลาดในการเพิ่มข้อมูลการจอง: ' + error);
+                                    } else {
+                                        console.log('เพิ่มข้อมูลการจองสำเร็จ');
+                                    }})})
                     }
-    connection.query(`INSERT INTO booking(customer_id, menu_id, reserve_id, items, cost)
-                    VALUE (?, ?, ?, ?, ?)`,[customer_id, cartData.menuId, reserve_id, cartData.quantity, cost])
-    // try {
-    //     // รับข้อมูลมาจากตะกร้าในตาราง booking และบันทึกลงในตาราง reserve
-    //     const { customer_id, history_id, total } = req.body
-    //     connection.query("INSERT INTO reserve(customer_id, menu_id, items, history_id, total) SELECT menu_id, items FROM booking",
-    //         [customer_id, history_id, total], (error, result) => {
-    //         console.log('รายการอาหารทำการจองคิว')
-    //         return res.status(200).send('จองอาหารสำเร็จ')
-    //     })
-    // } catch (error) {
-    //     console.error('จองอาหารไม่สำเร็จ อาจเกิดข้อผิดพลาด:', error.message)
-    //     return res.status(500).send('เกิดข้อผิดพลาดในการจองคิว')
-    // }
-})
+                    });
+                
+            })
+        })
 
 
 
