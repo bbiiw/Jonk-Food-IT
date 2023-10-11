@@ -95,20 +95,20 @@ document.querySelector('.text-5').addEventListener('click', function () {
   cardDetails.forEach((card) => {
     const menuQuantity = parseInt(card.querySelector('.quantity').getAttribute('data-quantity'));
     const menuId = parseInt(card.querySelector('.quantity').getAttribute('data-menu-id'));
-    const cost = parseInt(quantitySpan.getAttribute('data-menu-cost'))
+    const cost = parseInt(card.querySelector('.quantity').getAttribute('data-menu-cost'))
     const menuData = {
       menuId: menuId,
       quantity: menuQuantity,
       cost: cost*menuQuantity
     };
-
-  menuItems.push(menuData); // เพิ่มข้อมูลของรายการเมนูลงในอาร์เรย์ menuItems
-});
-  axios.post('/user/cart.html/:customer_id', menuItems)
-    .then((response) => {
-      console.log(response.data); // ข้อมูลที่ส่งกลับมาจากเซิร์ฟเวอร์
-    })
-    .catch((error) => {
-      console.error('เกิดข้อผิดพลาด:', error);
-    });
+    menuItems.push(menuData); // เพิ่มข้อมูลของรายการเมนูลงในอาร์เรย์ menuItems
+    console.log(menuItems)
+  });
+  axios.post(`/user/cart.html`, menuItems)
+      .then((response) => {
+        console.log(response.data); // ข้อมูลที่ส่งกลับมาจากเซิร์ฟเวอร์
+      })
+      .catch((error) => {
+        console.error('เกิดข้อผิดพลาด:', error);
+      });
 });

@@ -30,12 +30,6 @@ function displayMenuData(menuData) {
       <button class="add-button" onclick="incrementQuantity(this)">+</button> 
     </div>`;
 
-
-    //EXAMPLE CODE
-    // เรียกใช้งานฟังก์ชันเพื่ออัปเดตสถานะคิว
-    const queueCount = 11; // ตัวอย่าง: 5 คิว
-    updateQueueStatus(queueCount);
-
     menuContainer.appendChild(menuCard);
   });
 }
@@ -43,8 +37,11 @@ function displayMenuData(menuData) {
 // ใช้ Axios เพื่อรับข้อมูลร้านค้าจาก Express.js
 axios.get(`http://localhost:5000/User/Main.html/${shop_id}`)
 .then((response) => {
-    const MenuData = response.data;
+  console.log(response.data)
+    const MenuData = response.data.menu;
+    const queueCount = response.data.queue;
     displayMenuData(MenuData);
+    updateQueueStatus(queueCount);
 })
 .catch((error) => {
     console.error('เกิดข้อผิดพลาดในการรับข้อมูล: ' + error);
@@ -191,9 +188,9 @@ function addToCart() {
 
 
  // เรียกใช้งาน fetchMenuData เมื่อหน้าเว็บโหลดหรือต้องการอัปเดตรายการเมนู
- window.onload = () => {
-   fetchMenuData();
-   updateTotal(); // เรียกใช้งานเมื่อหน้าเว็บโหลด
-}
+//  window.onload = () => {
+//    fetchMenuData();
+//    updateTotal(); // เรียกใช้งานเมื่อหน้าเว็บโหลด
+// }
 
   

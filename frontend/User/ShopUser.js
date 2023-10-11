@@ -1,4 +1,5 @@
 // ฟังก์ชันสำหรับแสดงข้อมูลร้านค้าใน HTML
+
 function displayShopData(shopData) {
     const shopContainer = document.getElementById('shop-container');
     shopContainer.innerHTML = ''; // ล้างข้อมูลร้านค้าเดิม
@@ -25,7 +26,7 @@ function displayShopData(shopData) {
 }
   
   // ใช้ Axios เพื่อรับข้อมูลร้านค้าจาก Express.js
-axios.get('http://localhost:5000/user/shoplist')
+axios.get(`http://localhost:5000/user/shoplist`)
 .then((response) => {
     const shopData = response.data;
     displayShopData(shopData);
