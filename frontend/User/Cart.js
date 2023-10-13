@@ -89,7 +89,9 @@ document.querySelector('.text-5').addEventListener('click', function () {
     title: 'จองสำเร็จแล้ว',
     text: 'ขอบคุณที่ใช้บริการ!',
     confirmButtonText: 'ตกลง'
-  });
+  }).then(() => {
+    window.location.href = "http://localhost:5000/User/UserProfile.html"
+  })
   const cardDetails = document.querySelectorAll('.card-detail'); // เลือกทุก <div class="card-detail">
   const menuItems = [];
   cardDetails.forEach((card) => {

@@ -404,11 +404,27 @@ span {
   background-color: #ffffff;
 }
 
-.user-profile .overlap-9 {
-  position: absolute;
+.user-profile .window-reserve {
+  position: relative;
+  width: 1927px;
+  height: 1130px;
+  top: 770px;
+  left: 0;
+  border: 1px solid;
+  border-color: #000000;
+}
+.user-profile .reserve_title {
+  position: relative;
   width: 1920px;
-  height: 276px;
-  top: 849px;
+  height: 100px;
+  top: 30px;
+  left: 0;
+}
+.user-profile .reserve {
+  position: relative;
+  width: 1920px;
+  height: 200px;
+  top: 0px;
   left: 0;
 }
 
@@ -429,7 +445,7 @@ span {
   position: absolute;
   width: 1920px;
   height: 200px;
-  top: 76px;
+  top: px;
   left: 0;
   background-color: #d9d9d9b2;
   border: 1px solid;
@@ -443,7 +459,7 @@ span {
 }
 
 .user-profile .password {
-  top: 157px;
+  top: 80px;
   left: 1405px;
   position: absolute;
   width: 371px;
@@ -457,7 +473,7 @@ span {
 }
 
 .user-profile .password-2 {
-  top: 157px;
+  top: 80px;
   left: 172px;
   position: absolute;
   width: 371px;
@@ -471,7 +487,7 @@ span {
 }
 
 .user-profile .password-3 {
-  top: 157px;
+  top: 80px;
   left: 517px;
   position: absolute;
   width: 371px;
@@ -485,7 +501,7 @@ span {
 }
 
 .user-profile .password-4 {
-  top: 157px;
+  top: 80px;
   left: 971px;
   position: absolute;
   width: 371px;

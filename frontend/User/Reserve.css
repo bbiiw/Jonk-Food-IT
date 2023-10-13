@@ -47,7 +47,7 @@
 
 .resever .overlap-group-wrapper {
   position: absolute;
-  width: 1930px;
+  width: 1920px;
   height: 72px;
   top: 0;
   left: 0;
@@ -226,15 +226,28 @@
   line-height: normal;
 }
 
-.resever .overlap-2 {
+.resever .rectangle-3 {
   position: absolute;
-  width: 1920px;
-  height: 200px;
-  top: 72px;
-  left: 0;
+  width: 334px;
+  height: 62px;
+  top: 14px;
+  left: 1155px;
   background-color: #d9d9d9b2;
+  border-radius: 10px;
   border: 1px solid;
   border-color: #000000;
+}
+
+.resever .text-wrapper-4 {
+  position: absolute;
+  top: 24px;
+  left: 1165px;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 36px;
+  letter-spacing: 0;
+  line-height: normal;
 }
 
 .resever .queue {
@@ -293,11 +306,11 @@
   line-height: normal;
 }
 
-.resever .overlap-3 {
-  position: absolute;
+.resever .reserve-item {
+  position: relative;
   width: 1920px;
   height: 200px;
-  top: 272px;
+  top: 0px;
   left: 0;
   background-color: #d9d9d9b2;
   border: 1px solid;
@@ -384,6 +397,40 @@
   width: 1920px;
   height: 200px;
   top: 672px;
+  left: 0;
+  background-color: #d9d9d9b2;
+  border: 1px solid;
+  border-color: #000000;
+}
+.resever .circle {
+  position:absolute;
+  width: 125px;
+  height: 125px;
+  top: 35px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-left: 150px;
+}
+
+.resever .menu-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.resever .window-reserve {
+  position: relative;
+  width: 1920px;
+  height: 800px;
+  top: 272px;
+  left: 0;
+  border: 1px solid;
+  border-color: #000000;
+}
+.resever .overlap-2 {
+  position: absolute;
+  width: 1920px;
+  height: 200px;
+  top: 72px;
   left: 0;
   background-color: #d9d9d9b2;
   border: 1px solid;
