@@ -208,18 +208,20 @@ app.post('/shop/login', async (req, res) => {
 // ------------------------ PROFILE SECTION ------------------------
 // USER PROFILE PAGE
 app.get('/user/profile', isAuthenticated, async (req, res) => {
-    const username = req.session.user.username
-    connection.query(`SELECT first_name, last_name, username, tel, email 
-                    FROM customer c 
-                    JOIN users u 
-                    ON (c.user_id = u.user_id) 
-                    WHERE u.username = ?`, 
-                    [username], (error, result) => {
-        if (result.length > 0) {
-            const userProfile = result[0]
-            res.json(userProfile)
-        }
-    })
+    const username = req.session.user.username;
+    const customer_id = req.session.user.customer_id;
+    const [reserve_list] = await connection.promise().query(`SELECT reserve_id, status_id, status_name, DATE_FORMAT(date, '%d-%m-%Y') AS date, time
+                                                            FROM reserve
+                                                            JOIN status
+                                                            USING (status_id)
+                                                            WHERE customer_id = ?`, [customer_id])
+    const [user_profile] = await connection.promise().query(`SELECT first_name, last_name, username, tel, email 
+                                                            FROM customer c 
+                                                            JOIN users u 
+                                                            ON (c.user_id = u.user_id) 
+                                                            WHERE u.username = ?`, [username])
+    res.json({reserve_list: reserve_list,
+            user_profile: user_profile[0]})
 })
 
 // USER EDIT PROFILE
@@ -300,54 +302,55 @@ app.get('/User/Main.html/:id', isAuthenticated, async (req, res) => {
                                                         USING (reserve_id)
                                                         JOIN menu
                                                         USING (menu_id)
-                                                        WHERE shop_id = ?`, [shop_id])
+                                                        WHERE shop_id = ? AND status_id = 1 OR status_id = 2`, [shop_id])
     
     console.log(list_menu, queueCount[0].queue)
     res.json({menu: list_menu, queue: queueCount[0].queue})
 })
 
+let sharedData = {};
+
 app.post('/User/Main.html/:id', (req, res) => {
     const cartItems = req.body; // ข้อมูลที่ส่งมาจาก client จะอยู่ใน req.body
+    sharedData.cartItem = cartItems
     res.send('ข้อมูลถูกรับแล้ว'); // ส่งข้อมูลตอบกลับไปยัง client
-    app.get('/user/cart.html/:customer_id', isAuthenticated, async (req, res) => {
-        const cartData = [];
+});
+app.get('/user/cart.html/:customer_id', isAuthenticated, async (req, res) => {
+    const cartData = [];
+    cartItems = sharedData.cartItem
+    // วนลูปผ่านรายการในตะกร้า
+    cartItems.forEach((item) => {
+        const menuId = item.menuId;
+        const quantity = item.quantity;
 
-        // วนลูปผ่านรายการในตะกร้า
-        cartItems.forEach((item) => {
-            const menuId = item.menuId;
-            const quantity = item.quantity;
-
-            // เรียกใช้งานฐานข้อมูลเพื่อดึงข้อมูลเมนูโดยใช้ menuId
-            connection.query(
-            `SELECT menu_id, menu_name, cost, image_path
-            FROM menu m
-            JOIN image i USING (image_id)
-            WHERE menu_id = ?`,
-            [menuId],
-            (error, result) => {
-                const menuData = result[0]; // เราเอาข้อมูลของเมนูออกมาจาก query result
-                
-                // เพิ่มข้อมูลรายการเมนูและจำนวนลงในอาเรย์ cartData
-                cartData.push({
-                    menuId: menuData.menu_id,
-                    menuName: menuData.menu_name,
-                    cost: menuData.cost,
-                    image_path: menuData.image_path,
-                    quantity: quantity
-                });
-                
-                // ถ้า cartData มีข้อมูลเท่ากับจำนวนรายการในตะกร้า แสดงว่าเราได้รวมข้อมูลทั้งหมดแล้ว
-                if (cartData.length === cartItems.length) {
-                    // ส่งข้อมูล cartData กลับไปยัง client
-                    res.send(cartData);
-                    console.log(cartData)
-                    console.log(cartItems)
-                }
+        // เรียกใช้งานฐานข้อมูลเพื่อดึงข้อมูลเมนูโดยใช้ menuId
+        connection.query(
+        `SELECT menu_id, menu_name, cost, image_path
+        FROM menu m
+        JOIN image i USING (image_id)
+        WHERE menu_id = ?`,
+        [menuId],
+        (error, result) => {
+            const menuData = result[0]; // เราเอาข้อมูลของเมนูออกมาจาก query result
+            
+            // เพิ่มข้อมูลรายการเมนูและจำนวนลงในอาเรย์ cartData
+            cartData.push({
+                menuId: menuData.menu_id,
+                menuName: menuData.menu_name,
+                cost: menuData.cost,
+                image_path: menuData.image_path,
+                quantity: quantity
+            });
+            
+            // ถ้า cartData มีข้อมูลเท่ากับจำนวนรายการในตะกร้า แสดงว่าเราได้รวมข้อมูลทั้งหมดแล้ว
+            if (cartData.length === cartItems.length) {
+                // ส่งข้อมูล cartData กลับไปยัง client
+                res.send(cartData);
             }
-            );
-        });
+        }
+        );
     });
-  });
+});
 
 // USER MENU CATEGORY
 app.get('/user/menu/:shopId/category/:categotyId', isAuthenticated, async (req, res) => {
@@ -360,7 +363,6 @@ app.get('/user/menu/:shopId/category/:categotyId', isAuthenticated, async (req, 
                     JOIN image i
                     USING (image_id)
                     WHERE category_id = ? AND shop_id = ?`, [category_id, shop_id], (error, result) => {
-        console.log(result)
         res.json(result)
     })
 })
@@ -555,11 +557,38 @@ app.delete('/shop/menu/delete/:id', isAuthenticated, (req, res) => {
 
 // ------------------------ RESERVE SECTION ------------------------
 
+app.post('/User/Reserve.html/:id', (req, res) => {
+    const reserve_id = req.params.id
+    sharedData.reserveId = reserve_id;
+})
+app.get('/user/reserve', async (req, res) =>{
+    const reserve_id = sharedData.reserveId;
+    console.log(reserve_id)
+    connection.query(`SELECT menu_name, items, booking.cost as cost, total, DATE_FORMAT(date, '%d-%m-%Y') AS date, time, status_name, image_path
+                    FROM reserve
+                    JOIN booking
+                    USING (reserve_id)
+                    JOIN menu
+                    USING (menu_id)
+                    JOIN status
+                    USING (status_id)
+                    JOIN image
+                    USING (image_id)
+                    WHERE reserve_id = ?`,[reserve_id], (err, result) => {
+                    if (err) {
+                        console.error(err);
+                        res.status(500).json({ error: 'พบข้อผิดพลาดในการดึงข้อมูลรายงาน' });
+                    } else {
+                        console.log(result)
+                        res.send(result)
+                    }});
+    result = null;
+})
 // ------------------------ REPORT SECTION ------------------------
 
 // SHOP REPORT
 app.get('/admin/reports', (req, res) => {
-    const shop_id = req.session.user.shop_id; // รับ shopId จากคำร้องขอ (หรือจากที่คุณต้องการ)
+    const shop_id = req.session.user.shop_id // รับ shopId จากคำร้องขอ (หรือจากที่คุณต้องการ)
     const sqlQuery = `SELECT DATE_FORMAT(date, '%Y-%m-%d') AS day, COUNT(reserve_id) AS queue
                         FROM reserve
                         JOIN booking USING (reserve_id)
@@ -568,7 +597,7 @@ app.get('/admin/reports', (req, res) => {
                         AND date >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)
                         GROUP BY DATE_FORMAT(date, '%Y-%m-%d')
                         ORDER BY day;`;
-
+  
     // ดำเนินการสอบถามฐานข้อมูลด้วยคำสั่ง SQL
     connection.query(sqlQuery, [shop_id], (err, result) => {
         if (err) {
@@ -577,7 +606,6 @@ app.get('/admin/reports', (req, res) => {
         } else {
             // แยกข้อมูลคิวและวันในอาร์เรย์
             const queues = result.map(row => ({ day: row.day, queue: row.queue }));
-
             // สร้างอาร์เรย์แยกตามคิวและวัน
             const queueData = queues.map(item => item.queue);
             const dayData = queues.map(item => item.day);
@@ -589,9 +617,11 @@ app.get('/admin/reports', (req, res) => {
 
             // ส่งคืน JSON response แยกตามคิวและวัน
             res.json({ queues, queueData, dayData });
-        }
-    });
-}); 
+    }});
+})
+  
+
+ 
 
 //LISTEN SERVER
 app.listen(5000, () => {
