@@ -6,11 +6,17 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <select id="chartType">
-        <option value="bar">Bar Chart</option>
+    <div class ="Report">
+    <select class="type_chart" id="chartType">
         <option value="line">Line Chart</option>
-        <option value="pie">Pie Chart</option>
+        <option value="bar">Bar Chart</option>
+        <option value="polarArea">Polar Area Chart</option>
+        <option value="doughnut">Doughnut Chart</option>
     </select>
+    <canvas class="chart" id="myChart"></canvas>
+</div>
     <script src="report.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>

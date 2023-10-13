@@ -1,29 +1,32 @@
 let isEditing = false;
-
+const urlParams = new URLSearchParams(window.location.search);
+const shop_id = urlParams.get('shop_id');
 // ฟังก์ชันสำหรับแสดงข้อมูลโปรไฟล์ผู้ใช้
 function displayUserProfile() {
-    axios.get('http://localhost:5000/shop/profile') // สร้างเส้นทางใหม่สำหรับการดึงข้อมูลโปรไฟล์
-    .then((response) => {
-      const { shop_name, username, tel, email } = response.data;
+  axios.get(`http://localhost:5000/shop/profile/${shop_id}`) // สร้างเส้นทางใหม่สำหรับการดึงข้อมูลโปรไฟล์
+  .then((response) => {
+    const { shop_name, username, tel, email } = response.data;
 
-      // แสดงข้อมูลบนหน้าเว็บ
-      document.getElementById('shop_name').value = shop_name;
-      document.getElementById('username').value = username;
-      document.getElementById('tel').value = tel;
-      document.getElementById('email').value = email;
+    // แสดงข้อมูลบนหน้าเว็บ
+    document.getElementById('shop_name').value = shop_name;
+    document.getElementById('username').value = username;
+    document.getElementById('tel').value = tel;
+    document.getElementById('email').value = email;
 
-      // // ตั้งค่าฟิลด์แบบแก้ไขให้เป็นค่าเดียวกับข้อมูลแบบอ่าน
-      document.getElementById('edit_shop_name').value = shop_name;
-      document.getElementById('edit_username').value = username;
-      document.getElementById('edit_tel').value = tel;
-      document.getElementById('edit_email').value = email;
-      
-      toggleEditProfile(false);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+    // // ตั้งค่าฟิลด์แบบแก้ไขให้เป็นค่าเดียวกับข้อมูลแบบอ่าน
+    document.getElementById('edit_shop_name').value = shop_name;
+    document.getElementById('edit_username').value = username;
+    document.getElementById('edit_tel').value = tel;
+    document.getElementById('edit_email').value = email;
+    
+    // เรียก API รายงาน
+    toggleEditProfile(false);
+  })
+  .catch((error) => {
+    console.error(error);
+  });
 }
+
 
 // ฟังก์ชันสำหรับเปิด/ปิดการแสดงฟอร์มแก้ไข
 function toggleEditProfile(show) {

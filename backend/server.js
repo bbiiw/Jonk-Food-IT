@@ -180,7 +180,7 @@ app.post('/shop/login', async (req, res) => {
     try {
         const { username, password } = req.body
 
-        const [rows] = await connection.promise().query("SELECT * FROM users WHERE username = ? AND password = ?", // ค้นหาผู้ใช้ shop
+        const [rows] = await connection.promise().query("SELECT * FROM users JOIN shop USING (user_id) WHERE username = ? AND password = ?", // ค้นหาผู้ใช้ shop
             [username, password])
             if (rows.length === 1 && rows[0].type == 'shop') {
                 req.session.loggedin = true
@@ -240,8 +240,9 @@ app.post('/user/editprofile', isAuthenticated, async (req, res) => {
 })
                     
 // SHOP PROFILE PAGE
-app.get('/shop/profile', isAuthenticated, async (req, res) => {
+app.get('/shop/profile/:shop_id', isAuthenticated, async (req, res) => {
     const username = req.session.user.username
+    const shop_id = req.session.user.shop_id
     connection.query(`SELECT shop_name, username, tel, email 
                     FROM shop s 
                     JOIN users u 
@@ -550,8 +551,36 @@ app.delete('/shop/menu/delete/:id', isAuthenticated, (req, res) => {
 
 
 
+
 // ------------------------ RESERVE SECTION ------------------------
+
 // ------------------------ REPORT SECTION ------------------------
+
+// SHOP REPORT
+app.get('/admin/reports', (req, res) => {
+    const shop_id = req.session.user.shop_id // รับ shopId จากคำร้องขอ (หรือจากที่คุณต้องการ)
+    const sqlQuery = `SELECT WEEK(date) AS week, COUNT(reserve_id) AS queue
+                        FROM reserve
+                        JOIN booking USING (reserve_id)
+                        JOIN menu USING (menu_id)
+                        WHERE shop_id = ?
+                        AND date >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)
+                        GROUP BY WEEK(date);`;
+  
+    // ดำเนินการสอบถามฐานข้อมูลด้วยคำสั่ง SQL
+    connection.query(sqlQuery, [shop_id], (err, result) => {
+      if (err) {
+        console.error(err);
+        res.status(500).json({error: 'พบข้อผิดพลาดในการดึงข้อมูลรายงาน' });
+      } else {
+        console.log(result[0].queue)
+        res.json({queue: result[0].queue})
+      }
+    });
+});
+  
+
+ 
 
 //LISTEN SERVER
 app.listen(5000, () => {

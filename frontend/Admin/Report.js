@@ -1,55 +1,75 @@
-const chartTypeSelect = document.getElementById('chartType');
-chartTypeSelect.addEventListener('change', () => {
-  const selectedChartType = chartTypeSelect.value;
-  updateChart(selectedChartType); // เรียกใช้ฟังก์ชัน updateChart
-});
+const urlParams = new URLSearchParams(window.location.search);
+const shop_id = urlParams.get('shop_id');
+const ctx = document.getElementById('myChart').getContext('2d');
+let chart;
 
-// สร้างฟังก์ชันสำหรับอัปเดตกราฟ
-function updateChart(selectedChartType) {
-  // กำหนดข้อมูลและค่าต่าง ๆ ของกราฟตามประเภทที่เลือก
-  let newData, newConfig;
-  if (selectedChartType === 'bar') {
-    newData = {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-      datasets: [{
-        label: 'Sample Dataset',
-        data: [12, 19, 3, 5, 2, 3],
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)'
-        ],
-        borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)'
-        ],
-        borderWidth: 1
-      }]
-    };
-    newConfig = {
-      type: 'bar',
-      data: newData,
-      options: {}
-    };
-  } else if (selectedChartType === 'line') {
-    // สร้างข้อมูลและค่าต่าง ๆ สำหรับ Line Chart
-    // ...
-  } else if (selectedChartType === 'pie') {
-    // สร้างข้อมูลและค่าต่าง ๆ สำหรับ Pie Chart
-    // ...
-  }
-
-  // สร้างและแสดงกราฟใหม่ใน Canvas
-  if (newConfig) {
-    myChart.destroy(); // ทำลายกราฟเดิม
-    const newChart = new Chart(ctx, newConfig);
-    myChart = newChart; // เก็บอ้างอิงกราฟใหม่
-  }
+// Function to initialize the chart
+function initializeChart(data) {
+    chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['วัน 1', 'วัน 2', 'วัน 3', 'วัน 4', 'วัน 5', 'วัน 6', 'วัน 7'],
+            datasets: [{
+                label: 'ข้อมูลอาหารรายสัปดาห์',
+                data: data,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1,
+            }],
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                },
+            },
+        },
+    });
 }
+
+// Function to update the chart
+function updateChart(chartType, data) {
+    // Destroy the current chart
+    chart.destroy();
+    
+    // Create a new chart with the selected chart type
+    chart = new Chart(ctx, {
+        type: chartType,
+        data: {
+            labels: ['วัน 1', 'วัน 2', 'วัน 3', 'วัน 4', 'วัน 5', 'วัน 6', 'วัน 7'],
+            datasets: [{
+                label: 'ข้อมูลอาหารรายสัปดาห์',
+                data: data,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1,
+            }],
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                },
+            },
+        },
+    });
+}
+
+// Function to fetch and generate data from the server
+window.onload = () => {
+    axios.get(`http://localhost:5000/admin/reports`)
+    .then((response) => {
+        const queueData = response.data.queue;
+        initializeChart(queueData);
+        })
+    .catch((error) => {
+          console.error('เกิดข้อผิดพลาดในการรับข้อมูล: ' + error);
+        });
+    }
+
+
+// Event listener for chart type selection
+document.getElementById('chartType').addEventListener('change', function () {
+    const selectedChartType = this.value;
+    generateData(); // Fetch new data for the selected chart type and update the chart
+});
