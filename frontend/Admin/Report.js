@@ -14,18 +14,60 @@ function initializeChart(queues) {
         data: {
             labels: labels,
             datasets: [{
-                label: 'จำนวนคิวอาหารรายสัปดาห์',
+                label: 'จำนวนคิว',
                 data: queueData, // ใช้ queueData โดยตรง
-                backgroundColor: 'rgba(255, 99, 132, 0.5)',
-                borderColor: 'rgb(255, 99, 132)',
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(255, 159, 64, 0.5)',
+                    'rgba(255, 205, 86, 0.5)',
+                    'rgba(75, 192, 192, 0.5)',
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(153, 102, 255, 0.5)',
+                    'rgba(201, 203, 207, 0.5)'
+                ],
+                borderColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 205, 86)',
+                    'rgb(75, 192, 192)',
+                    'rgb(54, 162, 235)',
+                    'rgb(153, 102, 255)',
+                    'rgb(201, 203, 207)'
+                ],
                 borderWidth: 3,
+                
             }],
         },
         options: {
             scales: {
                 y: {
                     beginAtZero: true,
+                    ticks: {
+                        font: {
+                            size: 24, 
+                        },
+                    },
                 },
+                x: {
+                    ticks: {
+                        font: {
+                            size: 24, 
+                        },
+                    },
+                },
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'กราฟแสดงจำนวนคิวอาหารรายสัปดาห์',
+                    font: {
+                        size: 32, 
+                    }
+                },
+            },
+            animation: {
+                duration: 1000, // Animation duration in milliseconds
+                easing: 'easeOutBounce', // Easing function (e.g., 'linear', 'easeInOutSine', 'easeOutBounce', etc.)
             },
         },
     });
@@ -45,7 +87,7 @@ function updateChart(chartType, queueData, dayData) {
         data: {
             labels: labels,
             datasets: [{
-                label: 'จำนวนคิวอาหารรายสัปดาห์',
+                label: 'จำนวนคิว',
                 data: queueData, // ใช้ queueData โดยตรง
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.5)',
@@ -72,9 +114,35 @@ function updateChart(chartType, queueData, dayData) {
             scales: {
                 y: {
                     beginAtZero: true,
+                    ticks: {
+                        font: {
+                            size: 24, 
+                        },
+                    },
+                },
+                x: {
+                    ticks: {
+                        font: {
+                            size: 24, 
+                        },
+                    },
                 },
             },
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'กราฟแสดงจำนวนคิวอาหารรายสัปดาห์',
+                    font: {
+                        size: 32, 
+                    },
+                },
+            },
+            animation: {
+                duration: 1000, // Animation duration in milliseconds
+                easing: 'easeOutBounce', // Easing function (e.g., 'linear', 'easeInOutSine', 'easeOutBounce', etc.)
+            },
         },
+        
     });
 }
 
