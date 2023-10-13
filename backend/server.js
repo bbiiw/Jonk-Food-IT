@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const mysql = require('mysql2');
 const path = require('path');
 const multer = require('multer');
+const { log } = require('console');
 const app = express();
 
 const storage = multer.diskStorage({
@@ -558,29 +559,39 @@ app.delete('/shop/menu/delete/:id', isAuthenticated, (req, res) => {
 
 // SHOP REPORT
 app.get('/admin/reports', (req, res) => {
-    const shop_id = req.session.user.shop_id // รับ shopId จากคำร้องขอ (หรือจากที่คุณต้องการ)
-    const sqlQuery = `SELECT WEEK(date) AS week, COUNT(reserve_id) AS queue
+    const shop_id = req.session.user.shop_id; // รับ shopId จากคำร้องขอ (หรือจากที่คุณต้องการ)
+    const sqlQuery = `SELECT DATE_FORMAT(date, '%Y-%m-%d') AS day, COUNT(reserve_id) AS queue
                         FROM reserve
                         JOIN booking USING (reserve_id)
                         JOIN menu USING (menu_id)
                         WHERE shop_id = ?
                         AND date >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)
-                        GROUP BY WEEK(date);`;
-  
+                        GROUP BY DATE_FORMAT(date, '%Y-%m-%d')
+                        ORDER BY day;`;
+
     // ดำเนินการสอบถามฐานข้อมูลด้วยคำสั่ง SQL
     connection.query(sqlQuery, [shop_id], (err, result) => {
-      if (err) {
-        console.error(err);
-        res.status(500).json({error: 'พบข้อผิดพลาดในการดึงข้อมูลรายงาน' });
-      } else {
-        console.log(result[0].queue)
-        res.json({queue: result[0].queue})
-      }
-    });
-});
-  
+        if (err) {
+            console.error(err);
+            res.status(500).json({ error: 'พบข้อผิดพลาดในการดึงข้อมูลรายงาน' });
+        } else {
+            // แยกข้อมูลคิวและวันในอาร์เรย์
+            const queues = result.map(row => ({ day: row.day, queue: row.queue }));
 
- 
+            // สร้างอาร์เรย์แยกตามคิวและวัน
+            const queueData = queues.map(item => item.queue);
+            const dayData = queues.map(item => item.day);
+
+            // แสดงผลลัพธ์
+            console.log(queues);
+            console.log('Queue Data:', queueData);
+            console.log('Day Data:', dayData);
+
+            // ส่งคืน JSON response แยกตามคิวและวัน
+            res.json({ queues, queueData, dayData });
+        }
+    });
+}); 
 
 //LISTEN SERVER
 app.listen(5000, () => {

@@ -1,20 +1,24 @@
+// SHOP REPORT
 const urlParams = new URLSearchParams(window.location.search);
 const shop_id = urlParams.get('shop_id');
 const ctx = document.getElementById('myChart').getContext('2d');
 let chart;
 
-// Function to initialize the chart
-function initializeChart(data) {
+// ฟังก์ชันในการเริ่มต้นแผนภูมิ
+function initializeChart(queues) {
+    const { queueData, dayData } = queues;
+    const labels = dayData; // ใช้ข้อมูลวันที่
+
     chart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: ['วัน 1', 'วัน 2', 'วัน 3', 'วัน 4', 'วัน 5', 'วัน 6', 'วัน 7'],
+            labels: labels,
             datasets: [{
-                label: 'ข้อมูลอาหารรายสัปดาห์',
-                data: data,
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 1,
+                label: 'จำนวนคิวอาหารรายสัปดาห์',
+                data: queueData, // ใช้ queueData โดยตรง
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgb(255, 99, 132)',
+                borderWidth: 3,
             }],
         },
         options: {
@@ -27,22 +31,41 @@ function initializeChart(data) {
     });
 }
 
-// Function to update the chart
-function updateChart(chartType, data) {
-    // Destroy the current chart
+
+// ฟังก์ชันในการอัปเดตแผนภูมิ
+function updateChart(chartType, queueData, dayData) {
+    // ทำลายแผนภูมิปัจจุบัน
     chart.destroy();
-    
-    // Create a new chart with the selected chart type
+
+    // สร้างแผนภูมิใหม่ด้วยประเภทแผนภูมิที่เลือก
+    const labels = dayData; // ใช้ข้อมูลวันที่
+
     chart = new Chart(ctx, {
         type: chartType,
         data: {
-            labels: ['วัน 1', 'วัน 2', 'วัน 3', 'วัน 4', 'วัน 5', 'วัน 6', 'วัน 7'],
+            labels: labels,
             datasets: [{
-                label: 'ข้อมูลอาหารรายสัปดาห์',
-                data: data,
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 1,
+                label: 'จำนวนคิวอาหารรายสัปดาห์',
+                data: queueData, // ใช้ queueData โดยตรง
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 205, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(201, 203, 207, 0.2)'
+                ],
+                borderColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 205, 86)',
+                    'rgb(75, 192, 192)',
+                    'rgb(54, 162, 235)',
+                    'rgb(153, 102, 255)',
+                    'rgb(201, 203, 207)'
+                ],
+                borderWidth: 3,
             }],
         },
         options: {
@@ -55,21 +78,34 @@ function updateChart(chartType, data) {
     });
 }
 
-// Function to fetch and generate data from the server
+// ฟังก์ชันในการดึงและสร้างข้อมูลจากเซิร์ฟเวอร์สำหรับประเภทแผนภูมิที่เลือก
+function generateData(chartType) {
+    axios.get(`http://localhost:5000/admin/reports`)
+    .then((response) => {
+        const { queues, queueData, dayData } = response.data;
+        updateChart(chartType, queueData, dayData); // ส่ง queueData และ dayData ไปยังฟังก์ชัน updateChart
+    })
+    .catch((error) => {
+        console.error('เกิดข้อผิดพลาดในการรับข้อมูล: ' + error);
+    });
+}
+
+// ฟังก์ชันในการดึงข้อมูลเริ่มต้นที่ถูกแสดงในแผนภูมิเมื่อหน้าเว็บโหลดเสร็จ
 window.onload = () => {
     axios.get(`http://localhost:5000/admin/reports`)
     .then((response) => {
-        const queueData = response.data.queue;
-        initializeChart(queueData);
-        })
+        const queues = response.data; // ใช้ queues ในการเริ่มต้นแผนภูมิ
+        initializeChart(queues);
+    })
     .catch((error) => {
-          console.error('เกิดข้อผิดพลาดในการรับข้อมูล: ' + error);
-        });
-    }
+        console.error('เกิดข้อผิดพลาดในการรับข้อมูล: ' + error);
+    });
+}
 
-
-// Event listener for chart type selection
+// ตัวจัดการเหตุการณ์สำหรับการเลือกประเภทแผนภูมิ
 document.getElementById('chartType').addEventListener('change', function () {
     const selectedChartType = this.value;
-    generateData(); // Fetch new data for the selected chart type and update the chart
+    generateData(selectedChartType);
 });
+
+
