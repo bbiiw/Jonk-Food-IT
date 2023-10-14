@@ -10,8 +10,8 @@ function displayReserveData(reserveItem) {
       const menu_name = reserve.menu_name;
       console.log(menu_name)
       const items = reserve.items;
-      const cost = reserve.cost;
-      const total = reserve.total;
+      const cost = reserve.cost.toFixed(2);
+      const total = reserve.total.toFixed(2);
       const date = reserve.date;
       const time = reserve.time;
       const status_name = reserve.status_name;
@@ -29,12 +29,15 @@ function displayReserveData(reserveItem) {
       
       const datetime = document.getElementById('datetime');
       datetime.innerHTML =`วันที่ ${date} เวลา ${time}`;
+      datetime.style.fontSize = '30px';
 
       const status = document.getElementById('status');
       status.innerHTML = `Status : ${status_name}`
+      status.style.fontSize = '30px'
 
       const totalText = document.getElementById('total');
       totalText.innerHTML = `ยอดรวม : ${total} บาท`
+      totalText.style.fontSize = '30px'
 
       reserveWindow.appendChild(reserveCard);
     });

@@ -6,16 +6,20 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <div class ="Report">
-    <select class="type_chart" id="chartType">
-        <option value="line">Line Chart</option>
-        <option value="bar">Bar Chart</option>
-        <option value="polarArea">Polar Area Chart</option>
-        <option value="doughnut">Doughnut Chart</option>
-    </select>
-    <canvas class="chart" id="myChart"></canvas>
-</div>
-    <script src="report.js"></script>
+    <div class="Report">
+        <select class="type_chart" id="chartType">
+            <option value="line">Line Chart</option>
+            <option value="bar">Bar Chart</option>
+            <option value="polarArea">Polar Area Chart</option>
+            <option value="doughnut">Doughnut Chart</option>
+        </select>
+        <select class="data_type" id="dataType">
+            <option value="queues">จำนวนคิว</option>
+            <option value="menuItems">จำนวนเมนูอาหาร</option>
+        </select>
+        <canvas class="chart" id="myChart"></canvas>
+    </div>
+    <script src="Report.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>

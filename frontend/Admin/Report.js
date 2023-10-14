@@ -3,6 +3,7 @@ const urlParams = new URLSearchParams(window.location.search);
 const shop_id = urlParams.get('shop_id');
 const ctx = document.getElementById('myChart').getContext('2d');
 let chart;
+let chartType = 'line'; // Default chart type
 
 // ฟังก์ชันในการเริ่มต้นแผนภูมิ
 function initializeChart(queues) {
@@ -10,7 +11,7 @@ function initializeChart(queues) {
     const labels = dayData; // ใช้ข้อมูลวันที่
 
     chart = new Chart(ctx, {
-        type: 'line',
+        type: chartType, // Use the default chart type
         data: {
             labels: labels,
             datasets: [{
@@ -35,7 +36,7 @@ function initializeChart(queues) {
                     'rgb(201, 203, 207)'
                 ],
                 borderWidth: 3,
-                
+
             }],
         },
         options: {
@@ -44,14 +45,14 @@ function initializeChart(queues) {
                     beginAtZero: true,
                     ticks: {
                         font: {
-                            size: 24, 
+                            size: 24,
                         },
                     },
                 },
                 x: {
                     ticks: {
                         font: {
-                            size: 24, 
+                            size: 24,
                         },
                     },
                 },
@@ -61,7 +62,7 @@ function initializeChart(queues) {
                     display: true,
                     text: 'กราฟแสดงจำนวนคิวอาหารรายสัปดาห์',
                     font: {
-                        size: 32, 
+                        size: 32,
                     }
                 },
             },
@@ -72,7 +73,6 @@ function initializeChart(queues) {
         },
     });
 }
-
 
 // ฟังก์ชันในการอัปเดตแผนภูมิ
 function updateChart(chartType, queueData, dayData) {
@@ -116,14 +116,14 @@ function updateChart(chartType, queueData, dayData) {
                     beginAtZero: true,
                     ticks: {
                         font: {
-                            size: 24, 
+                            size: 24,
                         },
                     },
                 },
                 x: {
                     ticks: {
                         font: {
-                            size: 24, 
+                            size: 24,
                         },
                     },
                 },
@@ -133,7 +133,7 @@ function updateChart(chartType, queueData, dayData) {
                     display: true,
                     text: 'กราฟแสดงจำนวนคิวอาหารรายสัปดาห์',
                     font: {
-                        size: 32, 
+                        size: 32,
                     },
                 },
             },
@@ -142,38 +142,59 @@ function updateChart(chartType, queueData, dayData) {
                 easing: 'easeOutBounce', // Easing function (e.g., 'linear', 'easeInOutSine', 'easeOutBounce', etc.)
             },
         },
-        
+
     });
 }
 
-// ฟังก์ชันในการดึงและสร้างข้อมูลจากเซิร์ฟเวอร์สำหรับประเภทแผนภูมิที่เลือก
-function generateData(chartType) {
-    axios.get(`http://localhost:5000/admin/reports`)
-    .then((response) => {
-        const { queues, queueData, dayData } = response.data;
-        updateChart(chartType, queueData, dayData); // ส่ง queueData และ dayData ไปยังฟังก์ชัน updateChart
-    })
-    .catch((error) => {
-        console.error('เกิดข้อผิดพลาดในการรับข้อมูล: ' + error);
-    });
+// ฟังก์ชันในการดึงและสร้างข้อมูลจากเซิร์ฟเวอร์สำหรับประเภทข้อมูลที่เลือก
+function generateData(dataType) {
+    let dataURL;
+    if (dataType === 'queues') {
+        dataURL = 'http://localhost:5000/admin/reports'; // URL สำหรับข้อมูลคิว
+    } else if (dataType === 'menuItems') {
+        dataURL = 'http://localhost:5000/admin/reports/menu'; // URL สำหรับข้อมูลเมนูอาหาร
+    }
+
+    axios.get(dataURL)
+        .then((response) => {
+            const data = response.data;
+
+            if (dataType === 'queues') {
+                const { queueData, dayData } = data;
+                updateChart(chartType, queueData, dayData); // ส่งข้อมูลคิวไปยังฟังก์ชัน updateChart
+            } else if (dataType === 'menuItems') {
+                const { menuData, menuNames } = data;
+                updateChart(chartType, menuData, menuNames); // ส่งข้อมูลเมนูไปยังฟังก์ชัน updateChart
+            }
+
+        })
+        .catch((error) => {
+            console.error('เกิดข้อผิดพลาดในการรับข้อมูล: ' + error);
+        });
 }
 
 // ฟังก์ชันในการดึงข้อมูลเริ่มต้นที่ถูกแสดงในแผนภูมิเมื่อหน้าเว็บโหลดเสร็จ
 window.onload = () => {
     axios.get(`http://localhost:5000/admin/reports`)
-    .then((response) => {
-        const queues = response.data; // ใช้ queues ในการเริ่มต้นแผนภูมิ
-        initializeChart(queues);
-    })
-    .catch((error) => {
-        console.error('เกิดข้อผิดพลาดในการรับข้อมูล: ' + error);
-    });
+        .then((response) => {
+            const queues = response.data; // ใช้ queues ในการเริ่มต้นแผนภูมิ
+            initializeChart(queues);
+        })
+        .catch((error) => {
+            console.error('เกิดข้อผิดพลาดในการรับข้อมูล: ' + error);
+        });
 }
 
 // ตัวจัดการเหตุการณ์สำหรับการเลือกประเภทแผนภูมิ
 document.getElementById('chartType').addEventListener('change', function () {
-    const selectedChartType = this.value;
-    generateData(selectedChartType);
+    chartType = this.value; // Update the selected chart type
+    generateData(chartType);
+});
+
+// ตัวจัดการเหตุการณ์สำหรับการเลือกประเภทข้อมูล
+document.getElementById('dataType').addEventListener('change', function () {
+    const selectedDataType = this.value;
+    generateData(selectedDataType);
 });
 
 
