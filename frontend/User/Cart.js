@@ -13,7 +13,7 @@ function displayMenuData(cartItems) {
     const quantity = menuItem.quantity;
     const menu_cost = menuItem.cost;
     const image_path = menuItem.image_path;
-    total += parseInt(menu_cost)*parseInt(quantity)
+    total += parseFloat(menu_cost)*parseInt(quantity)
     // const image = menuItem.image_path;
 
     const menuCard = document.createElement('div');

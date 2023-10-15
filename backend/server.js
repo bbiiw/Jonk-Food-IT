@@ -214,7 +214,8 @@ app.get('/user/profile', isAuthenticated, async (req, res) => {
                                                             FROM reserve
                                                             JOIN status
                                                             USING (status_id)
-                                                            WHERE customer_id = ?`, [customer_id])
+                                                            WHERE customer_id = ?
+                                                            order by reserve_id`, [customer_id])
     const [user_profile] = await connection.promise().query(`SELECT first_name, last_name, username, tel, email 
                                                             FROM customer c 
                                                             JOIN users u 
@@ -551,9 +552,6 @@ app.delete('/shop/menu/delete/:id', isAuthenticated, (req, res) => {
        return res.status(500).send('เกิดข้อผิดพลาดในการจัดการการแก้ไขรายการเมนู')
    }
 })
-
-
-
 
 // ------------------------ RESERVE SECTION ------------------------
 

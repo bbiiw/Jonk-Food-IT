@@ -130,7 +130,7 @@ function updateChart(chartType, moneyData, dayData) {
             plugins: {
                 title: {
                     display: true,
-                    text: 'การใช่จ่ายรายสัปดาห์',
+                    text: 'การใช้จ่ายรายสัปดาห์',
                     font: {
                         size: 32,
                     },
