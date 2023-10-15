@@ -584,21 +584,83 @@ app.get('/user/reserve', async (req, res) =>{
                     }});
     result = null;
 })
+
+app.get(`/admin/reserve`, (req, res) => {
+    const shop_id = req.session.user.shop_id
+    connection.query(`SELECT distinct reserve_id, first_name, DATE_FORMAT(date, '%d-%m-%Y') AS date, time
+                    FROM reserve r
+                    JOIN booking
+                    USING (reserve_id)
+                    JOIN menu
+                    USING (menu_id)
+                    JOIN customer c
+                    ON r.customer_id = c.customer_id
+                    WHERE shop_id = ? AND status_id = 1 OR status_id = 2 OR status_id = 3
+                    order by reserve_id asc`, [shop_id], (error, result) => {
+                        if (error) {
+                            console.error(err);
+                            res.status(500).json({ error: 'พบข้อผิดพลาดในการดึงข้อมูลรายงาน' });
+                        } else {
+                            console.log(result)
+                            res.send(result)
+                        }
+                    })
+})
+
+app.post(`/admin/reserve`, (req, res) => {
+    const reserve_id = req.body
+    sharedData.shopReserve = reserve_id
+    console.log(sharedData)
+})
+
+app.get(`/admin/adminorder`, (req, res) => {
+    const reserve_id = sharedData.shopReserve[0]
+    console.log(reserve_id)
+    connection.query(`SELECT reserve_id, menu_name, items, booking.cost as cost, total, DATE_FORMAT(date, '%d-%m-%Y') AS date, time, status_id, status_name, image_path
+                    FROM reserve
+                    JOIN booking
+                    USING (reserve_id)
+                    JOIN menu
+                    USING (menu_id)
+                    JOIN status
+                    USING (status_id)
+                    JOIN image
+                    USING (image_id)
+                    WHERE reserve_id = ?`,[reserve_id], (err, result) => {
+                    if (err) {
+                        console.error(err);
+                        res.status(500).json({ error: 'พบข้อผิดพลาดในการดึงข้อมูลรายงาน' });
+                    } else {
+                        console.log(result)
+                        res.send(result)
+                    }});
+    result = null;
+})
+app.post('/admin/adminorder', (req, res) => {
+    const status_id = req.body[0]
+    const reserve_id = sharedData.shopReserve[0]
+    console.log(status_id)
+    console.log(reserve_id)
+    connection.query(`UPDATE reserve
+                        SET status_id = ?
+                        WHERE reserve_id = ?`, 
+                        [status_id, reserve_id])
+})
+
 // ------------------------ REPORT SECTION ------------------------
 
 // SHOP REPORT
 app.get('/admin/reports', (req, res) => {
-    const shop_id = req.session.user.shop_id; // รับ shopId จากคำร้องขอ (หรือจากที่คุณต้องการ)
-
-    const sqlQuery = `SELECT DATE_FORMAT(date, '%d-%m-%Y') AS day, COUNT(reserve_id) AS queue
-                    FROM reserve
-                    JOIN booking USING (reserve_id)
-                    JOIN menu USING (menu_id)
-                    WHERE shop_id = ?
-                    AND date >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)
-                    GROUP BY DATE_FORMAT(date, '%d-%m-%Y')
-                    ORDER BY day;`;
-
+    const shop_id = req.session.user.shop_id // รับ shopId จากคำร้องขอ (หรือจากที่คุณต้องการ)
+    const sqlQuery = `SELECT DATE_FORMAT(date, '%Y-%m-%d') AS day, COUNT(reserve_id) AS queue
+                        FROM reserve
+                        JOIN booking USING (reserve_id)
+                        JOIN menu USING (menu_id)
+                        WHERE shop_id = ?
+                        AND date >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)
+                        GROUP BY DATE_FORMAT(date, '%Y-%m-%d')
+                        ORDER BY day;`;
+  
     // ดำเนินการสอบถามฐานข้อมูลด้วยคำสั่ง SQL
     connection.query(sqlQuery, [shop_id], (err, result) => {
         if (err) {
@@ -618,47 +680,8 @@ app.get('/admin/reports', (req, res) => {
 
             // ส่งคืน JSON response แยกตามคิวและวัน
             res.json({ queues, queueData, dayData });
-        }
-    });
-});
-
-// เพิ่มส่วนสำหรับข้อมูลเมนูอาหาร
-app.get('/admin/reports/menu', (req, res) => {
-    const shop_id = req.session.user.shop_id; // รับ shopId จากคำร้องขอ (หรือจากที่คุณต้องการ)
-
-    const menuQuery = `SELECT menu_name, COUNT(menu_id) AS menuCount
-                    FROM booking
-                    JOIN menu USING (menu_id)
-                    WHERE shop_id = ?
-                    GROUP BY menu_name
-                    ORDER BY menu_name;`;
-
-    // ดำเนินการสอบถามฐานข้อมูลด้วยคำสั่ง SQL
-    connection.query(menuQuery, [shop_id], (err, result) => {
-        if (err) {
-            console.error(err);
-            res.status(500).json({ error: 'พบข้อผิดพลาดในการดึงข้อมูลรายงานเมนูอาหาร' });
-        } else {
-            // แยกข้อมูลเมนูอาหารและจำนวนในอาร์เรย์
-            const menus = result.map(row => ({ menu_name: row.menu_name, menuCount: row.menuCount }));
-            // สร้างอาร์เรย์แยกตามเมนูอาหารและจำนวน
-            const menuData = menus.map(item => item.menuCount);
-            const menuNames = menus.map(item => item.menu_name);
-
-            // แสดงผลลัพธ์
-            console.log(menus);
-            console.log('Menu Data:', menuData);
-            console.log('Menu Names:', menuNames);
-
-            // ส่งคืน JSON response แยกตามเมนูอาหารและจำนวน
-            res.json({ menus, menuData, menuNames });
-        }
-    });
-});
-
-
-
- 
+    }});
+})
 
 //LISTEN SERVER
 app.listen(5000, () => {
