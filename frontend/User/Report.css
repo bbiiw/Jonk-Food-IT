@@ -1,0 +1,16 @@
+.Report {
+    padding: 20px;
+}
+
+.type_chart {
+    width: 200px;
+    height: 75px;
+    font-size: 18px;
+    font-weight: 1000;
+    margin-bottom: 30px; 
+    border-radius: 20px;
+}
+
+.chart {
+    border: 3px solid #ccc;
+}

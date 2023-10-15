@@ -29,12 +29,15 @@ function displayReserveData(reserveItem) {
       
       const datetime = document.getElementById('datetime');
       datetime.innerHTML =`วันที่ ${date} เวลา ${time}`;
+      datetime.style.fontSize = '30px';
 
       const status = document.getElementById('status');
       status.innerHTML = `Status : ${status_name}`
+      status.style.fontSize = '30px';
 
       const totalText = document.getElementById('total');
       totalText.innerHTML = `ยอดรวม : ${total} บาท`
+      totalText.style.fontSize = '30px';
 
       reserveWindow.appendChild(reserveCard);
     });

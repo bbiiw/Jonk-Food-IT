@@ -136,10 +136,10 @@
 }
 
 .user-profile .overlap {
-  position: absolute;
+  /* position: relative; */
   width: 1920px;
   height: 104px;
-  top: 1896px;
+  /* top: 1896px; */
   left: 0;
   background-image: url(https://c.animaapp.com/uIdWEvuc/img/rectangle-136.svg);
   background-size: 100% 100%;
@@ -595,4 +595,22 @@ span {
   height: 200px;
   top: 1325px;
   left: 0;
+}
+
+.user-profile .report {
+  position: absolute;
+  width: 252px;
+  top: 500px;
+  left: 80px;
+  font-family: "Inter", Helvetica;
+  font-weight: 700;
+  color: #000000;
+  font-size: 28px;
+  letter-spacing: -0.56px;
+  line-height: 48px;
+  white-space: nowrap;
+  background-color: rgb(78, 245, 56);
+  border-radius: 15px;
+  border: 3px solid;
+  border-color: #000000;
 }

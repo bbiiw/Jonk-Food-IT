@@ -649,17 +649,48 @@ app.post('/admin/adminorder', (req, res) => {
 
 // ------------------------ REPORT SECTION ------------------------
 
+// MENU REPORT
+app.get('/user/reports', (req, res) => {
+    const customer_id = req.session.user.customer_id;
+
+    const sqlQuery = `SELECT DATE_FORMAT(date, '%d-%m-%Y') AS day, SUM(total) AS money
+                    FROM reserve
+                    WHERE customer_id = ?
+                    AND date >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)
+                    GROUP BY DATE_FORMAT(date, '%d-%m-%Y')
+                    ORDER BY day;`;
+
+    connection.query(sqlQuery, [customer_id], (err, result) => {
+        if (err) {
+            console.error(err);
+            res.status(500).json({ error: 'พบข้อผิดพลาดในการดึงข้อมูลรายงาน' });
+        } else {
+            // แสดงผลลัพธ์
+            console.log(result);
+            // แยกข้อมูลเงินและวันในอาร์เรย์
+            const money = result.map(row => ({ day: row.day, money: row.money }));
+            // สร้างอาร์เรย์แยกตามคิวและวัน
+            const moneyData = money.map(item => item.money);
+            const dayData = money.map(item => item.day);
+            // ส่งคืน JSON response แยกตามคิวและวัน
+            res.json({ money, moneyData, dayData });
+        }
+    });
+});
+
+
 // SHOP REPORT
 app.get('/admin/reports', (req, res) => {
-    const shop_id = req.session.user.shop_id // รับ shopId จากคำร้องขอ (หรือจากที่คุณต้องการ)
-    const sqlQuery = `SELECT DATE_FORMAT(date, '%Y-%m-%d') AS day, COUNT(reserve_id) AS queue
-                        FROM reserve
-                        JOIN booking USING (reserve_id)
-                        JOIN menu USING (menu_id)
-                        WHERE shop_id = ?
-                        AND date >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)
-                        GROUP BY DATE_FORMAT(date, '%Y-%m-%d')
-                        ORDER BY day;`;
+    const shop_id = req.session.user.shop_id; // รับ shopId จากคำร้องขอ (หรือจากที่คุณต้องการ)
+
+    const sqlQuery = `SELECT DATE_FORMAT(date, '%d-%m-%Y') AS day, COUNT(reserve_id) AS queue
+                    FROM reserve
+                    JOIN booking USING (reserve_id)
+                    JOIN menu USING (menu_id)
+                    WHERE shop_id = ?
+                    AND date >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)
+                    GROUP BY DATE_FORMAT(date, '%d-%m-%Y')
+                    ORDER BY day;`;
   
     // ดำเนินการสอบถามฐานข้อมูลด้วยคำสั่ง SQL
     connection.query(sqlQuery, [shop_id], (err, result) => {
@@ -683,6 +714,39 @@ app.get('/admin/reports', (req, res) => {
     }});
 })
 
+// เพิ่มส่วนสำหรับข้อมูลเมนูอาหาร
+app.get('/admin/reports/menu', (req, res) => {
+    const shop_id = req.session.user.shop_id; // รับ shopId จากคำร้องขอ (หรือจากที่คุณต้องการ)
+
+    const menuQuery = `SELECT menu_name, COUNT(menu_id) AS menuCount
+                    FROM booking
+                    JOIN menu USING (menu_id)
+                    WHERE shop_id = ?
+                    GROUP BY menu_name
+                    ORDER BY menu_name;`;
+
+    // ดำเนินการสอบถามฐานข้อมูลด้วยคำสั่ง SQL
+    connection.query(menuQuery, [shop_id], (err, result) => {
+        if (err) {
+            console.error(err);
+            res.status(500).json({ error: 'พบข้อผิดพลาดในการดึงข้อมูลรายงานเมนูอาหาร' });
+        } else {
+            // แยกข้อมูลเมนูอาหารและจำนวนในอาร์เรย์
+            const menus = result.map(row => ({ menu_name: row.menu_name, menuCount: row.menuCount }));
+            // สร้างอาร์เรย์แยกตามเมนูอาหารและจำนวน
+            const menuData = menus.map(item => item.menuCount);
+            const menuNames = menus.map(item => item.menu_name);
+
+            // แสดงผลลัพธ์
+            console.log(menus);
+            console.log('Menu Data:', menuData);
+            console.log('Menu Names:', menuNames);
+
+            // ส่งคืน JSON response แยกตามเมนูอาหารและจำนวน
+            res.json({ menus, menuData, menuNames });
+        }
+    });
+});
 //LISTEN SERVER
 app.listen(5000, () => {
     console.log('Server running on port 5000')
