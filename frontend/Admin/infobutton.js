@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
       // สร้างหน้าต่าง SweetAlert2
       Swal.fire({
         title: 'รับออเดอร์แล้ว',
-        text: 'คำสั่งซื้อของคุณได้รับการยืนยันแล้ว',
+        text: 'คุณได้ยืนยันคำสั่งซื้อของลูกค้าคนนี้แล้ว',
         icon: 'success',
         confirmButtonText: 'ตกลง'
       });
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
     // เลือกปุ่ม "รับสินค้า"
     const receiveOrderButton = document.querySelector('.accept');
   
@@ -42,5 +42,21 @@ document.addEventListener('DOMContentLoaded', function() {
         icon: 'success',
         confirmButtonText: 'ตกลง'
       });
+    });
+  });
+
+document.addEventListener('DOMContentLoaded', function() {
+    // เลือกปุ่ม "รับออเดอร์"
+    const receiveOrderButton = document.querySelector('.cancle');
+  
+    // เพิ่มการตรวจสอบเหตุการณ์คลิก
+    receiveOrderButton.addEventListener('click', function() {
+      // สร้างหน้าต่าง SweetAlert2
+      Swal.fire({
+        title: 'ยกเลิกคำสั่งซื้อนี้แล้ว',
+        text: 'คุณได้ยกเลิกคำสั่งซื้อนี้แล้ว',
+        icon: 'success',
+        confirmButtonText: 'ตกลง'
+    })
     });
   });

@@ -249,11 +249,11 @@
   white-space: nowrap;
 }
 
-.resever-admin .overlap-4 {
-  position: absolute;
+.resever-admin .reserve {
+  position: relative;
   width: 1920px;
   height: 200px;
-  top: 272px;
+  top: 0px;
   left: 0;
   background-color: #d9d9d9b2;
   border: 1px solid;
@@ -398,6 +398,15 @@
   top: 676px;
   left: 0;
   background-color: #d9d9d9b2;
+  border: 1px solid;
+  border-color: #000000;
+}
+.resever-admin .window-reserve {
+  position: relative;
+  width: 1920px;
+  height: 800px;
+  top: 272px;
+  left: 0;
   border: 1px solid;
   border-color: #000000;
 }

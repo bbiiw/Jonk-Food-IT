@@ -6,7 +6,7 @@
   </head>
   <body>
     <div class="info">
-      <div class="div">
+      < class="div">
         <div class="frame">
           <div class="div-wrapper"><div class="text-wrapper">Skip to content</div></div>
           <div class="overlap-group-wrapper">
@@ -40,32 +40,42 @@
         <!--Start Information-->
         <div class="overlap-2">
           <div class="rectangle-2"></div>
-          <div class="password-5">รายการที่</div>
+          <div class="password-5"></div>
           <div class="password-6">เมนู</div>
           <div class="password-7">จำนวน</div>
           <div class="password-8">ราคา</div>
-          <div class="rectangle"></div>
-          <div class="password-2">001</div>
-          <div class="password-3">ข้าวแกงกะหรี่</div>
-          <div class="password-4">3</div>
-          <div class="password">120.00 บาท</div>
         </div>
+        <div class="window-reserve" id="window-reserve">
+            
+        </div>
+
        
-        <div class="text-wrapper-3">คำสั่งซื้อที่</div>
+        <div class="text-wrapper-3" id="reserve_id">คำสั่งซื้อที่</div>
+        <div class="text-wrapper-10" id="status_name">สถานะรายการจอง</div>
+        <div class="text-wrapper-11" id="total">ราคารวม</div>
         <!--Button-->
-        <button class="ordered">
+        <button class="ordered" id="ordered">
           <div class="text-wrapper-4">รับออเดอร์</div>
         </button>
-        <button class="finish">
+        <button class="finish" id="finish">
           <div class="text-wrapper-5">ทำเสร็จแล้ว</div>
         </button>
-        <button class="accept">
-          <div class="text-wrapper-6">รับสินค้า</div>
+
+        <button class="accept" id="accept">
+          <div class="text-wrapper-6">รับสินค้าแล้ว</div>
+        </button>
+
+
+        <button class="cancle" id ="cancle">
+          <div class="text-wrapper-6">ยกเลิกรายการ</div>
         </button>
 
       </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="OrderdetailsAdmin.js"></script>
     <script src="infobutton.js"></script>
   </body>
 </html>
