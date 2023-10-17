@@ -373,3 +373,103 @@
   border: 3px solid;
   border-color: #000000;
 }
+.ADMIN-profile .window-reserve {
+  position: relative;
+  width: 1927px;
+  height: 1130px;
+  top: 700px;
+  left: 0;
+  border: 1px solid;
+  border-color: #000000;
+}
+.ADMIN-profile .reserve_title {
+  position: relative;
+  width: 1920px;
+  height: 100px;
+  top: 30px;
+  left: 0;
+}
+.ADMIN-profile .text-wrapper-9 {
+  width: 520px;
+  top: 0;
+  left: 79px;
+  font-size: 40px;
+  letter-spacing: -0.8px;
+  position: absolute;
+  font-family: "Inter", Helvetica;
+  font-weight: 700;
+  color: #000000;
+  line-height: 48px;
+}
+.ADMIN-profile .password {
+  top: 80px;
+  left: 1405px;
+  position: absolute;
+  width: 371px;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 36px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.ADMIN-profile .password-2 {
+  top: 80px;
+  left: 172px;
+  position: absolute;
+  width: 371px;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 36px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.ADMIN-profile .password-3 {
+  top: 80px;
+  left: 517px;
+  position: absolute;
+  width: 371px;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 36px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.ADMIN-profile .password-4 {
+  top: 80px;
+  left: 971px;
+  position: absolute;
+  width: 371px;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 36px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+.ADMIN-profile .reserve {
+  position: relative;
+  width: 1920px;
+  height: 200px;
+  top: 0px;
+  left: 0;
+}
+.ADMIN-profile .rectangle-7 {
+  position: absolute;
+  width: 1920px;
+  height: 200px;
+  top: px;
+  left: 0;
+  background-color: #d9d9d9b2;
+  border: 1px solid;
+  border-color: #000000;
+}

@@ -15,7 +15,7 @@ function initializeChart(queues) {
         data: {
             labels: labels,
             datasets: [{
-                label: 'จำนวนคิว',
+                label: 'ยอดขาย',
                 data: queueData, // ใช้ queueData โดยตรง
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.5)',
@@ -60,7 +60,7 @@ function initializeChart(queues) {
             plugins: {
                 title: {
                     display: true,
-                    text: 'กราฟแสดงจำนวนคิวอาหารรายสัปดาห์',
+                    text: 'กราฟแสดงข้อมูลร้านค้ารายสัปดาห์',
                     font: {
                         size: 32,
                     }
@@ -87,7 +87,7 @@ function updateChart(chartType, queueData, dayData) {
         data: {
             labels: labels,
             datasets: [{
-                label: 'จำนวนคิว',
+                label: 'ยอดขาย',
                 data: queueData, // ใช้ queueData โดยตรง
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.5)',
@@ -131,7 +131,7 @@ function updateChart(chartType, queueData, dayData) {
             plugins: {
                 title: {
                     display: true,
-                    text: 'กราฟแสดงจำนวนคิวอาหารรายสัปดาห์',
+                    text: 'กราฟแสดงข้อมูลร้านค้ารายสัปดาห์',
                     font: {
                         size: 32,
                     },
