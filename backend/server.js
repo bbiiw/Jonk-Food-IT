@@ -247,6 +247,16 @@ app.post('/user/editprofile', isAuthenticated, async (req, res) => {
 app.get('/shop/profile/:shop_id', isAuthenticated, async (req, res) => {
     const username = req.session.user.username
     const shop_id = req.session.user.shop_id
+    const [reserve_list] = await connection.promise().query(`SELECT reserve_id, status_id, status_name, DATE_FORMAT(date, '%d-%m-%Y') AS date, time
+                                                            FROM reserve
+                                                            JOIN status
+                                                            USING (status_id)
+                                                            JOIN booking
+                                                            USING (reserve_id)
+                                                            JOIN menu
+                                                            USING (menu_id)
+                                                            WHERE shop_id = ?
+                                                            order by reserve_id`, [shop_id])
     connection.query(`SELECT shop_name, username, tel, email 
                     FROM shop s 
                     JOIN users u 
@@ -255,7 +265,8 @@ app.get('/shop/profile/:shop_id', isAuthenticated, async (req, res) => {
                     [username], (error, result) => {
         if (result.length > 0) {
             const adminProfile = result[0]
-            res.json(adminProfile)
+            res.json({adminProfile: adminProfile,
+                    reserve_list: reserve_list})
         }
     })
 })
@@ -562,8 +573,8 @@ app.post('/User/Reserve.html/:id', (req, res) => {
 app.get('/user/reserve', async (req, res) =>{
     const reserve_id = sharedData.reserveId;
     console.log(reserve_id)
-    connection.query(`SELECT menu_name, items, booking.cost as cost, total, DATE_FORMAT(date, '%d-%m-%Y') AS date, time, status_name, image_path
-                    FROM reserve
+    connection.query(`SELECT menu_name, items, booking.cost as cost, total, DATE_FORMAT(date, '%d-%m-%Y') AS date, time, status_name, image_path, concat(first_name, ' ', last_name) as name
+                    FROM reserve r
                     JOIN booking
                     USING (reserve_id)
                     JOIN menu
@@ -572,6 +583,8 @@ app.get('/user/reserve', async (req, res) =>{
                     USING (status_id)
                     JOIN image
                     USING (image_id)
+                    JOIN customer c
+                    ON r.customer_id = c.customer_id
                     WHERE reserve_id = ?`,[reserve_id], (err, result) => {
                     if (err) {
                         console.error(err);
@@ -653,7 +666,7 @@ app.get('/user/reports', (req, res) => {
 
     const sqlQuery = `SELECT DATE_FORMAT(date, '%d-%m-%Y') AS day, SUM(total) AS money
                     FROM reserve
-                    WHERE customer_id = ?
+                    WHERE customer_id = ? AND status_id = 4
                     AND date >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)
                     GROUP BY DATE_FORMAT(date, '%d-%m-%Y')
                     ORDER BY day;`;
@@ -681,11 +694,11 @@ app.get('/user/reports', (req, res) => {
 app.get('/admin/reports', (req, res) => {
     const shop_id = req.session.user.shop_id; // รับ shopId จากคำร้องขอ (หรือจากที่คุณต้องการ)
 
-    const sqlQuery = `SELECT DATE_FORMAT(date, '%d-%m-%Y') AS day, COUNT(reserve_id) AS queue
+    const sqlQuery = `SELECT DATE_FORMAT(date, '%d-%m-%Y') AS day, SUM(total) AS total
                     FROM reserve
                     JOIN booking USING (reserve_id)
                     JOIN menu USING (menu_id)
-                    WHERE shop_id = ?
+                    WHERE shop_id = ? AND status_id = 4
                     AND date >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)
                     GROUP BY DATE_FORMAT(date, '%d-%m-%Y')
                     ORDER BY day;`;
@@ -697,7 +710,7 @@ app.get('/admin/reports', (req, res) => {
             res.status(500).json({ error: 'พบข้อผิดพลาดในการดึงข้อมูลรายงาน' });
         } else {
             // แยกข้อมูลคิวและวันในอาร์เรย์
-            const queues = result.map(row => ({ day: row.day, queue: row.queue }));
+            const queues = result.map(row => ({ day: row.day, queue: row.total }));
             // สร้างอาร์เรย์แยกตามคิวและวัน
             const queueData = queues.map(item => item.queue);
             const dayData = queues.map(item => item.day);
