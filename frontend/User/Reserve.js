@@ -16,6 +16,7 @@ function displayReserveData(reserveItem) {
       const time = reserve.time;
       const status_name = reserve.status_name;
       const image_path = reserve.image_path;
+      const name = reserve.name;
 
       const reserveCard = document.createElement('div');
       reserveCard.className = 'reserve-item';
@@ -28,7 +29,7 @@ function displayReserveData(reserveItem) {
             <div class="price">${cost} บาท</div>`;
       
       const datetime = document.getElementById('datetime');
-      datetime.innerHTML =`วันที่ ${date} เวลา ${time}`;
+      datetime.innerHTML =`วันที่ ${date} เวลา ${time}    ชื่อผู้สั่ง : ${name}`;
       datetime.style.fontSize = '30px';
 
       const status = document.getElementById('status');
